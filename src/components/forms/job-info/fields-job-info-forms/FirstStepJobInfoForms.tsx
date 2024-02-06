@@ -157,6 +157,7 @@ export const FirstStepJobInfoForms = ({
               handleChangeMultipleSelect(e, "mustHaveTechnologies")
             }
             input={<OutlinedInput label="Must have technologies" />}
+            MenuProps={{ style: { maxHeight: 280, zIndex: 800 } }}
           >
             {technologyList.map((technology) => (
               <MenuItem
@@ -193,6 +194,7 @@ export const FirstStepJobInfoForms = ({
               handleChangeMultipleSelect(e, "niceToHaveTechnologies")
             }
             input={<OutlinedInput label="Nide to have technologies" />}
+            MenuProps={{ style: { maxHeight: 280, zIndex: 800 } }}
           >
             {niceToHaveTechnologyList.map((technology) => (
               <MenuItem
@@ -227,6 +229,7 @@ export const FirstStepJobInfoForms = ({
             value={multipleSelectValues["mustHaveSkills"]}
             onChange={(e) => handleChangeMultipleSelect(e, "mustHaveSkills")}
             input={<OutlinedInput label="Must have skills" />}
+            MenuProps={{ style: { maxHeight: 280, zIndex: 800 } }}
           >
             {skillList.map((skill) => (
               <MenuItem
@@ -261,6 +264,7 @@ export const FirstStepJobInfoForms = ({
             value={multipleSelectValues["niceToHaveSkills"]}
             onChange={(e) => handleChangeMultipleSelect(e, "niceToHaveSkills")}
             input={<OutlinedInput label="Must have skills" />}
+            MenuProps={{ style: { maxHeight: 280, zIndex: 800 } }}
           >
             {niceToHaveSkillList.map((skillList) => (
               <MenuItem
