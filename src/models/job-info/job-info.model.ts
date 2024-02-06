@@ -26,7 +26,7 @@ export type JobInfo = {
   dev_methodology_id?: string | null;
   meeting_frequency_id?: string | null;
   location_id?: string | null;
-  earliest_start_date?: string | null; // "4/1/2024",
+  earliest_start_date?: string | null; // "4/1/2024",  MM/DD/YYYY
   closed_by_date?: string | null; //  "5/1/2024",
   probation_period_id?: string | null;
   contract_model_id?: string | null;
@@ -35,4 +35,5 @@ export type JobInfo = {
   tech_nice_to_have?: technology_nice_to_have[];
   skills_must_to_have?: skill_must_have[];
   skills_nice_to_have?: skill_nice_to_have[];
+  time_tracking_id?: string | null;
 };

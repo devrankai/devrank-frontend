@@ -25,6 +25,16 @@ export const convertDateToStringFormatYYYYMMDD = (date: Date): string => {
 };
 
 /**
+ * Convert a date in format YYYY-MM-DD to MM/DD/YYYY
+ * @param date
+ * @returns a date at format MM/DD/YYYY
+ */
+export const convertYYYYMMDDToMMDDYYYY = (date: Date): string => {
+  const dateFormat = dayjs(date, { format: "YYYY-MM-DD" }).format("MM/DD/YYYY");
+  return dateFormat;
+};
+
+/**
  * Convert a full date to string format DD/MM/YYYY
  */
 export const convertDateToStringFormatDDMMYYYY = (date: Date): string => {

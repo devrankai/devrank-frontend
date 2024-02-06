@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import {
@@ -16,11 +17,14 @@ import {
   JobInfoTestTask,
 } from "../../../models";
 import { http } from "../../../services";
-import { alertFactory } from "../../../utils";
+import { alertFactory, convertYYYYMMDDToMMDDYYYY, createSkillsArrayOfObjects, createTechnologiesArrayOfObjects } from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
 import { JOB_DESCRIPTION_URL } from "../../../constants/urls/job-info.constants";
 import { SelectChangeEvent } from "@mui/material";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
+import { useProjectStore } from "../../../hooks";
+import { PRIVATE_ROUTES } from "../../../routes";
+
 
 export interface JobInfoInputs {
   role: string;
@@ -56,7 +60,9 @@ const timeTrackingProp: {
   ];
 
 export const JobInfoCreate = () => {
+  const navigate = useNavigate();
   const { addLoading, removeLoading } = useSpinner();
+  const { project } = useProjectStore();
 
   const { register, handleSubmit, control, formState, watch, setValue } =
     useForm<JobInfoInputs>();
@@ -451,18 +457,75 @@ export const JobInfoCreate = () => {
     setValue(inputName, [...e.target.value]);
   };
 
-  // TODO: dejo any pero despues hay que cambiar
+  const postNewJobDescription = async (newJobDescription: JobInfo) => {
+    try {
+      const request = await http.post({
+        url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
+        urlWithApi: false,
+        isPrivate: true,
+        data: newJobDescription
+      })
+
+      if (request.status !== "SUCCESS") {
+        return alertFactory({
+          type: "feedback",
+          params: {
+            title:
+              "Something went wrong while creating the job info position, please try again.",
+            icon: "error",
+          },
+        });
+      }
+
+      alertFactory({
+        type: "feedback",
+        params: {
+          title: "Position registered succesfully",
+        },
+      });
+
+     // methods.reset();
+      navigate(PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.CANDIDATE_REVIEW);
+    }  catch (error) {
+      console.error("Error - postNewPosition", error);
+    } finally {
+      removeLoading();
+    }
+  }
+
   const onSubmit: SubmitHandler<JobInfoInputs> = (data: any) => {
-    // addLoading();
-    // TODO: armar el objeto probando que earliestStartDate use la fecha por defecto, y positionClosedByDate sea cambiada ... ver si se arma bien
+    addLoading();
+
+    const techMustToHave = createTechnologiesArrayOfObjects(data.mustHaveTechnologies, "technologies_id");
+    const techNiceToHave = createTechnologiesArrayOfObjects(data.niceToHaveTechnologies, "technologies_id");
+    const skillsMustToHave = createSkillsArrayOfObjects(data.mustHaveSkills, "skills_id");
+    const skillsNiceToHave = createSkillsArrayOfObjects(data.niceToHaveSkills, "skills_id")
+
     const newJobDescription: JobInfo = {
       job_desc_id: data.role,
-      dev_methodology_id: data.methodology
+      project_id: project?.id,
+      role_id: data.role,
+      number_of_positions: data.position,
+      test_task_id: data.testTask,
+      skill_level_id: data.skillLevel,
+      dev_methodology_id: data.methodology,
+      meeting_frequency_id: data.meetingFrequency,
+      location_id: data.location,
+      earliest_start_date: convertYYYYMMDDToMMDDYYYY(data.earliestStartDate),
+      closed_by_date: convertYYYYMMDDToMMDDYYYY(data.positionClosedByDate),
+      probation_period_id: data.probationPeriod,
+      contract_model_id: data.contractModel,
+      time_tracking_id: data.timeTracking,
+      active: "1",
+      tech_must_to_have: techMustToHave,
+      tech_nice_to_have: techNiceToHave,
+      skills_must_to_have: skillsMustToHave,
+      skills_nice_to_have: skillsNiceToHave
     };
 
     console.log("SUBMIT", { data, newJobDescription });
 
-    // postNewJobDescription(newJobDescription);
+    postNewJobDescription(newJobDescription);
   };
 
   return (

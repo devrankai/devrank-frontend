@@ -6,3 +6,4 @@ export * from "./error-handler-utils/errorHandler.utils";
 export * from "./get-environment-utils/getEnvironment.utils";
 export * from "./local-storage-utils/localStorage.utils";
 export * from "./order-array-utils/orderArray.utils";
+export * from "./job-info-utils/jobInfo.utils";
