@@ -39,7 +39,7 @@ export const SearchResultsSection = () => {
         <Grid item xs={12} sx={styles.btnsContainer}>
           <PrimaryButtonWithNavigation
             btnTxt="Back"
-            btnUrl={PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.JOB_INFO}
+            btnUrl={PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.POSITION}
             btnVariant="outlined"
           />
           {/* <PrimaryButtonWithNavigation btnTxt="Next" btnUrl={PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.CANDIDATE_REVIEW} />

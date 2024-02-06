@@ -63,8 +63,8 @@ export const PositionSection = () => {
           nextButton={
             <PrimaryButtonCheckedSelection
               handleNavigate={handleNavigate}
-              disabled={client?.id === undefined || project?.id === undefined}
-              tooltipTitle="Should select a client and/or project to continue"
+              disabled={client?.id === undefined || project?.id === undefined || position?.id === undefined}
+              tooltipTitle="Should select a client a project and a position to continue"
             />
           }
         ></TableLayout>
