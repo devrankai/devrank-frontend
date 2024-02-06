@@ -1,0 +1,24 @@
+export type Position = {
+  job_desc_id: number | null;
+  role_id: number | null;
+  role_name: string | null;
+  number_of_positions: number | null;
+  test_task_id: number | null;
+  skill_level_id: number | null;
+  skill_level_name: string | null;
+  dev_methodology_id: number | null;
+  dev_methodology_name: null | null;
+  meeting_frequency_id: number | null;
+  meeting_frequency_name: string | null;
+  location_id: number | null;
+  location_name: null;
+  earliest_start_date: Date | null;
+  closed_by_date: Date | null;
+  probation_period_id: number | null;
+  probation_period_name: null;
+  contract_model_id: number | null;
+  contract_model_name: null;
+  active: boolean;
+  InsertDate: Date | null;
+  ModifiedDate: Date | null;
+};

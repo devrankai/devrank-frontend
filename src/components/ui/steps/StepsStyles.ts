@@ -1,0 +1,41 @@
+export const styles = {
+  container: {
+    width: "250px",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignContent: "center",
+    flexWrap: "wrap",
+  },
+  step1: {
+    color: "#FFFFFF",
+    backgroundColor: "#0067CA",
+    borderRadius: "50%",
+    padding: "10px 13px",
+    fontWeight: "700",
+    fontSize: "18.97px",
+    lineHeight: "28.46px",
+  },
+  line: {
+    borderBottom: "2px solid rgba(0, 103, 202, 1)",
+    width: "178px",
+  },
+  step2: {
+    color: "#FFFFFF",
+    backgroundColor: "rgba(0, 103, 202, 0.5)",
+    borderRadius: "50%",
+    padding: "10px 13px",
+    fontWeight: "700",
+    fontSize: "18.97px",
+    lineHeight: "28.46px",
+  },
+  step3: {
+    color: "#FFFFFF",
+    backgroundColor: "#0067CA",
+    borderRadius: "50%",
+    padding: "10px 13px",
+    fontWeight: "700",
+    fontSize: "18.97px",
+    lineHeight: "28.46px",
+  },
+};

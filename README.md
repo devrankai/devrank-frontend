@@ -8,13 +8,22 @@
 
 ## <img width="26" height="26" src="https://img.icons8.com/office/26/console.png" alt="console"/> Commands
 
-- To install the **node-modules**:
+1. To install the **node-modules**:
 
 ```BASH
 npm install
 ```
 
-- To run the project locally:
+2. `.env` file: make a copy of the `.env.template` file and rename to `.env`.
+
+And complete with:
+
+```
+VITE_BASE_URL_WITH_API=http://20.231.99.194:5000/api/
+VITE_BASE_URL_WITHOUT_API=http://20.231.99.194:5000/
+```
+
+3. To run the project locally:
 
 ```BASH
 npm run dev
@@ -85,12 +94,6 @@ And open the browser at: `http://localhost:5173/`
  > theme
  > utils
 ```
-
----
-
-## <img width="24" height="24" src="https://img.icons8.com/papercut/24/file.png" alt="file"/> .env
-
-Make a copy of the `.env.template` file and rename to `.env`.
 
 ---
 
