@@ -8,22 +8,32 @@
 
 ## <img width="26" height="26" src="https://img.icons8.com/office/26/console.png" alt="console"/> Commands
 
-1. To install the **node-modules**:
+1. Clone the repository, remember that you will need to have Nodejs and npm already install. You can check with: 
+
+```BASH
+node -v
+```
+
+```BASH
+npm -v
+```
+
+If the version is display on the terminal, you can continue installing the dependencies, if not you will need yo download and install from [ https://nodejs.org/]( https://nodejs.org/)
+
+2. To install the dependencies of **node-modules**, run this command:
 
 ```BASH
 npm install
 ```
 
-2. `.env` file: make a copy of the `.env.template` file and rename to `.env`.
-
-And complete with:
+3. Make a copy of the `.env.template` file and rename to `.env`, then complete the `.env` file with:
 
 ```
 VITE_BASE_URL_WITH_API=http://20.231.99.194:5000/api/
 VITE_BASE_URL_WITHOUT_API=http://20.231.99.194:5000/
 ```
 
-3. To run the project locally:
+4. To run the project locally:
 
 ```BASH
 npm run dev
