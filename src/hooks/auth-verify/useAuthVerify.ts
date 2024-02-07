@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { alertFactory, getLocalStorage } from "../../utils";
 import { useAuthStore } from "../auth-store/useAuthStore.hook";
 import { PUBLIC_ROUTES } from "../../routes";
+import { persistedDataNameConstants } from "../../constants/persistedDataName/persistedDataName.constants";
 
 const showAlertSessionExpired = () =>
   alertFactory({
@@ -22,7 +23,9 @@ export const AuthVerify = () => {
   useEffect(() => {
     const now = new Date();
 
-    const getTokenInitDate = getLocalStorage("token-init-date") as {
+    const getTokenInitDate = getLocalStorage(
+      persistedDataNameConstants.TOKEN_INIT_DATE
+    ) as {
       tokenInitDate: number;
     };
 

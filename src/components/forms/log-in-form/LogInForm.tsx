@@ -23,6 +23,7 @@ import { styles } from "./LogInFormStyles";
 import { persistLocalStorage } from "../../../utils";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { persistedDataNameConstants } from "../../../constants/persistedDataName/persistedDataName.constants";
 
 interface IFormInputs {
   username: string;
@@ -73,7 +74,7 @@ export const LogInForm = () => {
 
   useEffect(() => {
     if (status === "authenticated" && user?.token) {
-      persistLocalStorage("user-info", {
+      persistLocalStorage(persistedDataNameConstants.USER_INFO, {
         status,
         user,
       });

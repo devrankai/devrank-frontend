@@ -46,6 +46,7 @@ type SecondStepJobInfoFormsTypes = {
     name: string;
   }[];
   locationList: JobInfoLocation[];
+  isEdit: boolean;
 };
 
 export const SecondStepJobInfoForms = ({
@@ -60,6 +61,7 @@ export const SecondStepJobInfoForms = ({
   contractModelList,
   timeTrackingProp,
   locationList,
+  isEdit,
 }: SecondStepJobInfoFormsTypes) => {
   const { errorsValidationForm } = useErrorsValidationForm();
 
@@ -253,7 +255,7 @@ export const SecondStepJobInfoForms = ({
         <Controller
           name="timeTracking"
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field }) => (
             <FormControl>
               <InputLabel
                 id={jobDescriptionFormSchema.timeTracking.id}
@@ -264,8 +266,7 @@ export const SecondStepJobInfoForms = ({
               <RadioGroup
                 row
                 aria-labelledby="Time tracking yes or no"
-                name={jobDescriptionFormSchema.timeTracking.name}
-                onChange={onChange}
+                {...field}
               >
                 {timeTrackingProp.map((timeTracking) => (
                   <FormControlLabel
@@ -345,7 +346,7 @@ export const SecondStepJobInfoForms = ({
                       : dayjs(watchDateInputs[0])
                   }
                   onChange={(newValue) => onChange(newValue)}
-                  minDate={dayjs(new Date())}
+                  minDate={isEdit ? null : dayjs(new Date())}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -376,7 +377,7 @@ export const SecondStepJobInfoForms = ({
                       : dayjs(watchDateInputs[1])
                   }
                   onChange={(newValue) => onChange(newValue)}
-                  minDate={dayjs(new Date())}
+                  minDate={isEdit ? null : dayjs(new Date())}
                 />
               </DemoContainer>
             </LocalizationProvider>

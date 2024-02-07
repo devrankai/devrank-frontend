@@ -64,6 +64,7 @@ type JobInfoFormTypes = {
     multipleSelectValues: {
       [key: string]: string[];
     };
+    isEdit: boolean;
   };
 };
 
@@ -93,6 +94,7 @@ export const JobInfoForm = ({
     disabledNextButton,
     disabledSubmitButton,
     contractModelList,
+    isEdit = false,
   },
 }: JobInfoFormTypes) => {
   const { errors } = formState;
@@ -154,6 +156,7 @@ export const JobInfoForm = ({
               timeTrackingProp={timeTrackingProp}
               locationList={locationList}
               meetingFrequencyList={meetingFrequencyList}
+              isEdit={isEdit}
             />
           )}
           <Grid item xs={12} sx={styles.btnsContainer}>

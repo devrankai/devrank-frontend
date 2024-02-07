@@ -16,6 +16,7 @@ import {
   persistLocalStorage,
 } from "../../utils";
 import { useSpinner } from "../spinner/useSpinner";
+import { persistedDataNameConstants } from "../../constants/persistedDataName/persistedDataName.constants";
 
 export const useAuthStore = () => {
   const { addLoading, removeLoading } = useSpinner();
@@ -52,7 +53,7 @@ export const useAuthStore = () => {
 
       if (adaptingUser.token) {
         persistLocalStorage("USER_TK", { userToken: adaptingUser.token });
-        persistLocalStorage("token-init-date", {
+        persistLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE, {
           tokenInitDate: new Date().getTime(),
         });
       }
@@ -108,7 +109,7 @@ export const useAuthStore = () => {
 
       if (adaptingUser.token) {
         persistLocalStorage("USER_TK", { userToken: adaptingUser.token });
-        persistLocalStorage("token-init-date", {
+        persistLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE, {
           tokenInitDate: new Date().getTime(),
         });
       }
@@ -125,11 +126,13 @@ export const useAuthStore = () => {
       console.error("error - startSignUp: ", { error });
     }
   };
-
   const startLogout = () => {
-    clearLocalStorage("USER_TK");
-    clearLocalStorage("token-init-date");
-    clearLocalStorage("user-info");
+    clearLocalStorage(persistedDataNameConstants.USER_TK);
+    clearLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE);
+    clearLocalStorage(persistedDataNameConstants.USER_INFO);
+    clearLocalStorage(persistedDataNameConstants.CLIENT_INFO);
+    clearLocalStorage(persistedDataNameConstants.PROJECT_INFO);
+    clearLocalStorage(persistedDataNameConstants.POSITION_INFO);
     dispatch(onLogout());
   };
 

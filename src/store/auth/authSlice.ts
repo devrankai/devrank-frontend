@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserInterface } from "../../models";
 import { getLocalStorage } from "../../utils";
+import { persistedDataNameConstants } from "../../constants/persistedDataName/persistedDataName.constants";
 
 export enum USER_STATUS {
   AUTHENTICATED = "authenticated",
@@ -15,8 +16,12 @@ interface UserInitialState {
 }
 
 const initialState: UserInitialState = {
-  status: getLocalStorage("user-info")?.status || USER_STATUS.NOT_AUTHENTICATED,
-  user: getLocalStorage("user-info")?.user || ({} as UserInterface),
+  status:
+    getLocalStorage(persistedDataNameConstants.USER_INFO)?.status ||
+    USER_STATUS.NOT_AUTHENTICATED,
+  user:
+    getLocalStorage(persistedDataNameConstants.USER_INFO)?.user ||
+    ({} as UserInterface),
   errorMessage: undefined,
 };
 

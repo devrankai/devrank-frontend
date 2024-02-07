@@ -21,7 +21,11 @@ import {
 } from "../../../models";
 import { PRIVATE_ROUTES } from "../../../routes";
 import { http } from "../../../services";
-import { alertFactory } from "../../../utils";
+import {
+  alertFactory,
+  convertTimestampDateToDateFormatMMDDYYYY,
+  parseJobEdit,
+} from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
 
 export interface JobInfoInputs {
@@ -62,6 +66,12 @@ const timeTrackingProp: {
   { id: 1, name: "Yes" },
   { id: 2, name: "No" },
 ];
+
+type multipleSelectTypes = {
+  [key: string]: string[];
+};
+
+const isEdit: boolean = true;
 
 export const JobInfoEdit = () => {
   const { addLoading, removeLoading } = useSpinner();
@@ -109,12 +119,13 @@ export const JobInfoEdit = () => {
     JobInfoProbationPeriod[]
   >([]);
 
-  const [multipleSelectValues, setMultipleSelectValues] = useState({
-    mustHaveTechnologies: [],
-    niceToHaveTechnologies: [],
-    mustHaveSkills: [],
-    niceToHaveSkills: [],
-  });
+  const [multipleSelectValues, setMultipleSelectValues] =
+    useState<multipleSelectTypes>({
+      mustHaveTechnologies: [],
+      niceToHaveTechnologies: [],
+      mustHaveSkills: [],
+      niceToHaveSkills: [],
+    });
 
   useEffect(() => {
     const getJobInfoDataToEdit = async (id: string) => {
@@ -133,105 +144,118 @@ export const JobInfoEdit = () => {
           const parsePositionData = JSON.parse(request.Data)[0];
           console.log("parsePositionData", { parsePositionData });
 
-          setValue(`role`, parsePositionData.role_id.toString());
+          setValue(`role`, parsePositionData.role_id?.toString());
           setValue(
             `position`,
-            parsePositionData.number_of_positions.toString()
+            parsePositionData.number_of_positions?.toString()
           );
 
-          // FIXME: FALTAN
-          // setValue(
-          //   `mustHaveTechnologies`,
-          //   parsePositionData.mustHaveTechnologies.toString()
-          // );
-          // setValue(
-          //   `niceToHaveTechnologies`,
-          //   parsePositionData.niceToHaveTechnologies.toString()
-          // );
-          // setValue(
-          //   `mustHaveSkills`,
-          //   parsePositionData.mustHaveSkills.toString()
-          // );
-          // setValue(
-          //   `niceToHaveSkills`,
-          //   parsePositionData.niceToHaveSkills.toString()
-          // );
+          // FIXME: TODO: FALTA -->> contract_period_id nos retorna nullo en todos y time_tracking null en dos primeros y despues un 12 .
 
-          setValue(`testTask`, parsePositionData.test_task_id.toString());
-          setValue(`skillLevel`, parsePositionData.skill_level_id.toString());
+          const mustHaveTech: string[] = parseJobEdit({
+            arrayInJSONFormat: request.tech_must_to_have,
+            key: "technologies_id",
+          });
+
+          if (mustHaveTech.length > 0) {
+            setValue(`mustHaveTechnologies`, mustHaveTech);
+            setMultipleSelectValues((prevValue) => ({
+              ...prevValue,
+              mustHaveTechnologies: [...mustHaveTech],
+            }));
+          }
+
+          const niceToHaveTech: string[] = parseJobEdit({
+            arrayInJSONFormat: request.tech_nice_to_have,
+            key: "technologies_id",
+          });
+
+          if (niceToHaveTech.length > 0) {
+            setValue(`niceToHaveTechnologies`, niceToHaveTech);
+            setMultipleSelectValues((prevValue) => ({
+              ...prevValue,
+              niceToHaveTechnologies: [...niceToHaveTech],
+            }));
+          }
+
+          const skillsMustHave: string[] = parseJobEdit({
+            arrayInJSONFormat: request.skills_must_to_have,
+            key: "skills_id",
+          });
+
+          if (skillsMustHave.length > 0) {
+            setValue(`mustHaveSkills`, skillsMustHave);
+            setMultipleSelectValues((prevValue) => ({
+              ...prevValue,
+              mustHaveSkills: [...skillsMustHave],
+            }));
+          }
+          const skillsNiceToHave: string[] = parseJobEdit({
+            arrayInJSONFormat: request.skills_nice_to_have,
+            key: "skills_id",
+          });
+
+          if (skillsNiceToHave.length > 0) {
+            setValue(`niceToHaveSkills`, skillsNiceToHave);
+            setMultipleSelectValues((prevValue) => ({
+              ...prevValue,
+              niceToHaveSkills: [...skillsNiceToHave],
+            }));
+          }
+
+          const testTaskID =
+            parsePositionData.test_task_id > 0 &&
+            parsePositionData.test_task_id < 3
+              ? parsePositionData.test_task_id?.toString()
+              : "";
+
+          setValue(`testTask`, testTaskID);
+
+          setValue(`skillLevel`, parsePositionData.skill_level_id?.toString());
           setValue(
             `methodology`,
-            parsePositionData.dev_methodology_id.toString()
+            parsePositionData.dev_methodology_id?.toString()
           );
           setValue(
             `contractModel`,
-            parsePositionData.contract_model_id.toString()
+            parsePositionData.contract_model_id?.toString()
           );
           setValue(
             `meetingFrequency`,
-            parsePositionData.meeting_frequency_id.toString()
+            parsePositionData.meeting_frequency_id?.toString()
           );
-          // FIXME: FALTAN
-          // setValue(
-          //   `contractPeriod`,
-          //   parsePositionData.niceToHaveSkills.toString()
-          // );
-          // setValue(
-          //   `timeTracking`,
-          //   parsePositionData.niceToHaveSkills.toString()
-          // );
-          setValue(`location`, parsePositionData.location_id.toString());
 
-          /**
-           //TODO: RECIBIDO
-           {
-    "job_desc_id": 2,
-    "role_id": 2,
-    "role_name": "Back End Developer",
-    "number_of_positions": 3,
-    "test_task_id": 2,
-    "skill_level_id": 2,
-    "skill_level_name": "Middle Level",
-    "dev_methodology_id": 2,
-    "dev_methodology_name": "Scrum",
-    "meeting_frequency_id": 2,
-    "meeting_frequency_name": "Weekly",
-    "location_id": 2,
-    "location_name": "Dallas, TX",
-    "earliest_start_date": 1708473600000,
-    "closed_by_date": 1710979200000,
-    "probation_period_id": 1,
-    "probation_period_name": "2 Weeks",
-    "contract_model_id": 2,
-    "contract_model_name": "Contract",
-    "active": true,
-    "InsertDate": 1706199347117,
-    "ModifiedDate": 1706199347117
-} 
-           */
-          /**
-           role
-            position
-            mustHaveTechnologies
-            niceToHaveTechnologies
-            mustHaveSkills
-            niceToHaveSkills
+          setValue(
+            `contractPeriod`,
+            parsePositionData.contract_period_id?.toString()
+          );
 
+          const timeTrackingID =
+            parsePositionData.time_tracking_id > 0 &&
+            parsePositionData.time_tracking_id < 3
+              ? parsePositionData.time_tracking_id?.toString()
+              : "";
 
-            testTask
-            skillLevel
-            methodology
-            contractModel
-            meetingFrequency
-            contractPeriod
-            timeTracking
-            location
+          setValue(`timeTracking`, timeTrackingID);
 
+          setValue(`location`, parsePositionData.location_id?.toString());
 
-            earliestStartDate
-            positionClosedByDate
-            probationPeriod
-           */
+          setValue(
+            `probationPeriod`,
+            parsePositionData.probation_period_id?.toString()
+          );
+
+          const earlStartDate = convertTimestampDateToDateFormatMMDDYYYY(
+            parsePositionData.earliest_start_date
+          );
+
+          setValue(`earliestStartDate`, earlStartDate);
+
+          const positionClosedByDate = convertTimestampDateToDateFormatMMDDYYYY(
+            parsePositionData.closed_by_date
+          );
+
+          setValue(`positionClosedByDate`, positionClosedByDate);
         } else {
           return alertFactory({
             type: "feedback",
@@ -242,7 +266,7 @@ export const JobInfoEdit = () => {
           });
         }
       } catch (error) {
-        console.error("Error JobInfoCreate - get job info data to edit", {
+        console.error("Error JobInfoEdit - get job info data to edit", {
           error,
         });
       } finally {
@@ -299,7 +323,6 @@ export const JobInfoEdit = () => {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log({ value });
       //* first fields
       if (
         value.position &&
@@ -658,6 +681,7 @@ export const JobInfoEdit = () => {
           disabledNextButton,
           disabledSubmitButton,
           contractModelList,
+          isEdit,
         }}
       />
     </>
