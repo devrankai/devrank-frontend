@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
+import { SelectChangeEvent } from "@mui/material";
+import { JOB_DESCRIPTION_URL } from "../../../constants/urls/job-info.constants";
+import {
+  useContractModelList,
+  useContractPeriodList,
+  useLocationList,
+  useMeetingFrequencyList,
+  useMethodologyList,
+  useProbationPeriodList,
+  useProjectStore,
+  useRoleList,
+  useSkillLevelList,
+  useSkillList,
+  useTechnologyList,
+} from "../../../hooks";
+import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { JobInfo, JobInfoTestTask } from "../../../models";
+import { PRIVATE_ROUTES } from "../../../routes";
 import { http } from "../../../services";
 import { alertFactory, convertForDataToJobInfo } from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
-import { JOB_DESCRIPTION_URL } from "../../../constants/urls/job-info.constants";
-import { SelectChangeEvent } from "@mui/material";
-import { useSpinner } from "../../../hooks/spinner/useSpinner";
-import { useContractModelList, useContractPeriodList, useLocationList, useMeetingFrequencyList, useMethodologyList, useProbationPeriodList, useProjectStore, useRoleList, useSkillLevelList, useSkillList, useTechnologyList } from "../../../hooks";
-import { PRIVATE_ROUTES } from "../../../routes";
 
 export interface JobInfoInputs {
   role: string;
@@ -51,22 +63,25 @@ export const JobInfoCreate = () => {
   const { project } = useProjectStore();
 
   const { register, handleSubmit, control, formState, watch, setValue } =
-    useForm<JobInfoInputs>();
+    useForm<JobInfoInputs>({ mode: "onTouched" });
 
   const [disabledSubmitButton, setDisabledSubmitButton] =
     useState<boolean>(true);
   const [disabledNextButton, setDisabledNextButton] = useState<boolean>(true);
 
   const { roleList, getRoleList } = useRoleList();
-  const { technologyList, niceToHaveTechnologyList, getTechnologyList } = useTechnologyList();
+  const { technologyList, niceToHaveTechnologyList, getTechnologyList } =
+    useTechnologyList();
   const { skillList, niceToHaveSkillList, getSkillList } = useSkillList();
   const { skillLevelList, getSkillLevelList } = useSkillLevelList();
   const { locationList, getLocationList } = useLocationList();
   const { methodologyList, getMethodologyList } = useMethodologyList();
   const { contractModelList, getContractModelList } = useContractModelList();
-  const { meetingFrequencyList, getMeetingFrequencyList } = useMeetingFrequencyList();
+  const { meetingFrequencyList, getMeetingFrequencyList } =
+    useMeetingFrequencyList();
   const { contractPeriodList, getContractPeriodList } = useContractPeriodList();
-  const { probationPeriodList, getProbationPeriodList } = useProbationPeriodList();
+  const { probationPeriodList, getProbationPeriodList } =
+    useProbationPeriodList();
 
   const [multipleSelectValues, setMultipleSelectValues] = useState({
     mustHaveTechnologies: [],
@@ -85,7 +100,6 @@ export const JobInfoCreate = () => {
           getSkillList(),
           getSkillLevelList(),
 
-          // TODO: ver que poner en el [+ para que esto se ejecute en el Step 2] FIXME: Mensaje dejado por Euge
           getLocationList(),
           getMethodologyList(),
           getContractModelList(),
@@ -107,7 +121,6 @@ export const JobInfoCreate = () => {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log({ value });
       //* first fields
       if (
         value.position &&
@@ -143,7 +156,7 @@ export const JobInfoCreate = () => {
 
   const handleChangeMultipleSelect = (
     e: SelectChangeEvent<any>,
-    inputName: any // TODO: este no deberia ser any pero no se como tipearlo, se choca el string con el de setValue esperado
+    inputName: any
   ) => {
     setMultipleSelectValues((prevValue) => ({
       ...prevValue,
@@ -159,8 +172,8 @@ export const JobInfoCreate = () => {
         url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
         urlWithApi: false,
         isPrivate: true,
-        data: newJobDescription
-      })
+        data: newJobDescription,
+      });
 
       if (request.status !== "SUCCESS") {
         return alertFactory({
@@ -181,21 +194,19 @@ export const JobInfoCreate = () => {
       });
 
       // methods.reset();
-      navigate(PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.CANDIDATE_REVIEW);
+      navigate(PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.SEARCH_RESULTS);
     } catch (error) {
       console.error("Error - postNewPosition", error);
     } finally {
       removeLoading();
     }
-  }
+  };
 
   const onSubmit: SubmitHandler<JobInfoInputs> = (data: any) => {
     addLoading();
 
     const projectId = project?.id;
     const newJobDescription = convertForDataToJobInfo(data, false, projectId);
-
-    console.log("SUBMIT", { data, newJobDescription });
 
     postNewJobDescription(newJobDescription);
   };

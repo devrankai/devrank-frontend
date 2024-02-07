@@ -24,7 +24,10 @@ import {
   JobInfoTechnology,
   JobInfoTestTask,
 } from "../../../../models";
-import { jobDescriptionFormSchema } from "../../../../schemas";
+import {
+  formsFieldsValidation,
+  jobDescriptionFormSchema,
+} from "../../../../schemas";
 import { JobInfoInputs } from "../JobInfoCreate";
 import { styles } from "../JobInfoFormStyles";
 
@@ -126,12 +129,7 @@ export const FirstStepJobInfoForms = ({
             placeholder={jobDescriptionFormSchema.position.placeholder}
             fullWidth
             sx={styles.input}
-            {...register("position", {
-              required: {
-                value: true,
-                message: "Position is required",
-              },
-            })}
+            {...register("position", formsFieldsValidation.position)}
           />
           {errors &&
             errorsValidationForm({

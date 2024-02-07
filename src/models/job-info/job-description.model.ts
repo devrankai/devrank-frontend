@@ -12,6 +12,7 @@ export type JobDescription = {
   closed_by_date: string; // Data?
   probation_period_id: string;
   contract_model_id: string;
+  contract_period_id: string;
   time_tracking_id: string;
   active: string;
   tech_must_to_have: TechToHave[];

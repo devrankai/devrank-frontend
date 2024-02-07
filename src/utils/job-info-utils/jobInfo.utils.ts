@@ -55,7 +55,7 @@ export const convertForDataToJobInfo = (
   );
 
   const newJobDescription: JobDescription = {
-    job_desc_id: isUpdate ? (jobDescriptionId || "0") : "0",
+    job_desc_id: isUpdate ? jobDescriptionId || "0" : "0",
     project_id: projectId,
     role_id: data.role,
     number_of_positions: data.position,
@@ -68,6 +68,7 @@ export const convertForDataToJobInfo = (
     closed_by_date: convertYYYYMMDDToMMDDYYYY(data.positionClosedByDate),
     probation_period_id: data.probationPeriod,
     contract_model_id: data.contractModel,
+    contract_period_id: data.contractPeriod,
     time_tracking_id: data.timeTracking,
     active: "1",
     tech_must_to_have: techMustToHave,

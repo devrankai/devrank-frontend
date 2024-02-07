@@ -64,7 +64,7 @@ type JobInfoFormTypes = {
     multipleSelectValues: {
       [key: string]: string[];
     };
-    isEdit: boolean;
+    isEdit?: boolean;
   };
 };
 
@@ -167,7 +167,9 @@ export const JobInfoForm = ({
                   btnUrl={PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.POSITION}
                   btnVariant="outlined"
                 />
-                <Tooltip title={`please complete all fields for continue`}>
+                <Tooltip
+                  title={`Please complete all fields, and without errors, for continue`}
+                >
                   <span>
                     <Button
                       variant="contained"
@@ -175,7 +177,9 @@ export const JobInfoForm = ({
                         width: "200px",
                       }}
                       onClick={() => onClickHandlerNextButton(step)}
-                      disabled={disabledNextButton}
+                      disabled={
+                        Object.keys(errors).length > 0 || disabledNextButton
+                      }
                     >
                       Next
                     </Button>
@@ -193,7 +197,7 @@ export const JobInfoForm = ({
                 >
                   Back
                 </Button>
-                <Tooltip title={`please complete all fields for send the data`}>
+                <Tooltip title={`Please complete all fields for send the data`}>
                   <span>
                     <Button
                       variant="contained"

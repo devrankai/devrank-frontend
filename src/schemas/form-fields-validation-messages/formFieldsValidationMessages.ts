@@ -2,6 +2,7 @@ import { UseFormGetValues } from "react-hook-form";
 import {
   emailPattern,
   oneNumberPattern,
+  onlyNumbers,
   passwordPattern,
 } from "../../constants";
 
@@ -18,6 +19,9 @@ const validationMessages = {
   },
   patternErrorAllCodesByResetPasswordForm: {
     pattern: "The value must be a single numeric character from 0 to 9.",
+  },
+  position: {
+    pattern: "Must be a number",
   },
 };
 
@@ -96,6 +100,13 @@ export const formsFieldsValidation = {
   client: { required: { value: true, message: validationMessages.required } },
   teamExpansion: {
     required: { value: true, message: validationMessages.required },
+  },
+  position: {
+    required: { value: true, message: validationMessages.required },
+    pattern: {
+      value: onlyNumbers,
+      message: validationMessages.position.pattern,
+    },
   },
 };
 
