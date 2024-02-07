@@ -30,3 +30,5 @@ export * from "./job-info/job-info-contract-period.model";
 export * from "./job-info/job-info-probation-period.model";
 export * from "./position/position.model";
 export * from "./job-info/job-info-test-task";
+export * from "./job-info/form-data.model";
+export * from "./job-info/job-description.model";
