@@ -1,15 +1,32 @@
-import { Grid } from "@mui/material"
-import { CodeItem } from "./CodeItem"
+import { Grid } from "@mui/material";
+import { CodeItem } from "./CodeItem";
 
-export const CodeList = () => {
+type Props = {
+  codingStandards: number;
+  readability: number;
+  modularity: number;
+  errorHandling: number;
+  testing: number;
+  documentation: number;
+}
+
+export const CodeList = ({
+  codingStandards,
+  readability,
+  modularity,
+  errorHandling,
+  testing,
+  documentation
+}: Props) => {
+
   const codeItemsList = [
-    { title: "Coding Standards", percent: 80 },
-    { title: "Readability and Comments", percent: 70 },
-    { title: "Modularity", percent: 70 },
-    { title: "Error Handlings", percent: 90 },
-    { title: "Testing", percent: 70 },
+    { title: "Coding Standards", percent: codingStandards },
+    { title: "Readability and Comments", percent: readability },
+    { title: "Modularity", percent: modularity },
+    { title: "Error Handlings", percent: errorHandling},
+    { title: "Testing", percent: testing },
     { title: "Performance", percent: 80 },
-    { title: "Documentation", percent: 60 }
+    { title: "Documentation", percent: documentation }
   ]
 
   return (

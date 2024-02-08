@@ -35,7 +35,11 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+type BasicTabsProps = {
+  candidatesId: number[];
+}
+
+export const BasicTabs: React.FC<BasicTabsProps> = ({ candidatesId }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -46,17 +50,23 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%', mt: 3 }}>
       <Box >
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Candidate 1" {...a11yProps(0)} />
-          <Tab label="Candidate 2" {...a11yProps(1)} />
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          scrollButtons
+          allowScrollButtonsMobile
+          variant="scrollable"
+        >
+          {candidatesId?.map((candidate) => <Tab key={`Candidate ${candidate}`} label={`Candidate ${candidate}`} {...a11yProps(candidate)} />)}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <Candidate />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <Candidate />
-      </CustomTabPanel>
+      {candidatesId?.map((candidate => (
+        <CustomTabPanel key={`tab-panel-${candidate}`} value={value} index={candidate}>
+          <Candidate candidateId={candidate} />
+        </CustomTabPanel>
+      )
+      ))}
     </Box>
   );
 }

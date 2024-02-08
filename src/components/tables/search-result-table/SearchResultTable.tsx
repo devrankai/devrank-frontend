@@ -95,7 +95,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                       :
                       (
                         candidateModelList.slice(0, visibleResults).map((candidate) => (
-                          <TableRow key={candidate.full_name} sx={styles.tableRow}>
+                          <TableRow key={candidate.full_name + candidate.candidate_info_id} sx={styles.tableRow}>
                             <TableCell sx={styles.tableCellName}>
                               {capitalizeFirstLetterOfEachWord(candidate.full_name)}
                             </TableCell>

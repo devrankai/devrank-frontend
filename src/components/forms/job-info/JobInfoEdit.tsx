@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SelectChangeEvent } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { JOB_DESCRIPTION_URL, POSITION_URL } from "../../../constants";
+import { JOB_DESCRIPTION_URL, POSITION_URL, persistedDataNameConstants } from "../../../constants";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { JobDescription, JobInfoTestTask } from "../../../models";
 import { PRIVATE_ROUTES } from "../../../routes";
@@ -13,9 +13,11 @@ import {
   convertForDataToJobInfo,
   convertTimestampDateToDateFormatMMDDYYYY,
   parseJobEdit,
+  persistLocalStorage,
 } from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
 import { useContractModelList, useContractPeriodList, useLocationList, useMeetingFrequencyList, useMethodologyList, usePositionStore, useProbationPeriodList, useProjectStore, useRoleList, useSkillLevelList, useSkillList, useTechnologyList } from "../../../hooks";
+import { POSITION_STATUS } from "../../../store";
 
 export interface JobInfoInputs {
   role: string;
@@ -66,7 +68,7 @@ export const JobInfoEdit = () => {
   const { addLoading, removeLoading } = useSpinner();
   const navigate = useNavigate();
   const { project } = useProjectStore();
-  const { startPosition} = usePositionStore();
+  const { startPosition } = usePositionStore();
 
   const { id } = useParams();
 
@@ -365,8 +367,12 @@ export const JobInfoEdit = () => {
         });
       }
 
+      persistLocalStorage(persistedDataNameConstants.POSITION_INFO, {
+        positionID: `${newJobDescription.job_desc_id}`,
+        statusPosition: POSITION_STATUS.SELECTED,
+      });
       startPosition(newJobDescription.job_desc_id);
-      
+
       alertFactory({
         type: "feedback",
         params: {

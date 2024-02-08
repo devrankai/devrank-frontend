@@ -3,7 +3,7 @@ import { authSlice } from "./auth/authSlice";
 import { clientSlice } from "./client/clientSlice";
 import { projectSlice } from "./project/projectSlice";
 import { positionSlice } from ".";
-import { jobSlice} from "./job/jobSlice";
+import { candidateSlice } from "./candidate/candidateSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,7 @@ export const store = configureStore({
     client: clientSlice.reducer,
     project: projectSlice.reducer,
     position: positionSlice.reducer,
-    job: jobSlice.reducer
+    candidate: candidateSlice.reducer,
   },
 });
 

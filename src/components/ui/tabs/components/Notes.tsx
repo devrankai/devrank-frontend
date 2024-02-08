@@ -3,12 +3,15 @@ import CreateIcon from '@mui/icons-material/Create';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { styles } from "./NotesStyles";
 
+type Props = {
+  fullName: string;
+}
 
-export const Notes = () => {
+export const Notes = ({ fullName }: Props) => {
   return (
     <Grid container sx={styles.box}>
       <Box component="div" sx={styles.boxHeader}>
-        <Typography sx={styles.boxHeaderName}>Zander Whitehurst</Typography>
+        <Typography sx={styles.boxHeaderName}>{fullName}</Typography>
         <Typography>
           <AccessTimeIcon />
         </Typography>

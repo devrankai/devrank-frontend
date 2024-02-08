@@ -5,3 +5,11 @@ export const capitalizeFirstLetterOfEachWord = (inputString: string): string => 
 
   return result;
 }
+
+export const stringToArrayOfNumbers = (inputString:string): number[] => {
+  const stringArray = inputString.split(',');
+  const numberArray = stringArray.map(item => Number(item.trim()));
+  const validNumbers = numberArray.filter(item => !isNaN(item));
+
+  return validNumbers;
+}

@@ -21,4 +21,9 @@ export const styles = {
     fontSize: { xs: "12px", sm: "14px" },
     padding: (theme: Theme) => theme.spacing(1.5, 2),
   },
+  wrapperCodeProfile: { 
+    height: "100%", 
+    gap: (theme: Theme) => theme.spacing(1.5),
+    marginBottom: (theme: Theme) => theme.spacing(3),
+  }
 };
