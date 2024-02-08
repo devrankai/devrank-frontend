@@ -18,6 +18,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import { TableHeader } from "./TableHeader";
 import { styles } from "./SearchResultTableStyles";
 import { useCandidateList, usePositionStore, useSpinner } from "../../../hooks";
+import { capitalizeFirstLetterOfEachWord } from "../../../utils";
 
 type Props = {
   selectedIds: string[];
@@ -29,10 +30,8 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
   const { addLoading, removeLoading } = useSpinner();
   const [visibleResults, setVisibleResults] = useState<number>(5);
 
-
   const { position } = usePositionStore();
-  const  { candidateModelList, postCandidateList} = useCandidateList();
-
+  const { candidateModelList, postCandidateList } = useCandidateList();
 
   useEffect(() => {
     addLoading();
@@ -98,10 +97,10 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                         candidateModelList.slice(0, visibleResults).map((candidate) => (
                           <TableRow key={candidate.full_name} sx={styles.tableRow}>
                             <TableCell sx={styles.tableCellName}>
-                              {candidate.full_name}
+                              {capitalizeFirstLetterOfEachWord(candidate.full_name)}
                             </TableCell>
                             <TableCell sx={styles.tableCellYears}>
-                              {candidate.years_of_experience}
+                              {candidate.years_of_experience} Years
                             </TableCell>
                             <TableCell sx={styles.tableCellRating}>
                               {candidate.skill_level_name}
@@ -130,6 +129,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
           endIcon={<AddCircleOutlineIcon />}
           aria-labelledby="Generate results button"
           onClick={handleClick}
+          disabled={candidateModelList.length < 5}
         >
           Generate results
         </Button>

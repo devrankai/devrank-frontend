@@ -33,7 +33,7 @@ export const useCandidateList = (): UseCandidateModelList => {
         },
       });
 
-      if (request.Status === "SUCCESS") {
+      if (request.status === "SUCCESS") {
         const parseCandidateModelList = JSON.parse(request.Data);
         setCandidateModelList([...parseCandidateModelList]);
       } else {

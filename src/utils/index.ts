@@ -8,3 +8,4 @@ export * from "./job-info-utils/jobEdit.utils";
 export * from "./job-info-utils/jobInfo.utils";
 export * from "./local-storage-utils/localStorage.utils";
 export * from "./order-array-utils/orderArray.utils";
+export * from "./string-utils/string.utils";
