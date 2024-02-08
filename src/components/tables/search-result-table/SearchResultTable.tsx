@@ -17,7 +17,7 @@ import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import { TableHeader } from "./TableHeader";
 import { styles } from "./SearchResultTableStyles";
-import { Data, data } from "./constants";
+import { useCandidateList, usePositionStore, useSpinner } from "../../../hooks";
 
 type Props = {
   selectedIds: string[];
@@ -25,19 +25,27 @@ type Props = {
 }
 
 export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
-  const [searchResultList, setSearchResultList] = useState<Data[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { addLoading, removeLoading } = useSpinner();
   const [visibleResults, setVisibleResults] = useState<number>(5);
 
+
+  const { position } = usePositionStore();
+  const  { candidateModelList, postCandidateList} = useCandidateList();
+
+
   useEffect(() => {
-    const getSearchResultList = () => {
-      //TODO: use the endpoint and setSearchResultList
-      setSearchResultList(data);
+    addLoading();
+
+    if (position?.id) {
+      postCandidateList(Number(position.id), 0);
       setIsLoading(false);
+      removeLoading();
     }
 
-    getSearchResultList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const handleCheckboxChange = (id: string) => {
     setSelectedIds((prevSelectedIds) => {
@@ -75,7 +83,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                     </TableRow>
                   }
                   {
-                    !isLoading && searchResultList.length === 0 ?
+                    !isLoading && candidateModelList.length === 0 ?
                       (
                         <TableRow>
                           <TableCell colSpan={4} sx={{ display: "flex", py: 3 }}>
@@ -87,21 +95,21 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                       )
                       :
                       (
-                        searchResultList.slice(0, visibleResults).map((result) => (
-                          <TableRow key={result.id} sx={styles.tableRow}>
+                        candidateModelList.slice(0, visibleResults).map((candidate) => (
+                          <TableRow key={candidate.full_name} sx={styles.tableRow}>
                             <TableCell sx={styles.tableCellName}>
-                              {result.name}
+                              {candidate.full_name}
                             </TableCell>
                             <TableCell sx={styles.tableCellYears}>
-                              {result.years}
+                              {candidate.years_of_experience}
                             </TableCell>
                             <TableCell sx={styles.tableCellRating}>
-                              {result.rating}
+                              {candidate.skill_level_name}
                             </TableCell>
                             <TableCell sx={styles.tableCellSelect}>
                               <Checkbox
-                                checked={selectedIds.includes(result.id)}
-                                onChange={() => handleCheckboxChange(result.id)}
+                                checked={selectedIds.includes(`${candidate.candidate_info_id}`)}
+                                onChange={() => handleCheckboxChange(`${candidate.candidate_info_id}`)}
                                 icon={<CircleOutlinedIcon />}
                                 checkedIcon={<RadioButtonCheckedIcon color="primary" />}
                               />

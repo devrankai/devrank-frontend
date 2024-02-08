@@ -35,7 +35,7 @@ export const TableHeader = () => {
             maxWidth: { xs: "70px", sm: "80px", md: "100px" },
             padding: '6px 4px'
           }}>
-          Overall Rating
+          Skill level
         </TableCell>
         <TableCell
           align='center'
