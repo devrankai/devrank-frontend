@@ -25,7 +25,6 @@ export const CodeList = ({
     { title: "Modularity", percent: modularity },
     { title: "Error Handlings", percent: errorHandling},
     { title: "Testing", percent: testing },
-    { title: "Performance", percent: 80 },
     { title: "Documentation", percent: documentation }
   ]
 
