@@ -1,6 +1,7 @@
 export type CandidateModel = {
   candidate_info_id: number;
   job_desc_id: number;
+  full_name: string;
   min_exp_start_date: number;
   max_exp_end_date: number;
   years_of_experience: number;
