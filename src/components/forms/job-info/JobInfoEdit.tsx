@@ -15,7 +15,7 @@ import {
   parseJobEdit,
 } from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
-import { useContractModelList, useContractPeriodList, useLocationList, useMeetingFrequencyList, useMethodologyList, useProbationPeriodList, useProjectStore, useRoleList, useSkillLevelList, useSkillList, useTechnologyList } from "../../../hooks";
+import { useContractModelList, useContractPeriodList, useLocationList, useMeetingFrequencyList, useMethodologyList, usePositionStore, useProbationPeriodList, useProjectStore, useRoleList, useSkillLevelList, useSkillList, useTechnologyList } from "../../../hooks";
 
 export interface JobInfoInputs {
   role: string;
@@ -66,6 +66,7 @@ export const JobInfoEdit = () => {
   const { addLoading, removeLoading } = useSpinner();
   const navigate = useNavigate();
   const { project } = useProjectStore();
+  const { startPosition} = usePositionStore();
 
   const { id } = useParams();
 
@@ -364,6 +365,8 @@ export const JobInfoEdit = () => {
         });
       }
 
+      startPosition(newJobDescription.job_desc_id);
+      
       alertFactory({
         type: "feedback",
         params: {
