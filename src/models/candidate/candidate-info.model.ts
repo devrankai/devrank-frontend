@@ -1,0 +1,20 @@
+export type CandidateModel = {
+  candidate_info_id: number;
+  job_desc_id: number;
+  min_exp_start_date: number;
+  max_exp_end_date: number;
+  years_of_experience: number;
+  skill_level_name: string;
+  skill_level_id: number;
+  user_base_info_id: number;
+  overall_review: string;
+  coding_standards: number;
+  readability: number;
+  modularity: number;
+  error_handling: number;
+  testing: number;
+  documentation: number;
+  active: boolean;
+  InsertDate: number;
+  ModifiedDate: number;
+};

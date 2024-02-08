@@ -17,3 +17,4 @@ export * from "./contract-model-list/useContractModelList.hook";
 export * from "./meeting-frequency-list/useMeetingFrequencyList.hook";
 export * from "./contract-period-list/useContractPeriodList.hook";
 export * from "./probation-list/useProbationList.hook";
+export * from "./candidate-list/useCandidateList.hook";
