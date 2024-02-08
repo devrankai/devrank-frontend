@@ -4,3 +4,4 @@ export * from "./persistedDataName/persistedDataName.constants";
 export * from "./urls/job-info.constants";
 export * from "./urls/positions.constants";
 export * from "./urls/project.constants";
+export * from "./urls/candidates.constants";
