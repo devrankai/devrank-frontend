@@ -5,4 +5,5 @@ export const persistedDataNameConstants = {
   CLIENT_INFO: "CLIENT_INFO",
   PROJECT_INFO: "PROJECT_INFO",
   POSITION_INFO: "POSITION_INFO",
+  JOB_INFO: "JOB_INFO"
 };
