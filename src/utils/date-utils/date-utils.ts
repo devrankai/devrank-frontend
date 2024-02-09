@@ -50,3 +50,12 @@ export const convertTimestampDateToDateFormatMMDDYYYY = (
 
   return formattedDate;
 };
+
+export const getDayMonthYEarForCandidate = (): string =>  {
+  const dateNow = dayjs();
+  const day = dateNow.format('DD');
+  const month = dateNow.format('MMM');
+  const year = dateNow.format('YYYY');
+
+  return `${day}, ${month}, ${year}`;
+}

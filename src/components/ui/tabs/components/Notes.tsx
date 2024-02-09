@@ -2,18 +2,21 @@ import { Box, FormControl, Grid, OutlinedInput, Typography } from "@mui/material
 import CreateIcon from '@mui/icons-material/Create';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { styles } from "./NotesStyles";
+import { getDayMonthYEarForCandidate } from "../../../../utils";
 
 type Props = {
   fullName: string;
 }
 
 export const Notes = ({ fullName }: Props) => {
+  const date = getDayMonthYEarForCandidate();
+
   return (
     <Grid container sx={styles.box}>
       <Box component="div" sx={styles.boxHeader}>
         <Typography sx={styles.boxHeaderName}>{fullName}</Typography>
-        <Typography>
-          <AccessTimeIcon />
+        <Typography sx={styles.subtitle}>
+          <AccessTimeIcon sx={styles.clockIcon} /> <Box component="span" sx={styles.date}>{date}</Box>
         </Typography>
       </Box>
       <Box component="div">
@@ -24,6 +27,7 @@ export const Notes = ({ fullName }: Props) => {
               multiline
               rows={4}
               defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lacus id est sollicitudin dapibus. Mauris accumsan varius tortor, id bibendum est faucibus eget. Sed a est eros. Aenean pretium facilisis ligula eu pulvinar. Proin convallis mauris non accumsan mollis. Nunc nec lorem non felis consectetur semper eu vel risus. Nullam rutrum, augue quis aliquet tincidunt, nisl justo mattis purus, lacinia placerat mauris risus id sem. Pellentesque viverra nisl sit amet purus aliquet cursus."
+              sx={styles.input}
             />
           </FormControl>
         </Box>
