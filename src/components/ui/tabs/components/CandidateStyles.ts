@@ -25,5 +25,6 @@ export const styles = {
     height: "100%", 
     gap: (theme: Theme) => theme.spacing(1.5),
     marginBottom: (theme: Theme) => theme.spacing(3),
+    maxWidth: "800px"
   }
 };

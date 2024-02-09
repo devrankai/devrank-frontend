@@ -7,6 +7,7 @@ export const Profile = () => {
       height="380"
       frameBorder="0"
       allowFullScreen
+      scrolling="no"
     />
   )
 }

@@ -100,7 +100,8 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
         disabled={
           client?.id === undefined ||
           project?.id === undefined ||
-          position?.id === undefined
+          position?.id === undefined  ||
+          candidate?.length === 0
         }
       />
       <Divider sx={styles.divider} />

@@ -24,13 +24,6 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-// function a11yProps(index: number) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     "aria-controls": `simple-tabpanel-${index}`,
-//   };
-// }
-
 type BasicTabsProps = {
   candidatesId: number[];
 };
@@ -56,8 +49,7 @@ export const BasicTabs: React.FC<BasicTabsProps> = ({ candidatesId }) => {
           {candidatesId?.map((candidate, index) => (
             <Tab
               key={`Candidate ${candidate}`}
-              label={`Candidate ${index}`}
-              // {...a11yProps(index)}
+              label={`Candidate ${index+1}`}
               id={`simple-tab-${index}`}
               aria-controls={`simple-tabpanel-${index}`}
             />
