@@ -389,7 +389,7 @@ export const JobInfoEdit = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Position updated succesfully",
+          title: "Position updated successfully",
         },
       });
 

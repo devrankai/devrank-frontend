@@ -211,7 +211,7 @@ export const ProjectEditWithForm = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Project edited succesfully",
+          title: "Project edited successfully",
         },
       });
 

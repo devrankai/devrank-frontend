@@ -126,7 +126,7 @@ export const ProjectTable = ({
       alertFactory({
         type: "feedback",
         params: {
-          title: "Project deleted succesfully",
+          title: "Project deleted successfully",
         },
       });
 

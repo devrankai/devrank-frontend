@@ -198,7 +198,7 @@ export const ClientCreate = () => {
     alertFactory({
       type: "feedback",
       params: {
-        title: "Client registered succesfully",
+        title: "Client registered successfully",
       },
     });
 

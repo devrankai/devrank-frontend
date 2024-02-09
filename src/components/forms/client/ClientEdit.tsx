@@ -263,7 +263,7 @@ export const ClientEdit = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Client edited succesfully",
+          title: "Client edited successfully",
         },
       });
 

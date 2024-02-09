@@ -147,7 +147,7 @@ export const ProjectCreateWithForm = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Project registered succesfully",
+          title: "Project registered successfully",
         },
       });
 

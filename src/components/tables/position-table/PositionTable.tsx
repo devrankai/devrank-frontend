@@ -128,7 +128,7 @@ export const PositionTable = ({
         alertFactory({
           type: "feedback",
           params: {
-            title: "Position deleted succesfully",
+            title: "Position deleted successfully",
           },
         });
       }

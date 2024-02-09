@@ -65,7 +65,7 @@ export const useAuthStore = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Session start succesfully",
+          title: "Session start successfully",
         },
       });
 
@@ -121,7 +121,7 @@ export const useAuthStore = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Session start succesfully",
+          title: "Session start successfully",
         },
       });
 

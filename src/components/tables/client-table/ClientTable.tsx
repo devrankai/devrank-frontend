@@ -115,7 +115,7 @@ export const ClientTable = ({
         alertFactory({
           type: "feedback",
           params: {
-            title: "Client deleted succesfully",
+            title: "Client deleted successfully",
           },
         });
       }
