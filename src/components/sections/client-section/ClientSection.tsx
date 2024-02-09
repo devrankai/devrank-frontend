@@ -12,7 +12,6 @@ import { CLIENT_STATUS } from "../../../store";
 
 export const ClientSection = () => {
   const { client, startClient } = useClientStore();
-
   const navigate = useNavigate();
 
   const handleSelectedClient = (id: string) => {

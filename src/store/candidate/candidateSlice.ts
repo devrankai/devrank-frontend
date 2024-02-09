@@ -10,16 +10,17 @@ export enum CANDIDATE_STATUS {
 
 interface CandidateInitialState {
   statusCandidate?: CANDIDATE_STATUS;
-  candidate?: { [key: string]: any };
+  candidate: [];
   errorMessageCandidate?: string | undefined;
 }
 
 const initialState: CandidateInitialState = {
   statusCandidate:
-    getLocalStorage(persistedDataNameConstants.CANDIDATE_INFO)?.statusCandidate ||
-    CANDIDATE_STATUS.NOT_SELECTED,
+    getLocalStorage(persistedDataNameConstants.CANDIDATE_INFO)
+      ?.statusCandidate || CANDIDATE_STATUS.NOT_SELECTED,
   candidate:
-    getLocalStorage(persistedDataNameConstants.CANDIDATE_INFO)?.candidateID || {},
+    getLocalStorage(persistedDataNameConstants.CANDIDATE_INFO)?.candidateID ||
+    {},
   errorMessageCandidate: undefined,
 };
 
@@ -29,7 +30,7 @@ export const candidateSlice = createSlice({
   reducers: {
     onCheckingCandidate: (state) => {
       state.statusCandidate = CANDIDATE_STATUS.CHECKING;
-      state.candidate = {};
+      state.candidate = [];
       state.errorMessageCandidate = undefined;
     },
     onSelectCandidate: (state, { payload }) => {
@@ -39,14 +40,23 @@ export const candidateSlice = createSlice({
     },
     onErrorCandidate: (state, { payload }) => {
       state.statusCandidate = CANDIDATE_STATUS.NOT_SELECTED;
-      state.candidate = {};
+      state.candidate = [];
       state.errorMessageCandidate = payload;
     },
     clearErrorMessageCandidate: (state) => {
       state.errorMessageCandidate = undefined;
     },
+    onResetCandidate: (state) => {
+      state.statusCandidate = CANDIDATE_STATUS.NOT_SELECTED;
+      state.candidate = [];
+      state.errorMessageCandidate = undefined;
+    },
   },
 });
 
-export const { onCheckingCandidate, onSelectCandidate, onErrorCandidate } =
-  candidateSlice.actions;
+export const {
+  onCheckingCandidate,
+  onSelectCandidate,
+  onErrorCandidate,
+  onResetCandidate,
+} = candidateSlice.actions;

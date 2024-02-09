@@ -6,16 +6,12 @@ import { alertFactory } from "../../utils";
 
 interface UseProbationPeriodList {
   probationPeriodList: JobInfoProbationPeriod[];
-  setProbationPeriodList: React.Dispatch<
-    React.SetStateAction<JobInfoProbationPeriod[]>
-  >;
+  setProbationPeriodList: React.Dispatch<React.SetStateAction<JobInfoProbationPeriod[]>>;
   getProbationPeriodList: () => Promise<void>;
 }
 
 export const useProbationPeriodList = (): UseProbationPeriodList => {
-  const [probationPeriodList, setProbationPeriodList] = useState<
-    JobInfoProbationPeriod[]
-  >([]);
+  const [probationPeriodList, setProbationPeriodList] = useState<JobInfoProbationPeriod[]>([]);
 
   const getProbationPeriodList = async () => {
     try {
@@ -32,8 +28,7 @@ export const useProbationPeriodList = (): UseProbationPeriodList => {
         alertFactory({
           type: "feedback",
           params: {
-            title:
-              "Something went wrong with probation period options, please try again.",
+            title: "Something went wrong with probation period options, please try again.",
             icon: "error",
           },
         });
@@ -43,9 +38,5 @@ export const useProbationPeriodList = (): UseProbationPeriodList => {
     }
   };
 
-  return {
-    probationPeriodList,
-    setProbationPeriodList,
-    getProbationPeriodList,
-  };
+  return { probationPeriodList, setProbationPeriodList, getProbationPeriodList };
 };

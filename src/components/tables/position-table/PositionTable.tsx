@@ -13,14 +13,17 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import { TableHeader } from "./TableHeader";
 import { styles } from "./PositionTableStyles";
 import { http } from "../../../services";
-import { alertFactory, convertDateToStringFormatDDMMYYYY } from "../../../utils";
+import {
+  alertFactory,
+  convertDateToStringFormatDDMMYYYY,
+} from "../../../utils";
 import { Position } from "../../../models";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { PRIVATE_ROUTES } from "../../../routes";
@@ -57,6 +60,8 @@ export const PositionTable = ({
       });
 
       if (request.status === "SUCCESS") {
+        console.log("request", request);
+
         const parsePositionList = JSON.parse(request.Data).filter(
           (position: { [key: string]: any }) => position.active !== false
         );
@@ -93,7 +98,7 @@ export const PositionTable = ({
   const handleCheckboxChange = (id: string) => handleSelectedPosition(id);
 
   const postDeletePosition = async (positionToDelete: object) => {
-    console.log("postDeletePosition", positionToDelete)
+    console.log("postDeletePosition", positionToDelete);
     try {
       addLoading();
 
@@ -101,9 +106,9 @@ export const PositionTable = ({
         url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
         urlWithApi: false,
         isPrivate: true,
-        data: positionToDelete
+        data: positionToDelete,
       });
-
+      console.log("request", { request });
       if (request.status !== "SUCCESS") {
         return alertFactory({
           type: "feedback",
@@ -130,7 +135,7 @@ export const PositionTable = ({
     } finally {
       removeLoading();
     }
-  }
+  };
 
   const handleDeletePosition = async (position: Position) => {
     const confirmAction = await alertFactory({
@@ -140,27 +145,34 @@ export const PositionTable = ({
 
     if (!confirmAction) return;
 
-    // TODO: job_desc_id y skills y technologies -> PENDING
+    console.log("position", { position });
+
     const positionDelete = {
-      "job_desc_id": "4",
-      "project_id": `${project?.id}`,
-      "role_id": `${position.role_id}`,
-      "number_of_positions": `${position.number_of_positions}`,
-      "test_task_id": `${position.test_task_id}`,
-      "skill_level_id": `${position.skill_level_id}`,
-      "dev_methodology_id": `${position.dev_methodology_id}`,
-      "meeting_frequency_id": `${position.meeting_frequency_id}`,
-      "location_id": `${position.location_id}`,
-      "earliest_start_date": convertDateToStringFormatDDMMYYYY(position.earliest_start_date as Date),
-      "closed_by_date": convertDateToStringFormatDDMMYYYY(position.closed_by_date as Date),
-      "probation_period_id": `${position.probation_period_id}`,
-      "contract_model_id": `${position.contract_model_id}`,
-      "active": "0",
-      "tech_must_to_have": [{ "technologies_id": 1 }],
-      "tech_nice_to_have": [{ "technologies_id": 3 }],
-      "skills_must_to_have": [{ "skills_id": 1 }],
-      "skills_nice_to_have": [{ "skills_id": 4 }]
-    }
+      job_desc_id: `${position.job_desc_id}`,
+      project_id: project?.id,
+      role_id: `${position.role_id}`,
+      number_of_positions: `${position.number_of_positions}`,
+      test_task_id: `${position.test_task_id}`,
+      skill_level_id: `${position.skill_level_id}`,
+      dev_methodology_id: `${position.dev_methodology_id}`,
+      meeting_frequency_id: `${position.meeting_frequency_id}`,
+      location_id: `${position.location_id}`,
+      earliest_start_date: convertDateToStringFormatDDMMYYYY(
+        position.earliest_start_date as Date
+      ),
+      closed_by_date: convertDateToStringFormatDDMMYYYY(
+        position.closed_by_date as Date
+      ),
+      probation_period_id: `${position.probation_period_id}`,
+      contract_model_id: `${position.contract_model_id}`,
+      contract_period_id: position.contract_period_id.toString(),
+      time_tracking_id: `${position.time_tracking_id}`,
+      active: "0",
+      tech_must_to_have: [{ technologies_id: 1 }],
+      tech_nice_to_have: [{ technologies_id: 3 }],
+      skills_must_to_have: [{ skills_id: 1 }],
+      skills_nice_to_have: [{ skills_id: 4 }],
+    };
 
     postDeletePosition(positionDelete);
   };

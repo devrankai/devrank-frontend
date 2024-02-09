@@ -12,12 +12,12 @@ export const useCandidateStore = () => {
   );
   const dispatch = useDispatch();
 
-  const startCandidate = async (id: string) => {
+  const startCandidate = async (selectedIds: string[]) => {
     dispatch(onCheckingCandidate());
 
     try {
       addLoading();
-      dispatch(onSelectCandidate({ id }));
+      dispatch(onSelectCandidate(selectedIds));
     } catch (error) {
       console.error("error - startCandidate: ", { error });
     } finally {

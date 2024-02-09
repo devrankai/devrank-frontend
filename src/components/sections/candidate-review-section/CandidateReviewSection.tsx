@@ -1,9 +1,9 @@
 import { Grid } from "@mui/material";
-import { HeadlineH1 } from "../../ui/headlines/HeadlineH1";
-import { stringToArrayOfNumbers } from "../../../utils";
-import { BasicTabs } from "../..";
-import { useCandidateStore, useSpinner } from "../../../hooks";
 import { useEffect, useState } from "react";
+import { BasicTabs, NotSelected } from "../..";
+import { useCandidateStore, useSpinner } from "../../../hooks";
+import { HeadlineH1 } from "../../ui/headlines/HeadlineH1";
+import { PRIVATE_ROUTES } from "../../../routes";
 
 export const CandidateReviewSection = () => {
   const { candidate } = useCandidateStore();
@@ -12,30 +12,35 @@ export const CandidateReviewSection = () => {
 
   useEffect(() => {
     addLoading();
-    console.log("CANDIDATE", candidate?.selectedIds)
-    const listOfCandidatesSelectedId: string = candidate?.selectedIds.join(',');
-    const candidatesIdArray: number[] = stringToArrayOfNumbers(listOfCandidatesSelectedId);
-    setCandidatesIdArray(candidatesIdArray);
+    console.log("candidate en efffff", candidate);
+    setCandidatesIdArray(candidate?.map((item: string) => Number(item.trim())));
 
     removeLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+  }, []);
 
   return (
     <Grid container>
-      {candidatesIdArray.length === 0 ?
-        'Loading...'
-        :
-        <Grid container>
-          <Grid item xs={12}>
-            <HeadlineH1 text="Candidate Review" />
+      {candidate?.length > 0 ? (
+        candidatesIdArray?.length === 0 ? (
+          "Loading..."
+        ) : (
+          <Grid container>
+            <Grid item xs={12}>
+              <HeadlineH1 text="Candidate Review" />
+            </Grid>
+            <Grid item xs={11.5} mb={4}>
+              <BasicTabs candidatesId={candidatesIdArray} />
+            </Grid>
           </Grid>
-          <Grid item xs={11.5} mb={4}>
-            <BasicTabs candidatesId={candidatesIdArray} />
-          </Grid>
-        </Grid>
-      }
+        )
+      ) : (
+        <NotSelected
+          titleText="Select candidates"
+          messageText="You forgot to select candidates, please go back and select one or more candidates to continue with the process.."
+          navigateTo={PRIVATE_ROUTES.SEARCH_RESULTS}
+        />
+      )}
     </Grid>
-  )
-}
+  );
+};

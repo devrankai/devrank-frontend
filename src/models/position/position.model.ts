@@ -18,6 +18,8 @@ export type Position = {
   probation_period_name: null;
   contract_model_id: number | null;
   contract_model_name: null;
+  contract_period_id: number;
+  time_tracking_id: number;
   active: boolean;
   InsertDate: Date | null;
   ModifiedDate: Date | null;

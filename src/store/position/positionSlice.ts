@@ -45,8 +45,17 @@ export const positionSlice = createSlice({
     clearErrorMessagePosition: (state) => {
       state.errorMessagePosition = undefined;
     },
+    onResetPosition: (state) => {
+      state.statusPosition = POSITION_STATUS.NOT_SELECTED;
+      state.position = {};
+      state.errorMessagePosition = undefined;
+    },
   },
 });
 
-export const { onCheckingPosition, onSelectPosition, onErrorPosition } =
-  positionSlice.actions;
+export const {
+  onCheckingPosition,
+  onSelectPosition,
+  onErrorPosition,
+  onResetPosition,
+} = positionSlice.actions;

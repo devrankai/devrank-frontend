@@ -45,8 +45,17 @@ export const projectSlice = createSlice({
     clearErrorMessageProject: (state) => {
       state.errorMessageProject = undefined;
     },
+    onResetProject: (state) => {
+      state.statusProject = PROJECT_STATUS.NOT_SELECTED;
+      state.project = {};
+      state.errorMessageProject = undefined;
+    },
   },
 });
 
-export const { onCheckingProject, onSelectProject, onErrorProject } =
-  projectSlice.actions;
+export const {
+  onCheckingProject,
+  onSelectProject,
+  onErrorProject,
+  onResetProject,
+} = projectSlice.actions;

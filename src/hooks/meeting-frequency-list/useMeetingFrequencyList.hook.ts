@@ -6,16 +6,12 @@ import { alertFactory } from "../../utils";
 
 interface UseMeetingFrequencyList {
   meetingFrequencyList: JobInfoMeetingFrequency[];
-  setMeetingFrequencyList: React.Dispatch<
-    React.SetStateAction<JobInfoMeetingFrequency[]>
-  >;
+  setMeetingFrequencyList: React.Dispatch<React.SetStateAction<JobInfoMeetingFrequency[]>>;
   getMeetingFrequencyList: () => Promise<void>;
 }
 
 export const useMeetingFrequencyList = (): UseMeetingFrequencyList => {
-  const [meetingFrequencyList, setMeetingFrequencyList] = useState<
-    JobInfoMeetingFrequency[]
-  >([]);
+  const [meetingFrequencyList, setMeetingFrequencyList] = useState<JobInfoMeetingFrequency[]>([]);
 
   const getMeetingFrequencyList = async () => {
     try {
@@ -32,8 +28,7 @@ export const useMeetingFrequencyList = (): UseMeetingFrequencyList => {
         alertFactory({
           type: "feedback",
           params: {
-            title:
-              "Something went wrong with meeting frequency options, please try again.",
+            title: "Something went wrong with meeting frequency options, please try again.",
             icon: "error",
           },
         });
@@ -43,9 +38,5 @@ export const useMeetingFrequencyList = (): UseMeetingFrequencyList => {
     }
   };
 
-  return {
-    meetingFrequencyList,
-    setMeetingFrequencyList,
-    getMeetingFrequencyList,
-  };
+  return { meetingFrequencyList, setMeetingFrequencyList, getMeetingFrequencyList };
 };

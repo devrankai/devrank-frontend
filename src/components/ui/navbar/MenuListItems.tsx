@@ -12,6 +12,7 @@ import { navColors } from "./nav-colors";
 import { useProjectStore } from "../../../hooks/project-store/useProjectStore.hook";
 import { usePositionStore } from "../../../hooks/position-store/usePositionStore.hook";
 import { useClientStore } from "../../../hooks/client-store/useClientStore.hook";
+import { useCandidateStore } from "../../../hooks";
 
 type Props = {
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
@@ -27,6 +28,7 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
   const { client } = useClientStore();
   const { project } = useProjectStore();
   const { position } = usePositionStore();
+  const { candidate } = useCandidateStore();
 
   const handleLogout = async () => {
     setAnchorEl(null);
@@ -83,7 +85,8 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
         disabled={
           client?.id === undefined ||
           project?.id === undefined ||
-          position?.id === undefined
+          position?.id === undefined ||
+          candidate?.length === 0
         }
       />
       <ItemMenu
@@ -111,11 +114,10 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
       <MenuItem
         onClick={handleLogout}
         sx={{
-          backgroundColor: `${
-            pathname.includes("log-out")
+          backgroundColor: `${pathname.includes("log-out")
               ? navColors.activeBackground
               : "transparent"
-          }`,
+            }`,
         }}
       >
         <img

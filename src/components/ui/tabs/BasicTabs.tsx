@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Tab, Tabs } from "@mui/material";
-import { Candidate } from "./components/Candidate"
+import { Candidate } from "./components/Candidate";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -19,37 +19,32 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
 
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index: number) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     "aria-controls": `simple-tabpanel-${index}`,
+//   };
+// }
 
 type BasicTabsProps = {
   candidatesId: number[];
-}
+};
 
 export const BasicTabs: React.FC<BasicTabsProps> = ({ candidatesId }) => {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-    console.log(event);
   };
 
   return (
-    <Box sx={{ width: '100%', mt: 3 }}>
-      <Box >
+    <Box sx={{ width: "100%", mt: 3 }}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -58,15 +53,26 @@ export const BasicTabs: React.FC<BasicTabsProps> = ({ candidatesId }) => {
           allowScrollButtonsMobile
           variant="scrollable"
         >
-          {candidatesId?.map((candidate) => <Tab key={`Candidate ${candidate}`} label={`Candidate ${candidate}`} {...a11yProps(candidate)} />)}
+          {candidatesId?.map((candidate, index) => (
+            <Tab
+              key={`Candidate ${candidate}`}
+              label={`Candidate ${index}`}
+              // {...a11yProps(index)}
+              id={`simple-tab-${index}`}
+              aria-controls={`simple-tabpanel-${index}`}
+            />
+          ))}
         </Tabs>
       </Box>
-      {candidatesId?.map((candidate => (
-        <CustomTabPanel key={`tab-panel-${candidate}`} value={value} index={candidate}>
+      {candidatesId?.map((candidate, index) => (
+        <CustomTabPanel
+          key={`tab-panel-${candidate}`}
+          value={value}
+          index={index}
+        >
           <Candidate candidateId={candidate} />
         </CustomTabPanel>
-      )
       ))}
     </Box>
   );
-}
+};

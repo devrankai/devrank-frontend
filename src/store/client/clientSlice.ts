@@ -45,8 +45,17 @@ export const clientSlice = createSlice({
     clearErrorMessageClient: (state) => {
       state.errorMessageClient = undefined;
     },
+    onResetClient: (state) => {
+      state.statusClient = CLIENT_STATUS.NOT_SELECTED;
+      state.client = {};
+      state.errorMessageClient = undefined;
+    },
   },
 });
 
-export const { onCheckingClient, onSelectClient, onErrorClient } =
-  clientSlice.actions;
+export const {
+  onCheckingClient,
+  onSelectClient,
+  onErrorClient,
+  onResetClient,
+} = clientSlice.actions;

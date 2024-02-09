@@ -6,16 +6,12 @@ import { alertFactory } from "../../utils";
 
 interface UseContractPeriodList {
   contractPeriodList: JobInfoContractPeriod[];
-  setContractPeriodList: React.Dispatch<
-    React.SetStateAction<JobInfoContractPeriod[]>
-  >;
+  setContractPeriodList: React.Dispatch<React.SetStateAction<JobInfoContractPeriod[]>>;
   getContractPeriodList: () => Promise<void>;
 }
 
 export const useContractPeriodList = (): UseContractPeriodList => {
-  const [contractPeriodList, setContractPeriodList] = useState<
-    JobInfoContractPeriod[]
-  >([]);
+  const [contractPeriodList, setContractPeriodList] = useState<JobInfoContractPeriod[]>([]);
 
   const getContractPeriodList = async () => {
     try {
@@ -32,8 +28,7 @@ export const useContractPeriodList = (): UseContractPeriodList => {
         alertFactory({
           type: "feedback",
           params: {
-            title:
-              "Something went wrong with contract period options, please try again.",
+            title: "Something went wrong with contract period options, please try again.",
             icon: "error",
           },
         });

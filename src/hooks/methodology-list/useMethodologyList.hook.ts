@@ -6,16 +6,12 @@ import { alertFactory } from "../../utils";
 
 interface UseMethodologyList {
   methodologyList: JobInfoMethodology[];
-  setMethodologyList: React.Dispatch<
-    React.SetStateAction<JobInfoMethodology[]>
-  >;
+  setMethodologyList: React.Dispatch<React.SetStateAction<JobInfoMethodology[]>>;
   getMethodologyList: () => Promise<void>;
 }
 
 export const useMethodologyList = (): UseMethodologyList => {
-  const [methodologyList, setMethodologyList] = useState<JobInfoMethodology[]>(
-    []
-  );
+  const [methodologyList, setMethodologyList] = useState<JobInfoMethodology[]>([]);
 
   const getMethodologyList = async () => {
     try {
@@ -32,8 +28,7 @@ export const useMethodologyList = (): UseMethodologyList => {
         alertFactory({
           type: "feedback",
           params: {
-            title:
-              "Something went wrong with methodology options, please try again.",
+            title: "Something went wrong with methodology options, please try again.",
             icon: "error",
           },
         });

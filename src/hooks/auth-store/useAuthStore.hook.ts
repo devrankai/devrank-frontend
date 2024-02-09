@@ -9,6 +9,10 @@ import {
   onLogout,
   onAuthError,
   clearErrorMessage,
+  onResetCandidate,
+  onResetClient,
+  onResetProject,
+  onResetPosition,
 } from "../../store";
 import {
   alertFactory,
@@ -126,6 +130,7 @@ export const useAuthStore = () => {
       console.error("error - startSignUp: ", { error });
     }
   };
+
   const startLogout = () => {
     clearLocalStorage(persistedDataNameConstants.USER_TK);
     clearLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE);
@@ -133,6 +138,11 @@ export const useAuthStore = () => {
     clearLocalStorage(persistedDataNameConstants.CLIENT_INFO);
     clearLocalStorage(persistedDataNameConstants.PROJECT_INFO);
     clearLocalStorage(persistedDataNameConstants.POSITION_INFO);
+    clearLocalStorage(persistedDataNameConstants.CANDIDATE_INFO);
+    dispatch(onResetCandidate());
+    dispatch(onResetClient());
+    dispatch(onResetProject());
+    dispatch(onResetPosition());
     dispatch(onLogout());
   };
 

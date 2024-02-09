@@ -10,11 +10,11 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableRow
+  TableRow,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import { TableHeader } from "./TableHeader";
 import { styles } from "./SearchResultTableStyles";
 import { useCandidateList, usePositionStore, useSpinner } from "../../../hooks";
@@ -23,7 +23,7 @@ import { capitalizeFirstLetterOfEachWord } from "../../../utils";
 type Props = {
   selectedIds: string[];
   setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
-}
+};
 
 export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -45,7 +45,6 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const handleCheckboxChange = (id: string) => {
     setSelectedIds((prevSelectedIds) => {
       if (prevSelectedIds.includes(id)) {
@@ -54,9 +53,10 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
         return [...prevSelectedIds, id];
       }
     });
-  }
+  };
 
-  const handleClick = () => setVisibleResults(prevVisibleResults => prevVisibleResults + 5);
+  const handleClick = () =>
+    setVisibleResults((prevVisibleResults) => prevVisibleResults + 5);
 
   return (
     <Grid container mt={3}>
@@ -71,52 +71,66 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
               >
                 <TableHeader />
                 <TableBody sx={styles.tableBody}>
-                  {
-                    isLoading &&
+                  {isLoading && (
                     <TableRow>
-                      <TableCell colSpan={4} sx={styles.noSearchResultSpanContainer}>
+                      <TableCell
+                        colSpan={4}
+                        sx={styles.noSearchResultSpanContainer}
+                      >
                         <Box component="span" sx={styles.noSearchResultSpan}>
                           <CircularProgress size={20} /> Loading search results
                         </Box>
                       </TableCell>
                     </TableRow>
-                  }
-                  {
-                    !isLoading && candidateModelList.length === 0 ?
-                      (
-                        <TableRow>
-                          <TableCell colSpan={4} sx={{ display: "flex", py: 3 }}>
-                            <Box component="span" sx={styles.noSearchResultSpan}>
-                              No results
-                            </Box>
+                  )}
+                  {!isLoading && candidateModelList.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={4} sx={{ display: "flex", py: 3 }}>
+                        <Box component="span" sx={styles.noSearchResultSpan}>
+                          No results
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    candidateModelList
+                      .slice(0, visibleResults)
+                      .map((candidate) => (
+                        <TableRow
+                          key={
+                            candidate.full_name + candidate.candidate_info_id
+                          }
+                          sx={styles.tableRow}
+                        >
+                          <TableCell sx={styles.tableCellName}>
+                            {capitalizeFirstLetterOfEachWord(
+                              candidate.full_name
+                            )}
+                          </TableCell>
+                          <TableCell sx={styles.tableCellYears}>
+                            {candidate.years_of_experience} Years
+                          </TableCell>
+                          <TableCell sx={styles.tableCellRating}>
+                            {candidate.skill_level_name}
+                          </TableCell>
+                          <TableCell sx={styles.tableCellSelect}>
+                            <Checkbox
+                              checked={selectedIds.includes(
+                                `${candidate.candidate_info_id}`
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  `${candidate.candidate_info_id}`
+                                )
+                              }
+                              icon={<CircleOutlinedIcon />}
+                              checkedIcon={
+                                <RadioButtonCheckedIcon color="primary" />
+                              }
+                            />
                           </TableCell>
                         </TableRow>
-                      )
-                      :
-                      (
-                        candidateModelList.slice(0, visibleResults).map((candidate) => (
-                          <TableRow key={candidate.full_name + candidate.candidate_info_id} sx={styles.tableRow}>
-                            <TableCell sx={styles.tableCellName}>
-                              {capitalizeFirstLetterOfEachWord(candidate.full_name)}
-                            </TableCell>
-                            <TableCell sx={styles.tableCellYears}>
-                              {candidate.years_of_experience} Years
-                            </TableCell>
-                            <TableCell sx={styles.tableCellRating}>
-                              {candidate.skill_level_name}
-                            </TableCell>
-                            <TableCell sx={styles.tableCellSelect}>
-                              <Checkbox
-                                checked={selectedIds.includes(`${candidate.candidate_info_id}`)}
-                                onChange={() => handleCheckboxChange(`${candidate.candidate_info_id}`)}
-                                icon={<CircleOutlinedIcon />}
-                                checkedIcon={<RadioButtonCheckedIcon color="primary" />}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        ))
-                      )
-                  }
+                      ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -134,6 +148,6 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
           Generate results
         </Button>
       </Grid>
-    </Grid >
-  )
-}
+    </Grid>
+  );
+};
