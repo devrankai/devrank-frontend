@@ -22,4 +22,5 @@ export type CandidateModel = {
   active: boolean;
   InsertDate: number;
   ModifiedDate: number;
+  front_end_image_link: string;
 };

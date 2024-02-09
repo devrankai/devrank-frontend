@@ -4,7 +4,7 @@ export const styles = {
   box: {
     border: "1px solid #0067CA",
     borderRadius: "4px",
-    height: { xs: "360px", sm: "568px" },
+    height: { xs: "360px", sm: "460px" },
     position: "absolute",
     maxWidth: { xs: "280px", sm: "300px" },
     flexDirection: "column",
@@ -12,7 +12,7 @@ export const styles = {
   boxHeader: {
     borderBottom: "1px solid #0067CA",
     padding: (theme: Theme) => theme.spacing(3, 3, 1.5),
-    minHeight: "150px",
+    minHeight: "100px",
   },
   boxHeaderName: {
     fontWeight: "500",
@@ -22,21 +22,6 @@ export const styles = {
     overflowX: "hidden",
     maxHeight: "80px",
     overflowY: "hidden",
-  },
-  editIconContainer: {
-    position: "absolute",
-    right: "12px",
-    bottom: "16px",
-  },
-  editIcon: {
-    backgroundColor: "#3471FF",
-    color: "white",
-    borderRadius: "50%",
-    padding: (theme: Theme) => theme.spacing(0.75),
-  },
-  input: {
-    minHeight: "416px",
-    alignItems: "flex-start",
   },
   subtitle: {
     display: "flex",
@@ -52,5 +37,19 @@ export const styles = {
     fontWeight: 400,
     fontSize: "12px",
     lineHeight: "16px",
+  },
+  editIconContainer: {
+    position: "absolute",
+    right: "12px",
+    bottom: "16px",
+  },
+  editIcon: {
+    backgroundColor: "#3471FF",
+    color: "white",
+    borderRadius: "50%",
+    padding: (theme: Theme) => theme.spacing(0.75),
+  },
+  input: {
+    alignItems: "flex-start",
   },
 };

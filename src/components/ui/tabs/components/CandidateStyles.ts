@@ -22,9 +22,9 @@ export const styles = {
     padding: (theme: Theme) => theme.spacing(1.5, 2),
   },
   wrapperCodeProfile: { 
-    height: "100%", 
     gap: (theme: Theme) => theme.spacing(1.5),
     marginBottom: (theme: Theme) => theme.spacing(3),
-    maxWidth: "800px"
+    maxWidth: "800px",
+    height: {xs: "660px", md: "460px"}
   }
 };

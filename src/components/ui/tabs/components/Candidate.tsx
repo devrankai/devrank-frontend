@@ -49,6 +49,7 @@ export const Candidate = ({ candidateId }: Props) => {
   const errorHandling = candidateModelList[0]?.error_handling;
   const testing = candidateModelList[0]?.testing;
   const documentation = candidateModelList[0]?.documentation;
+  const linkedInImg = candidateModelList[0]?.front_end_image_link;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -106,9 +107,9 @@ export const Candidate = ({ candidateId }: Props) => {
             </Button>
           </Grid>
           <Grid item xs={12} sx={{ display: "flex" }}>
-            <Grid container sx={styles.wrapperCodeProfile}>
+            <Grid container sx={styles.wrapperCodeProfile} >
               <Grid item xs={12} md={5.5} mr={2}>
-                {value === "profile" && <Profile />}
+                {value === "profile" && <Profile linkedInImg={linkedInImg} />}
                 {value === "code" && (
                   <CodeList
                     codingStandards={codingStandards}
