@@ -50,12 +50,12 @@ const testTask: JobInfoTestTask[] = [
 ];
 
 const timeTrackingProp: {
-  id: number;
+  id: string;
   name: string;
 }[] = [
-    { id: 1, name: "Yes" },
-    { id: 0, name: "No" },
-  ];
+  { id: "1", name: "Yes" },
+  { id: "0", name: "No" },
+];
 
 export const JobInfoCreate = () => {
   const navigate = useNavigate();
@@ -189,7 +189,7 @@ export const JobInfoCreate = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: "Position registered succesfully",
+          title: "Position registered successfully",
         },
       });
 

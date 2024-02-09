@@ -3,7 +3,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SelectChangeEvent } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { JOB_DESCRIPTION_URL, POSITION_URL, persistedDataNameConstants } from "../../../constants";
+import {
+  JOB_DESCRIPTION_URL,
+  POSITION_URL,
+  persistedDataNameConstants,
+} from "../../../constants";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { JobDescription, JobInfoTestTask } from "../../../models";
 import { PRIVATE_ROUTES } from "../../../routes";
@@ -16,7 +20,20 @@ import {
   persistLocalStorage,
 } from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
-import { useContractModelList, useContractPeriodList, useLocationList, useMeetingFrequencyList, useMethodologyList, usePositionStore, useProbationPeriodList, useProjectStore, useRoleList, useSkillLevelList, useSkillList, useTechnologyList } from "../../../hooks";
+import {
+  useContractModelList,
+  useContractPeriodList,
+  useLocationList,
+  useMeetingFrequencyList,
+  useMethodologyList,
+  usePositionStore,
+  useProbationPeriodList,
+  useProjectStore,
+  useRoleList,
+  useSkillLevelList,
+  useSkillList,
+  useTechnologyList,
+} from "../../../hooks";
 import { POSITION_STATUS } from "../../../store";
 
 export interface JobInfoInputs {
@@ -39,24 +56,18 @@ export interface JobInfoInputs {
   probationPeriod: string;
 }
 
-// TODO: este quedará ... corregir el create
-// const testTask: JobInfoTestTask[] = [
-//   { id: "1", name: "Yes" },
-//   { id: "0", name: "No" },
-// ];
-
 const testTask: JobInfoTestTask[] = [
   { id: "1", name: "Yes" },
-  { id: "2", name: "No" },
+  { id: "0", name: "No" },
 ];
 
 const timeTrackingProp: {
-  id: number;
+  id: string;
   name: string;
 }[] = [
-    { id: 1, name: "Yes" },
-    { id: 2, name: "No" },
-  ];
+  { id: "1", name: "Yes" },
+  { id: "0", name: "No" },
+];
 
 type multipleSelectTypes = {
   [key: string]: string[];
@@ -184,7 +195,7 @@ export const JobInfoEdit = () => {
 
           const testTaskID =
             parsePositionData.test_task_id > 0 &&
-              parsePositionData.test_task_id < 3
+            parsePositionData.test_task_id < 3
               ? parsePositionData.test_task_id?.toString()
               : "";
 
@@ -211,7 +222,7 @@ export const JobInfoEdit = () => {
 
           const timeTrackingID =
             parsePositionData.time_tracking_id > 0 &&
-              parsePositionData.time_tracking_id < 3
+            parsePositionData.time_tracking_id < 3
               ? parsePositionData.time_tracking_id?.toString()
               : "";
 
@@ -347,7 +358,9 @@ export const JobInfoEdit = () => {
     setValue(inputName, [...e.target.value]);
   };
 
-  const postUpdatedJobDescription = async (newJobDescription: JobDescription) => {
+  const postUpdatedJobDescription = async (
+    newJobDescription: JobDescription
+  ) => {
     try {
       const request = await http.post({
         url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
@@ -394,7 +407,12 @@ export const JobInfoEdit = () => {
 
     const projectId = project?.id;
     const jobDescriptionId = id;
-    const updateJobDescription = convertForDataToJobInfo(data, true, projectId, jobDescriptionId);
+    const updateJobDescription = convertForDataToJobInfo(
+      data,
+      true,
+      projectId,
+      jobDescriptionId
+    );
 
     postUpdatedJobDescription(updateJobDescription);
   };

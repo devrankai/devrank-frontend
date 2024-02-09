@@ -22,13 +22,13 @@ export const SearchResultsSection = () => {
 
   useEffect(() => {
     if (candidate?.length > 0) {
-      console.log(candidate);
       setSelectedIds(candidate);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNext: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log("NEXT", selectedIds);
     if (selectedIds.length > 0) {
       setShowNeedSelectedMessage(false);
 

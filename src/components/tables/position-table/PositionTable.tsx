@@ -23,6 +23,7 @@ import { http } from "../../../services";
 import {
   alertFactory,
   convertDateToStringFormatDDMMYYYY,
+  sortDescending,
 } from "../../../utils";
 import { Position } from "../../../models";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
@@ -60,13 +61,16 @@ export const PositionTable = ({
       });
 
       if (request.status === "SUCCESS") {
-        console.log("request", request);
-
         const parsePositionList = JSON.parse(request.Data).filter(
           (position: { [key: string]: any }) => position.active !== false
         );
 
-        setPositionList([...parsePositionList]);
+        const sortPositionList = sortDescending(
+          parsePositionList,
+          "ModifiedDate"
+        );
+
+        setPositionList([...sortPositionList]);
       } else {
         return alertFactory({
           type: "feedback",

@@ -46,7 +46,7 @@ type JobInfoFormTypes = {
     locationList: JobInfoLocation[];
     methodologyList: JobInfoMethodology[];
     timeTrackingProp: {
-      id: number;
+      id: string;
       name: string;
     }[];
     register: UseFormRegister<JobInfoInputs>;

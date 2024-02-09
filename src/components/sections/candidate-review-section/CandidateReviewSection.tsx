@@ -12,7 +12,6 @@ export const CandidateReviewSection = () => {
 
   useEffect(() => {
     addLoading();
-    console.log("candidate en efffff", candidate);
     setCandidatesIdArray(candidate?.map((item: string) => Number(item.trim())));
 
     removeLoading();

@@ -14,14 +14,18 @@ import { PRIVATE_ROUTES } from "../../../../routes";
 import { PositionTable } from "../../../tables";
 import { persistLocalStorage } from "../../../../utils";
 import { persistedDataNameConstants } from "../../../../constants/persistedDataName/persistedDataName.constants";
-import { POSITION_STATUS } from "../../../../store";
+import { POSITION_STATUS, onResetCandidate } from "../../../../store";
+import { useCandidateStore } from "../../../../hooks";
+import { useDispatch } from "react-redux";
 
 export const PositionSection = () => {
   const { client } = useClientStore();
   const { project } = useProjectStore();
   const { position, startPosition } = usePositionStore();
+  const { candidate } = useCandidateStore();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSelectedPosition = (id: string) => {
     persistLocalStorage(persistedDataNameConstants.POSITION_INFO, {
@@ -32,6 +36,8 @@ export const PositionSection = () => {
   };
 
   const handleNavigate: MouseEventHandler<HTMLButtonElement> = () => {
+    if (candidate.length > 0) dispatch(onResetCandidate());
+
     navigate(`${PRIVATE_ROUTES.DASHBOARD}${PRIVATE_ROUTES.SEARCH_RESULTS}`);
   };
 
@@ -63,7 +69,11 @@ export const PositionSection = () => {
           nextButton={
             <PrimaryButtonCheckedSelection
               handleNavigate={handleNavigate}
-              disabled={client?.id === undefined || project?.id === undefined || position?.id === undefined}
+              disabled={
+                client?.id === undefined ||
+                project?.id === undefined ||
+                position?.id === undefined
+              }
               tooltipTitle="Should select a client a project and a position to continue"
             />
           }

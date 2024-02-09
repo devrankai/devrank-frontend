@@ -42,7 +42,7 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
     startLogout();
     navigate(`${PUBLIC_ROUTES.LOG_IN}`, { replace: true });
   };
-
+  console.log("candidate", { candidate });
   return (
     <>
       <ItemMenu
@@ -85,8 +85,7 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
         disabled={
           client?.id === undefined ||
           project?.id === undefined ||
-          position?.id === undefined ||
-          candidate?.length === 0
+          position?.id === undefined
         }
       />
       <ItemMenu
@@ -100,7 +99,7 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
         disabled={
           client?.id === undefined ||
           project?.id === undefined ||
-          position?.id === undefined  ||
+          position?.id === undefined ||
           candidate?.length === 0
         }
       />
@@ -115,10 +114,11 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
       <MenuItem
         onClick={handleLogout}
         sx={{
-          backgroundColor: `${pathname.includes("log-out")
+          backgroundColor: `${
+            pathname.includes("log-out")
               ? navColors.activeBackground
               : "transparent"
-            }`,
+          }`,
         }}
       >
         <img

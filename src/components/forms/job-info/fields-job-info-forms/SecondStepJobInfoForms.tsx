@@ -42,7 +42,7 @@ type SecondStepJobInfoFormsTypes = {
   meetingFrequencyList: JobInfoMeetingFrequency[];
   contractModelList: JobInfoContractModel[];
   timeTrackingProp: {
-    id: number;
+    id: string;
     name: string;
   }[];
   locationList: JobInfoLocation[];
