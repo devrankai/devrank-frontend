@@ -10,8 +10,8 @@ export const TableHeader = () => {
             borderLeft: '1px solid #0067CA',
             borderBottom: '1px solid #0067CA',
             textAlign: 'center',
-            minWidth: { xs: "90px", sm: "300px" },
-            maxWidth: { xs: "90px", sm: "300px" },
+            minWidth: { xs: "90px", sm: "290px" },
+            maxWidth: { xs: "90px", sm: "290px" },
             padding: '6px 4px'
           }}>
           Name
@@ -34,8 +34,8 @@ export const TableHeader = () => {
             borderLeft: '1px solid #0067CA',
             borderBottom: '1px solid #0067CA',
             textAlign: 'center',
-            minWidth: { xs: "70px", sm: "80px", md: "100px" },
-            maxWidth: { xs: "70px", sm: "80px", md: "100px" },
+            minWidth: { xs: "70px", sm: "80px", md: "120px" },
+            maxWidth: { xs: "70px", sm: "80px", md: "120px" },
             padding: '6px 4px'
           }}>
           Skill level

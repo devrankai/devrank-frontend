@@ -10,14 +10,14 @@ export const styles = {
   },
   table: {
     minWidth: "310px",
-    maxWidth: { xs: "310px", sm: "400px", md: "570px" },
+    maxWidth: { xs: "310px", sm: "400px", md: "580px" },
     border: "2px solid #0067CA",
   },
   tableBody: {
     display: "flex",
     flexDirection: "column",
     maxHeight: "276px",
-    maxWidth: "570px",
+    maxWidth: "580px",
     overflowY: "scroll",
   },
   tableRow: {
@@ -35,8 +35,8 @@ export const styles = {
   },
   tableCellName: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "90px", sm: "300px" },
-    maxWidth: { xs: "90px", sm: "300px" },
+    minWidth: { xs: "90px", sm: "290px" },
+    maxWidth: { xs: "90px", sm: "290px" },
     padding: (theme: Theme) => theme.spacing(0.75, 0.5),
   },
   tableCellYears: {
@@ -47,8 +47,8 @@ export const styles = {
   },
   tableCellRating: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "70px", sm: "80px", md: "100px" },
-    maxWidth: { xs: "70px", sm: "80px", md: "100px" },
+    minWidth: { xs: "70px", sm: "80px", md: "120px" },
+    maxWidth: { xs: "70px", sm: "80px", md: "120px" },
     padding: (theme: Theme) => theme.spacing(0.75, 0.5),
   },
   tableCellSelect: {
