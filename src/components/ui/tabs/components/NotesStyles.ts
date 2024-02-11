@@ -56,6 +56,8 @@ export const styles = {
     borderBottom: "none",
   },
   editButton: {
+    padding: "10px",
+    minWidth: "50px",
     "&:hover": {
       backgroundColor: "transparent"
     }
