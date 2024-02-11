@@ -15,16 +15,16 @@ export const HeadlineWithSpan = ({ text, spanText, fontWeightText, fontWeightSpa
     <Typography
       sx={{
         fontWeight: textFontWeight,
-        fontSize: { xs: '30px', sm: '40px' },
-        lineHeight: { xs: '40px', sm: '60px' },
+        fontSize: { xs: '22px', sm: '38px' },
+        lineHeight: { xs: '36px', sm: '60px' },
       }}>
       {text}
       <Box
         component="span"
         sx={{
           fontWeight: spanFontWeight,
-          fontSize: { xs: '30px', sm: '40px' },
-          lineHeight: { xs: '40px', sm: '60px' },
+          fontSize: { xs: '22px', sm: '38px' },
+          lineHeight: { xs: '38px', sm: '60px' },
           ml: '12px',
         }}>
         {spanText}

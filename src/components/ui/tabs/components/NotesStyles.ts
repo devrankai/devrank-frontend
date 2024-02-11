@@ -51,5 +51,13 @@ export const styles = {
   },
   input: {
     alignItems: "flex-start",
+    height: "334px !important",
+    minHeight: "334x",
+    borderBottom: "none",
   },
+  editButton: {
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
+  }
 };

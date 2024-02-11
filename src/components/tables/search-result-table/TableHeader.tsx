@@ -10,8 +10,8 @@ export const TableHeader = () => {
             borderLeft: '1px solid #0067CA',
             borderBottom: '1px solid #0067CA',
             textAlign: 'center',
-            minWidth: { xs: "90px", sm: "290px" },
-            maxWidth: { xs: "90px", sm: "290px" },
+            minWidth: { xs: "190px", sm: "290px" },
+            maxWidth: { xs: "190px", sm: "290px" },
             padding: '6px 4px'
           }}>
           Name
