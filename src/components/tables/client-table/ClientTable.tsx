@@ -11,6 +11,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Tooltip
 } from "@mui/material";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -84,8 +85,9 @@ export const ClientTable = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEditClient = (id: string) =>
+  const handleEditClient = (id: string) => {
     navigate(`/dashboard/client/edit/${id}`, { state: { id } });
+  }
 
   const handleCheckboxChange = (id: string) => handleSelectedClient(id);
 
@@ -193,7 +195,9 @@ export const ClientTable = ({
                       />
                     </TableCell>
                     <TableCell sx={styles.tableCellClient}>
-                      {row.client_name}
+                      <Tooltip title={row.client_name} arrow >
+                        <span>{row.client_name}</span>
+                      </Tooltip>
                     </TableCell>
                     <TableCell sx={styles.tableCellIndustry}>
                       {row.industry_name}

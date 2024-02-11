@@ -1,6 +1,6 @@
 export const styles = {
   container: {
-    maxWidth: { xs: "320px", sm: "460px" },
+    maxWidth: { xs: "320px", sm: "390px", md:"670px" },
   },
   tableContainer: {
     overflowX: "hidden",

@@ -7,8 +7,8 @@ type tableCell = {
 export const TableHeader = () => {
   const titles: tableCell[] = [
     { name: 'Select', width: '60px' },
-    { name: 'Client', width: '130px' },
-    { name: 'Industry', width: '120px' },
+    { name: 'Client', width: '270px' },
+    { name: 'Industry', width: '220px' },
     { name: 'Actions', width: '100px' }
   ]
 
@@ -16,7 +16,17 @@ export const TableHeader = () => {
     <TableHead sx={{ display: 'flex', flexDirection: 'row' }}>
       <TableRow>
         {titles.map(title => (
-          <TableCell key={title.name} align='center' sx={{ border: '1px solid #0067CA', textAlign: 'center', minWidth: title.width, maxWidth: title.width, padding: '6px' }}>
+          <TableCell
+            key={title.name}
+            align='center'
+            sx={{
+              borderLeft: '1px solid #0067CA',
+              borderBottom: '1px solid #0067CA',
+              textAlign: 'center',
+              minWidth: title.width,
+              maxWidth: title.width,
+              padding: '6px'
+            }}>
             {title.name}
           </TableCell>
         ))}

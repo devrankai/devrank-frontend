@@ -49,7 +49,7 @@ export const ClientSection = () => {
             tooltipTitle="Should select a client to continue"
           />
         }
-      ></TableLayout>
+      />
     </Grid>
   );
 };

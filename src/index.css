@@ -76,3 +76,21 @@ body {
   color: rgb(205, 24, 18);
   border: 2px solid rgb(205, 24, 18);
 }
+
+/* Scroll bars */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0067ca;
+}
+
+::-webkit-scrollbar-track {
+  background-color: lightgray;
+}
+
+* {
+  scrollbar-color: #0067ca lightgray;
+  scrollbar-width: thin;
+}
