@@ -11,6 +11,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Tooltip
 } from "@mui/material";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -203,7 +204,9 @@ export const ProjectTable = ({
                       />
                     </TableCell>
                     <TableCell sx={styles.tableCellProject}>
-                      {project.project_name}
+                    <Tooltip title={project.project_name} arrow >
+                        <span>{project.project_name}</span>
+                      </Tooltip>  
                     </TableCell>
                     <TableCell sx={styles.tableCellActions}>
                       <IconButton

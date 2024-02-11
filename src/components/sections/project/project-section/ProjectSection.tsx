@@ -59,7 +59,7 @@ export const ProjectSection = () => {
               tooltipTitle="Should select a project to continue"
             />
           }
-        ></TableLayout>
+        />
       ) : (
         <NotSelected
           titleText="Select a client"
