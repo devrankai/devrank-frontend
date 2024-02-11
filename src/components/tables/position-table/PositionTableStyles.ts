@@ -10,14 +10,14 @@ export const styles = {
   },
   table: {
     minWidth: "310px",
-    maxWidth: { xs: "310px", sm: "430px" },
+    maxWidth: { xs: "310px", sm: "650px" },
     border: "2px solid #0067CA",
   },
   tableBody: {
     display: "flex",
     flexDirection: "column",
     maxHeight: "210px",
-    maxWidth: "420px",
+    maxWidth: "650px",
     overflowY: "scroll",
   },
   tableRow: {
@@ -31,19 +31,19 @@ export const styles = {
     borderRight: "1px solid #0067CA",
     minWidth: "60px",
     maxWidth: "60px",
-    padding: (theme: Theme) => theme.spacing(0.75),
+    padding: (theme: Theme) => theme.spacing(0.25, 0.75),
   },
   tableCellPosition: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "100px", sm: "120px" },
-    maxWidth: { xs: "100px", sm: "120px" },
-    padding: (theme: Theme) => theme.spacing(0.75),
+    minWidth: { xs: "100px", sm: "230px" },
+    maxWidth: { xs: "100px", sm: "230px" },
+    padding: (theme: Theme) => theme.spacing(0.25, 0.75),
   },
   tableCellLevel: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "100px", sm: "120px" },
-    maxWidth: { xs: "100px", sm: "120px" },
-    padding: (theme: Theme) => theme.spacing(0.75),
+    minWidth: { xs: "100px", sm: "230px" },
+    maxWidth: { xs: "100px", sm: "230px" },
+    padding: (theme: Theme) => theme.spacing(0.25, 0.75),
   },
   tableCellActions: {
     minWidth: "120px",
