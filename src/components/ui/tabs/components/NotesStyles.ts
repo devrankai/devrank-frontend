@@ -51,8 +51,8 @@ export const styles = {
   },
   input: {
     alignItems: "flex-start",
+    minHeight: "334px",
     height: "334px !important",
-    minHeight: "334x",
     borderBottom: "none",
   },
   editButton: {
