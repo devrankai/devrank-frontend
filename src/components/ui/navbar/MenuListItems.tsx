@@ -42,7 +42,7 @@ export const MenuListItems = ({ setAnchorEl }: Props) => {
     startLogout();
     navigate(`${PUBLIC_ROUTES.LOG_IN}`, { replace: true });
   };
-  console.log("candidate", { candidate });
+
   return (
     <>
       <ItemMenu
