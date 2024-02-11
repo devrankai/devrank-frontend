@@ -7,10 +7,11 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
+            borderBottom: '1px solid #0067CA',
             textAlign: 'center',
-            minWidth: { xs: "90px", sm: "160px" },
-            maxWidth: { xs: "90px", sm: "160px" },
+            minWidth: { xs: "90px", sm: "300px" },
+            maxWidth: { xs: "90px", sm: "300px" },
             padding: '6px 4px'
           }}>
           Name
@@ -18,7 +19,8 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
+            borderBottom: '1px solid #0067CA',
             textAlign: 'center',
             minWidth: { xs: "90px", md: "100px" },
             maxWidth: { xs: "90px", md: "100px" },
@@ -29,7 +31,8 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
+            borderBottom: '1px solid #0067CA',
             textAlign: 'center',
             minWidth: { xs: "70px", sm: "80px", md: "100px" },
             maxWidth: { xs: "70px", sm: "80px", md: "100px" },
@@ -40,7 +43,8 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
+            borderBottom: '1px solid #0067CA',
             textAlign: 'center',
             minWidth: { xs: "56px", sm: "70px" },
             maxWidth: { xs: "56px", sm: "70px" },

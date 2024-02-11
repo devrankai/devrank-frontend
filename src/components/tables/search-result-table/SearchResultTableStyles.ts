@@ -10,14 +10,14 @@ export const styles = {
   },
   table: {
     minWidth: "310px",
-    maxWidth: { xs: "310px", sm: "400px", md: "430px" },
+    maxWidth: { xs: "310px", sm: "400px", md: "570px" },
     border: "2px solid #0067CA",
   },
   tableBody: {
     display: "flex",
     flexDirection: "column",
     maxHeight: "276px",
-    maxWidth: "430px",
+    maxWidth: "570px",
     overflowY: "scroll",
   },
   tableRow: {
@@ -35,8 +35,8 @@ export const styles = {
   },
   tableCellName: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "90px", sm: "160px" },
-    maxWidth: { xs: "90px", sm: "160px" },
+    minWidth: { xs: "90px", sm: "300px" },
+    maxWidth: { xs: "90px", sm: "300px" },
     padding: (theme: Theme) => theme.spacing(0.75, 0.5),
   },
   tableCellYears: {

@@ -21,7 +21,7 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
             borderBottom: '1px solid #0067CA',
             textAlign: 'center',
             width: {
@@ -42,7 +42,7 @@ export const TableHeader = () => {
         <TableCell
           align='center'
           sx={{
-            border: '1px solid #0067CA',
+            borderLeft: '1px solid #0067CA',
             borderBottom: '1px solid #0067CA',
             textAlign: 'center',
             width: '100px',
