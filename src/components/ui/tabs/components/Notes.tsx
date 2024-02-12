@@ -33,7 +33,7 @@ export const Notes = ({ fullName }: Props) => {
               id="outlined-multiline-static"
               multiline
               rows={14}
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lacus id est sollicitudin dapibus. Mauris accumsan varius tortor, id bibendum est faucibus eget. Sed a est eros. Aenean pretium facilisis ligula eu pulvinar. Proin convallis mauris non accumsan mollis. Nunc nec lorem non felis consectetur semper eu vel risus. Nullam rutrum, augue quis aliquet tincidunt, nisl justo mattis purus, lacinia placerat mauris risus id sem. Pellentesque viverra nisl sit amet purus aliquet cursus."
+              defaultValue="This is a note section to input"
               sx={styles.input}
               disabled={isDisabled}
             />
