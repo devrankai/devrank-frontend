@@ -54,6 +54,10 @@ export const styles = {
     display: "flex",
     padding: (theme: Theme) => theme.spacing(4, 1),
   },
+  noPositionSpanCell: {
+    display: "flex",
+    padding: (theme: Theme) => theme.spacing(5, 1),
+  },
   noPositionSpan: {
     width: "100%",
     display: "flex",

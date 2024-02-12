@@ -56,7 +56,7 @@ export const PositionTable = ({
         urlWithApi: false,
         isPrivate: true,
         data: {
-          job_desc_id: "0",
+          job_desc_id: project?.id,
         },
       });
 
@@ -194,8 +194,14 @@ export const PositionTable = ({
             <TableBody sx={styles.tableBody}>
               {isLoading && (
                 <TableRow>
-                  <TableCell colSpan={4} sx={styles.noPositionSpanContainer}>
-                    <Box component="span" sx={styles.noPositionSpan}>
+                  <TableCell
+                    colSpan={4}
+                    sx={styles.noPositionSpanContainer}
+                  >
+                    <Box
+                      component="span"
+                      sx={styles.noPositionSpan}
+                    >
                       <CircularProgress size={20} /> Searching positions
                     </Box>
                   </TableCell>
@@ -203,8 +209,11 @@ export const PositionTable = ({
               )}
               {!isLoading && positionList.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4}>
-                    <Box component="span" sx={styles.noPositionSpan}>
+                  <TableCell colSpan={4} sx={styles.noPositionSpanCell}>
+                    <Box
+                      component="span"
+                      sx={styles.noPositionSpan}
+                    >
                       No positions
                     </Box>
                   </TableCell>
