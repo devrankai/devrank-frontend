@@ -58,7 +58,11 @@ export const styles = {
   },
   noSearchResultSpanContainer: {
     display: "flex",
-    padding: (theme: Theme) => theme.spacing(4, 1),
+    padding: (theme: Theme) => theme.spacing(5, 2),
+  },
+  noSearchResultCell: {
+    padding: (theme: Theme) => theme.spacing(5, 2),
+    display: "flex"
   },
   noSearchResultSpan: {
     width: "100%",

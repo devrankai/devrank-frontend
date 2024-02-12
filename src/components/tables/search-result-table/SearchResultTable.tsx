@@ -77,7 +77,10 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                         colSpan={4}
                         sx={styles.noSearchResultSpanContainer}
                       >
-                        <Box component="span" sx={styles.noSearchResultSpan}>
+                        <Box
+                          component="span"
+                          sx={styles.noSearchResultSpan}
+                        >
                           <CircularProgress size={20} /> Loading search results
                         </Box>
                       </TableCell>
@@ -85,8 +88,14 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                   )}
                   {!isLoading && candidateModelList.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={4} sx={{ display: "flex", py: 3 }}>
-                        <Box component="span" sx={styles.noSearchResultSpan}>
+                      <TableCell
+                        colSpan={4}
+                        sx={styles.noSearchResultCell}
+                      >
+                        <Box
+                          component="span"
+                          sx={styles.noSearchResultSpan}
+                        >
                           No results
                         </Box>
                       </TableCell>

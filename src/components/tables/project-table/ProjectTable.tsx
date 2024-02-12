@@ -176,8 +176,14 @@ export const ProjectTable = ({
             <TableBody sx={styles.tableBody}>
               {isLoading && (
                 <TableRow>
-                  <TableCell colSpan={4} sx={styles.noProjectSpanContainer}>
-                    <Box component="span" sx={styles.noProjectSpan}>
+                  <TableCell
+                    colSpan={4}
+                    sx={styles.noProjectSpanContainer}
+                  >
+                    <Box
+                      component="span"
+                      sx={styles.noProjectSpan}
+                    >
                       <CircularProgress size={20} /> Searching projects
                     </Box>
                   </TableCell>
@@ -185,8 +191,14 @@ export const ProjectTable = ({
               )}
               {!isLoading && projectList.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4}>
-                    <Box component="span" sx={styles.noProjectSpan}>
+                  <TableCell
+                    colSpan={4}
+                    sx={styles.noProjectSpanCell}
+                  >
+                    <Box
+                      component="span"
+                      sx={styles.noProjectSpan}
+                    >
                       No projects
                     </Box>
                   </TableCell>
@@ -205,9 +217,9 @@ export const ProjectTable = ({
                       />
                     </TableCell>
                     <TableCell sx={styles.tableCellProject}>
-                    <Tooltip title={project.project_name} arrow >
+                      <Tooltip title={project.project_name} arrow >
                         <span>{project.project_name}</span>
-                      </Tooltip>  
+                      </Tooltip>
                     </TableCell>
                     <TableCell sx={styles.tableCellActions}>
                       <IconButton
