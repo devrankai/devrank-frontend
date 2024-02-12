@@ -59,7 +59,8 @@ export const ProjectTable = ({
         urlWithApi: false,
         isPrivate: true,
         data: {
-          project_id: "",
+          project_id: "0",
+          client_id: Number(client?.id)
         },
       });
 
