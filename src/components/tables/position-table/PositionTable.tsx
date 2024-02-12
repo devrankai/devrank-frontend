@@ -52,11 +52,11 @@ export const PositionTable = ({
       addLoading();
 
       const request = await http.post({
-        url: POSITION_URL.POST_POSITIONS_LIST,
+        url: POSITION_URL.POST_POSITION_LIST_WIDTH_PROJECT_ID,
         urlWithApi: false,
         isPrivate: true,
         data: {
-          job_desc_id: project?.id,
+          project_id: project?.id,
         },
       });
 
@@ -112,7 +112,7 @@ export const PositionTable = ({
         isPrivate: true,
         data: positionToDelete,
       });
-      console.log("request", { request });
+    
       if (request.status !== "SUCCESS") {
         return alertFactory({
           type: "feedback",
@@ -148,8 +148,6 @@ export const PositionTable = ({
     });
 
     if (!confirmAction) return;
-
-    console.log("position", { position });
 
     const positionDelete = {
       job_desc_id: `${position.job_desc_id}`,
