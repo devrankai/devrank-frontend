@@ -24,6 +24,7 @@ import { http } from "../../../services";
 import { CLIENT_URL } from "../../forms/client/client-form-constants";
 import { ClientTableTypes } from "./client-table-types";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
+import { useClientStore } from "../../../hooks";
 
 type ClientTableProps = {
   handleSelectedClient: (id: string) => void;
@@ -35,6 +36,7 @@ export const ClientTable = ({
   selectedClient,
 }: ClientTableProps) => {
   const navigate = useNavigate();
+  const { client } = useClientStore();
 
   const { addLoading, removeLoading } = useSpinner();
 
@@ -50,7 +52,7 @@ export const ClientTable = ({
         urlWithApi: false,
         isPrivate: true,
         data: {
-          client_id: "",
+          client_id: Number(client?.id),
         },
       });
 
