@@ -23,4 +23,5 @@ export type CandidateModel = {
   InsertDate: number;
   ModifiedDate: number;
   front_end_image_link: string;
+  notes_from_interviewer: string;
 };

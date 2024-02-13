@@ -50,6 +50,7 @@ export const Candidate = ({ candidateId }: Props) => {
   const testing = candidateModelList[0]?.testing;
   const documentation = candidateModelList[0]?.documentation;
   const linkedInImg = candidateModelList[0]?.front_end_image_link;
+  const notes = candidateModelList[0]?.notes_from_interviewer;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -122,7 +123,7 @@ export const Candidate = ({ candidateId }: Props) => {
                 )}
               </Grid>
               <Grid item xs={12} md={5.5}>
-                <Notes fullName={fullName} />
+                <Notes fullName={fullName} notes={notes}/>
               </Grid>
             </Grid>
           </Grid>

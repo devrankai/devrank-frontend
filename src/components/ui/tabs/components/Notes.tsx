@@ -8,9 +8,13 @@ import { getDayMonthYEarForCandidate } from "../../../../utils";
 
 type Props = {
   fullName: string;
+  notes: string;
 }
 
-export const Notes = ({ fullName }: Props) => {
+export const Notes = ({
+  fullName,
+  notes
+}: Props) => {
   const date = getDayMonthYEarForCandidate();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
@@ -33,7 +37,7 @@ export const Notes = ({ fullName }: Props) => {
               id="outlined-multiline-static"
               multiline
               rows={14}
-              defaultValue="This is a note section to input"
+              defaultValue={notes}
               sx={styles.input}
               disabled={isDisabled}
             />
