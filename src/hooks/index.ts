@@ -19,3 +19,4 @@ export * from "./contract-period-list/useContractPeriodList.hook";
 export * from "./probation-list/useProbationList.hook";
 export * from "./candidate-list/useCandidateList.hook";
 export * from "./candidate-store/useCandidateStore.hook";
+export * from "./candidate-notes/useCandidateNotes.hook";

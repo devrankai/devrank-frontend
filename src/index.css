@@ -79,7 +79,7 @@ body {
 
 /* Scroll bars */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -92,5 +92,5 @@ body {
 
 * {
   scrollbar-color: #0067ca lightgray;
-  scrollbar-width: thin;
+  scrollbar-width: 12px;
 }

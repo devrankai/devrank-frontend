@@ -123,7 +123,7 @@ export const Candidate = ({ candidateId }: Props) => {
                 )}
               </Grid>
               <Grid item xs={12} md={5.5}>
-                <Notes fullName={fullName} notes={notes}/>
+                <Notes fullName={fullName} notes={notes} candidateId={candidateId}/>
               </Grid>
             </Grid>
           </Grid>

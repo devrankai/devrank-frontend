@@ -7,12 +7,13 @@ export const styles = {
     height: { xs: "360px", sm: "460px" },
     position: "absolute",
     maxWidth: { xs: "280px", sm: "300px" },
-    flexDirection: "column",
+    flexDirection: "row",
   },
   boxHeader: {
     borderBottom: "1px solid #0067CA",
     padding: (theme: Theme) => theme.spacing(3, 3, 1.5),
     minHeight: "100px",
+    width: "100%"
   },
   boxHeaderName: {
     fontWeight: "500",
@@ -22,6 +23,9 @@ export const styles = {
     overflowX: "hidden",
     maxHeight: "80px",
     overflowY: "hidden",
+  },
+  formContainer: {
+    width: "100%"
   },
   subtitle: {
     display: "flex",
