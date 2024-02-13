@@ -141,6 +141,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
                                   checkedIcon={
                                     <RadioButtonCheckedIcon color="primary" />
                                   }
+                                  sx={{ padding: "0px 9px" }}
                                 />
                               </TableCell>
                             </TableRow>

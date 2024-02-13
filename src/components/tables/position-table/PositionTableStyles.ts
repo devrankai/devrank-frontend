@@ -26,6 +26,7 @@ export const styles = {
     alignContent: "flex-start",
     justifyContent: "center",
     alignItems: "flex-start",
+    maxHeight: "38px"
   },
   tableCell: {
     borderRight: "1px solid #0067CA",
@@ -41,8 +42,8 @@ export const styles = {
   },
   tableCellLevel: {
     borderRight: "1px solid #0067CA",
-    minWidth: { xs: "100px", sm: "230px" },
-    maxWidth: { xs: "100px", sm: "230px" },
+    minWidth: { xs: "100px", sm: "220px" },
+    maxWidth: { xs: "100px", sm: "220px" },
     padding: (theme: Theme) => theme.spacing(0.25, 0.75),
   },
   tableCellActions: {

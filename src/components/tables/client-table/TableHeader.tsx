@@ -8,7 +8,7 @@ export const TableHeader = () => {
   const titles: tableCell[] = [
     { name: 'Select', width: '60px' },
     { name: 'Client', width: '270px' },
-    { name: 'Industry', width: '220px' },
+    { name: 'Industry', width: '210px' },
     { name: 'Actions', width: '100px' }
   ]
 

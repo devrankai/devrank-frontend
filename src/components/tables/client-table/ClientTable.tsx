@@ -192,6 +192,7 @@ export const ClientTable = ({
                         }
                         icon={<CircleOutlinedIcon />}
                         checkedIcon={<RadioButtonCheckedIcon color="primary" />}
+                        sx={{padding: "0px 9px"}}
                       />
                     </TableCell>
                     <TableCell sx={styles.tableCellClient}>

@@ -27,12 +27,12 @@ export const TableHeader = () => {
             width: {
               xs: '150px',
               sm: '220px',
-              md: '490px'
+              md: '470px'
             },
             minWidth: {
               xs: '150px',
               sm: '220px',
-              md: '490px'
+              md: '470px'
             },
             padding: '6px'
           }}

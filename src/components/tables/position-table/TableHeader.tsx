@@ -42,11 +42,11 @@ export const TableHeader = () => {
             textAlign: 'center',
             width: {
               xs: '100px',
-              sm: '230px'
+              sm: '220px'
             },
             minWidth: {
               xs: '100px',
-              sm: '230px'
+              sm: '220px'
             },
             padding: '6px'
           }}>

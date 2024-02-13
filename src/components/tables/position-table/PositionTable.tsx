@@ -112,7 +112,7 @@ export const PositionTable = ({
         isPrivate: true,
         data: positionToDelete,
       });
-    
+
       if (request.status !== "SUCCESS") {
         return alertFactory({
           type: "feedback",
@@ -230,6 +230,7 @@ export const PositionTable = ({
                         }
                         icon={<CircleOutlinedIcon />}
                         checkedIcon={<RadioButtonCheckedIcon color="primary" />}
+                        sx={{ padding: "0px 9px" }}
                       />
                     </TableCell>
                     <TableCell sx={styles.tableCellPosition}>
