@@ -17,7 +17,7 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import { TableHeader } from "./TableHeader";
 import { styles } from "./SearchResultTableStyles";
-import { useCandidateList, usePositionStore, useSpinner } from "../../../hooks";
+import { useCandidateList, usePositionStore } from "../../../hooks";
 import { capitalizeFirstLetterOfEachWord } from "../../../utils";
 
 type Props = {
@@ -29,17 +29,22 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [visibleResults, setVisibleResults] = useState<number>(5);
 
-  const { addLoading, removeLoading } = useSpinner();
   const { position } = usePositionStore();
   const { candidateModelList, postCandidateList } = useCandidateList();
 
   useEffect(() => {
-    addLoading();
+    const getPositionsList = async () => {
+      try {
+        await postCandidateList(Number(position?.id), 0);
+      } catch (error) {
+        console.error("Error search result table - getPositionsList");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
     if (position?.id) {
-      postCandidateList(Number(position.id), 0);
-      setIsLoading(false);
-      removeLoading();
+      getPositionsList();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +62,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
 
   const handleClick = () => {
     setVisibleResults((prevVisibleResults) => prevVisibleResults + 5);
-  }
+  };
 
   return (
     <Grid container mt={3}>
@@ -72,82 +77,69 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
               >
                 <TableHeader />
                 <TableBody sx={styles.tableBody}>
-                  {
-                    isLoading && (
-                      <TableRow>
-                        <TableCell
-                          colSpan={4}
-                          sx={styles.noSearchResultSpanContainer}
+                  {isLoading && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={4}
+                        sx={styles.noSearchResultSpanContainer}
+                      >
+                        <Box component="span" sx={styles.noSearchResultSpan}>
+                          <CircularProgress size={20} /> Loading search results
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {!isLoading &&
+                  candidateModelList &&
+                  candidateModelList.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={4} sx={styles.noSearchResultCell}>
+                        <Box component="span" sx={styles.noSearchResultSpan}>
+                          No results
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    candidateModelList
+                      .slice(0, visibleResults)
+                      .map((candidate) => (
+                        <TableRow
+                          key={
+                            candidate.full_name + candidate.candidate_info_id
+                          }
+                          sx={styles.tableRow}
                         >
-                          <Box
-                            component="span"
-                            sx={styles.noSearchResultSpan}
-                          >
-                            <CircularProgress size={20} /> Loading search results
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  }
-                  {
-                    candidateModelList && candidateModelList.length === 0 ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={4}
-                          sx={styles.noSearchResultCell}
-                        >
-                          <Box
-                            component="span"
-                            sx={styles.noSearchResultSpan}
-                          >
-                            No results
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    )
-                      :
-                      (
-                        candidateModelList
-                          .slice(0, visibleResults)
-                          .map((candidate) => (
-                            <TableRow
-                              key={
-                                candidate.full_name + candidate.candidate_info_id
+                          <TableCell sx={styles.tableCellName}>
+                            {capitalizeFirstLetterOfEachWord(
+                              candidate.full_name
+                            )}
+                          </TableCell>
+                          <TableCell sx={styles.tableCellYears}>
+                            {candidate.years_of_experience} Years
+                          </TableCell>
+                          <TableCell sx={styles.tableCellRating}>
+                            {candidate.skill_level_name}
+                          </TableCell>
+                          <TableCell sx={styles.tableCellSelect}>
+                            <Checkbox
+                              checked={selectedIds.includes(
+                                `${candidate.candidate_info_id}`
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(
+                                  `${candidate.candidate_info_id}`
+                                )
                               }
-                              sx={styles.tableRow}
-                            >
-                              <TableCell sx={styles.tableCellName}>
-                                {capitalizeFirstLetterOfEachWord(
-                                  candidate.full_name
-                                )}
-                              </TableCell>
-                              <TableCell sx={styles.tableCellYears}>
-                                {candidate.years_of_experience} Years
-                              </TableCell>
-                              <TableCell sx={styles.tableCellRating}>
-                                {candidate.skill_level_name}
-                              </TableCell>
-                              <TableCell sx={styles.tableCellSelect}>
-                                <Checkbox
-                                  checked={selectedIds.includes(
-                                    `${candidate.candidate_info_id}`
-                                  )}
-                                  onChange={() =>
-                                    handleCheckboxChange(
-                                      `${candidate.candidate_info_id}`
-                                    )
-                                  }
-                                  icon={<CircleOutlinedIcon />}
-                                  checkedIcon={
-                                    <RadioButtonCheckedIcon color="primary" />
-                                  }
-                                  sx={{ padding: "0px 9px" }}
-                                />
-                              </TableCell>
-                            </TableRow>
-                          ))
-                      )
-                  }
+                              icon={<CircleOutlinedIcon />}
+                              checkedIcon={
+                                <RadioButtonCheckedIcon color="primary" />
+                              }
+                              sx={{ padding: "0px 9px" }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

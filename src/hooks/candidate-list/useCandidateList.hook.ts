@@ -3,6 +3,7 @@ import { http } from "../../services";
 import { CANDIDATES_URL } from "../../constants";
 import { alertFactory } from "../../utils";
 import { CandidateModel } from "../../models";
+import { useSpinner } from "..";
 
 interface UseCandidateModelList {
   candidateModelList: CandidateModel[];
@@ -18,11 +19,14 @@ export const useCandidateList = (): UseCandidateModelList => {
     CandidateModel[]
   >([]);
 
+  const { addLoading, removeLoading } = useSpinner();
+
   const postCandidateList = async (
     jobDescId: number,
     candidateInfoId: number
   ) => {
     try {
+      addLoading();
       const request = await http.post({
         url: CANDIDATES_URL.POST_CANDIDATES_LIST,
         urlWithApi: false,
@@ -48,6 +52,8 @@ export const useCandidateList = (): UseCandidateModelList => {
       }
     } catch (error) {
       console.error("Error - post candidate information list", { error });
+    } finally {
+      removeLoading();
     }
   };
 

@@ -110,8 +110,6 @@ export const JobInfoForm = ({
   };
 
   const onClickHandlerNextButton = (step: number) => {
-    console.log("onClickHandlerNextButton");
-
     const dataButtonByStep: { [key: number]: () => void } = {
       1: handleNextStep,
       2: handleBackStep,

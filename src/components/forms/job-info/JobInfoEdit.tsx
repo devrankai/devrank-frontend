@@ -83,7 +83,7 @@ export const JobInfoEdit = () => {
 
   const { id } = useParams();
 
-  const { register, handleSubmit, control, formState, watch, setValue } =
+  const { register, handleSubmit, control, formState, watch, setValue, reset } =
     useForm<JobInfoInputs>({
       defaultValues: {
         testTask: "2", // Establece un valor predeterminado aquí
@@ -127,20 +127,21 @@ export const JobInfoEdit = () => {
           isPrivate: true,
           data: {
             job_desc_id: id,
+            project_id: project?.id,
           },
         });
 
         if (request.status === "SUCCESS") {
           const parsePositionData = JSON.parse(request.Data)[0];
-          console.log("parsePositionData", { parsePositionData });
+
+          console.log("request", request);
+          console.log("parsePositionData", parsePositionData);
 
           setValue(`role`, parsePositionData.role_id?.toString());
           setValue(
             `position`,
             parsePositionData.number_of_positions?.toString()
           );
-
-          // FIXME: TODO: FALTA -->> contract_period_id nos retorna nullo en todos y time_tracking null en dos primeros y despues un 12 .
 
           const mustHaveTech: string[] = parseJobEdit({
             arrayInJSONFormat: request.tech_must_to_have,
@@ -194,8 +195,8 @@ export const JobInfoEdit = () => {
           }
 
           const testTaskID =
-            parsePositionData.test_task_id > 0 &&
-            parsePositionData.test_task_id < 3
+            parsePositionData.test_task_id >= 0 &&
+            parsePositionData.test_task_id < 2
               ? parsePositionData.test_task_id?.toString()
               : "";
 
@@ -221,8 +222,8 @@ export const JobInfoEdit = () => {
           );
 
           const timeTrackingID =
-            parsePositionData.time_tracking_id > 0 &&
-            parsePositionData.time_tracking_id < 3
+            parsePositionData.test_task_id >= 0 &&
+            parsePositionData.test_task_id < 2
               ? parsePositionData.time_tracking_id?.toString()
               : "";
 
@@ -264,7 +265,7 @@ export const JobInfoEdit = () => {
       }
     };
 
-    if (id) getJobInfoDataToEdit(id);
+    if (id && project?.id) getJobInfoDataToEdit(id);
     else {
       alertFactory({
         type: "feedback",
@@ -348,7 +349,7 @@ export const JobInfoEdit = () => {
 
   const handleChangeMultipleSelect = (
     e: SelectChangeEvent<any>,
-    inputName: any // TODO: este no deberia ser any pero no se como tipearlo, se choca el string con el de setValue esperado
+    inputName: any
   ) => {
     setMultipleSelectValues((prevValue) => ({
       ...prevValue,
@@ -393,7 +394,16 @@ export const JobInfoEdit = () => {
         },
       });
 
-      // methods.reset();
+      if (id) {
+        persistLocalStorage(persistedDataNameConstants.POSITION_INFO, {
+          positionID: { id },
+          statusPosition: POSITION_STATUS.SELECTED,
+        });
+
+        startPosition(id);
+      }
+
+      reset();
       navigate(PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.SEARCH_RESULTS);
     } catch (error) {
       console.error("Error - postNewPosition", error);

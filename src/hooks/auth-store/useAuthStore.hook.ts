@@ -87,8 +87,6 @@ export const useAuthStore = () => {
         urlWithApi: false,
       });
 
-      console.log({ sendData });
-
       if (sendData.status !== "SUCCESS") {
         dispatch(onAuthError(sendData.messageText));
 
@@ -150,7 +148,6 @@ export const useAuthStore = () => {
     status,
     user,
     errorMessage,
-
     startLogin,
     startSignUp,
     startLogout,

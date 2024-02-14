@@ -10,6 +10,7 @@ import {
   useLocationList,
   useMeetingFrequencyList,
   useMethodologyList,
+  usePositionStore,
   useProbationPeriodList,
   useProjectStore,
   useRoleList,
@@ -21,8 +22,14 @@ import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { JobInfo, JobInfoTestTask } from "../../../models";
 import { PRIVATE_ROUTES } from "../../../routes";
 import { http } from "../../../services";
-import { alertFactory, convertForDataToJobInfo } from "../../../utils";
+import {
+  alertFactory,
+  convertForDataToJobInfo,
+  persistLocalStorage,
+} from "../../../utils";
 import { JobInfoForm } from "./JobInfoForm";
+import { persistedDataNameConstants } from "../../../constants";
+import { POSITION_STATUS } from "../../../store";
 
 export interface JobInfoInputs {
   role: string;
@@ -61,8 +68,9 @@ export const JobInfoCreate = () => {
   const navigate = useNavigate();
   const { addLoading, removeLoading } = useSpinner();
   const { project } = useProjectStore();
+  const { startPosition } = usePositionStore();
 
-  const { register, handleSubmit, control, formState, watch, setValue } =
+  const { register, handleSubmit, control, formState, watch, setValue, reset } =
     useForm<JobInfoInputs>({ mode: "onTouched" });
 
   const [disabledSubmitButton, setDisabledSubmitButton] =
@@ -193,7 +201,18 @@ export const JobInfoCreate = () => {
         },
       });
 
-      // methods.reset();
+      const parsePositionData = JSON.parse(request.Data)[0];
+
+      if (parsePositionData.job_desc_id) {
+        persistLocalStorage(persistedDataNameConstants.POSITION_INFO, {
+          positionID: { id: parsePositionData.job_desc_id.toString() },
+          statusPosition: POSITION_STATUS.SELECTED,
+        });
+
+        startPosition(parsePositionData.job_desc_id.toString());
+      }
+
+      reset();
       navigate(PRIVATE_ROUTES.DASHBOARD + PRIVATE_ROUTES.SEARCH_RESULTS);
     } catch (error) {
       console.error("Error - postNewPosition", error);

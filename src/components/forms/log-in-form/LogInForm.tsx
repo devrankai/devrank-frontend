@@ -91,8 +91,6 @@ export const LogInForm = () => {
   const handleResetPassword = () => {
     const { username } = getValues();
 
-    console.log(username);
-
     setClickForgotPassword(true);
     setForgotPasswordMessageError(
       !username ? "Must add email and click again" : ""
