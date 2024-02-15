@@ -83,14 +83,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0067ca;
+  border-radius:5px;
+  background-color:#515769;
+  border:2px solid #eff1f5;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: lightgray;
+  border-radius: 3px;
+  background-color: #eeeaea;
 }
 
 * {
-  scrollbar-color: #0067ca lightgray;
+  scrollbar-color: #0067ca #eeeaea;
   scrollbar-width: 12px;
 }
