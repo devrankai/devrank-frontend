@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import {
-  ProjectInfoNew,
-  ProjectInfoTeamExpansion,
-  ProjectInfoTeamStructure,
-} from "../../../models";
+import { ProjectInfoNew } from "../../../models";
 
 import { PRIVATE_ROUTES } from "../../../routes";
 import { PROJECT_URL } from "../../../constants";
@@ -22,6 +18,7 @@ import { Grid } from "@mui/material";
 import { ProjectFormInputs } from "./ProjectEdit";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { useClientStore } from "../../../hooks/client-store/useClientStore.hook";
+import { useTeamExpansionList, useTeamStructureList } from "../../../hooks";
 
 export const ProjectCreateWithForm = () => {
   const { client } = useClientStore();
@@ -30,13 +27,8 @@ export const ProjectCreateWithForm = () => {
 
   const { addLoading, removeLoading } = useSpinner();
 
-  const [teamStructureList, setTeamStructureList] = useState<
-    ProjectInfoTeamStructure[]
-  >([]);
-
-  const [teamExpansionList, setTeamExpansionList] = useState<
-    ProjectInfoTeamExpansion[]
-  >([]);
+  const { teamStructureList, getTeamStructureList } = useTeamStructureList();
+  const { teamExpansionList, getTeamExpansionList } = useTeamExpansionList();
 
   // eslint-disable-next-line
   const [projectStartDate, _] = useState<Dayjs | null>(dayjs(new Date()));
@@ -63,66 +55,6 @@ export const ProjectCreateWithForm = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const getTeamStructureList = async () => {
-    try {
-      const request = await http.get({
-        url: PROJECT_URL.TEAM_STRUCTURE,
-        urlWithApi: false,
-        isPrivate: true,
-      });
-      if (request.Status === "SUCCESS") {
-        const parseTeamStructureList = JSON.parse(request.Data);
-        setTeamStructureList([...parseTeamStructureList]);
-      } else {
-        if (request.status !== "SUCCESS") {
-          return alertFactory({
-            type: "feedback",
-            params: {
-              title:
-                "Something went wrong with team structure options, please try again.",
-              icon: "error",
-            },
-          });
-        }
-      }
-    } catch (error) {
-      console.error(
-        "Error ProjectCreateWithForm -  get team structure list",
-        error
-      );
-    }
-  };
-
-  const getTeamExpansionList = async () => {
-    try {
-      const request = await http.get({
-        url: PROJECT_URL.TEAM_EXPANSION,
-        urlWithApi: false,
-        isPrivate: true,
-      });
-      if (request.Status === "SUCCESS") {
-        const parseTeamExpansionList = JSON.parse(request.Data);
-        setTeamExpansionList([...parseTeamExpansionList]);
-      } else {
-        if (request.status !== "SUCCESS") {
-          return alertFactory({
-            type: "feedback",
-            params: {
-              title:
-                "Something went wrong with team expansion options, please try again.",
-              icon: "error",
-            },
-          });
-        }
-      }
-    } catch (error) {
-      console.error(
-        "Error ProjectCreateWithForm - get team expansion list",
-        error
-      );
-    }
-  };
 
   const postNewProject = async (newProject: ProjectInfoNew) => {
     try {

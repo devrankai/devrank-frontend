@@ -7,12 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { ProjectForm } from "../..";
 import { PROJECT_URL } from "../../../constants";
-import {
-  ProjectInfoNew,
-  ProjectInfoTeamExpansion,
-  ProjectInfoTeamStructure,
-  ProjectModel,
-} from "../../../models";
+import { ProjectInfoNew, ProjectModel } from "../../../models";
 import { PRIVATE_ROUTES } from "../../../routes";
 import { projectFormSchema } from "../../../schemas";
 import { http } from "../../../services";
@@ -23,6 +18,7 @@ import {
 } from "../../../utils";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import { useClientStore } from "../../../hooks/client-store/useClientStore.hook";
+import { useTeamExpansionList, useTeamStructureList } from "../../../hooks";
 
 export interface ProjectFormInputs {
   projectName: string;
@@ -41,12 +37,9 @@ export const ProjectEditWithForm = () => {
 
   const { id } = useParams();
 
-  const [teamStructureList, setTeamStructureList] = useState<
-    ProjectInfoTeamStructure[]
-  >([]);
-  const [teamExpansionList, setTeamExpansionList] = useState<
-    ProjectInfoTeamExpansion[]
-  >([]);
+  const { teamStructureList, getTeamStructureList } = useTeamStructureList();
+  const { teamExpansionList, getTeamExpansionList } = useTeamExpansionList();
+
   const [projectStartDate, setProjectStartDate] = useState<Dayjs | null>(
     dayjs(new Date())
   );
@@ -139,52 +132,6 @@ export const ProjectEditWithForm = () => {
       console.error("error getProjectById", error);
     } finally {
       removeLoading();
-    }
-  };
-
-  const getTeamStructureList = async () => {
-    const request = await http.get({
-      url: PROJECT_URL.TEAM_STRUCTURE,
-      urlWithApi: false,
-      isPrivate: true,
-    });
-    if (request.Status === "SUCCESS") {
-      const parseTeamStructureList = JSON.parse(request.Data);
-      setTeamStructureList([...parseTeamStructureList]);
-    } else {
-      if (request.status !== "SUCCESS") {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title:
-              "Something went wrong with team structure options, please try again.",
-            icon: "error",
-          },
-        });
-      }
-    }
-  };
-
-  const getTeamExpansionList = async () => {
-    const request = await http.get({
-      url: PROJECT_URL.TEAM_EXPANSION,
-      urlWithApi: false,
-      isPrivate: true,
-    });
-    if (request.Status === "SUCCESS") {
-      const parseTeamExpansionList = JSON.parse(request.Data);
-      setTeamExpansionList([...parseTeamExpansionList]);
-    } else {
-      if (request.status !== "SUCCESS") {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title:
-              "Something went wrong with team expansion options, please try again.",
-            icon: "error",
-          },
-        });
-      }
     }
   };
 
