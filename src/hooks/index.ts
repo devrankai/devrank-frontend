@@ -20,3 +20,5 @@ export * from "./probation-list/useProbationList.hook";
 export * from "./candidate-list/useCandidateList.hook";
 export * from "./candidate-store/useCandidateStore.hook";
 export * from "./candidate-notes/useCandidateNotes.hook";
+export * from "./industry-list/useIndustryList.hook";
+export * from "./company-size-list/useCompanySizeList.hook";

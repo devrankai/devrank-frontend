@@ -8,8 +8,6 @@ import {
 } from "react-hook-form";
 import {
   ClientInfoCity,
-  ClientInfoCompanySize,
-  ClientInfoIndustry,
   ClientInfoState,
   clientInfoEdit,
 } from "../../../models";
@@ -23,6 +21,7 @@ import { Grid } from "@mui/material";
 import { PRIVATE_ROUTES } from "../../../routes";
 import { ClientFormInputs } from "./ClientCreate";
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
+import { useCompanySizeList, useIndustryList } from "../../../hooks";
 
 export const ClientEdit = () => {
   const navigate = useNavigate();
@@ -31,12 +30,11 @@ export const ClientEdit = () => {
 
   const { id } = useParams();
 
+  const { industryList, getIndustryList } = useIndustryList();
+  const { companySizeList, getCompanySizeList } = useCompanySizeList();
+
   const [stateList, setStateList] = useState<ClientInfoState[]>([]);
   const [cityList, setCityList] = useState<ClientInfoCity[]>([]);
-  const [industryList, setIndustryList] = useState<ClientInfoIndustry[]>([]);
-  const [companySizeList, setCompanySizeList] = useState<
-    ClientInfoCompanySize[]
-  >([]);
   const [disabledCity, setDisabledCity] = useState<boolean>(false);
   const [cityHasAlreadyBeenCharged, setCityHasAlreadyBeenCharged] =
     useState<boolean>(false);
@@ -75,8 +73,8 @@ export const ClientEdit = () => {
   useEffect(() => {
     addLoading();
     postStatesList();
-    getIndustriesList();
-    getCompaniesSizeList();
+    getIndustryList();
+    getCompanySizeList();
 
     if (id) {
       getClient(id);
@@ -187,56 +185,6 @@ export const ClientEdit = () => {
       }
     } catch (error) {
       console.error("Error ClientEdit - post cities list", { error });
-    }
-  };
-
-  const getIndustriesList = async () => {
-    try {
-      const request = await http.get({
-        url: CLIENT_URL.INDUSTRIES,
-        urlWithApi: false,
-        isPrivate: true,
-      });
-      if (request.Status === "SUCCESS") {
-        const parseIndustryList = JSON.parse(request.Data);
-        setIndustryList([...parseIndustryList]);
-      } else {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title: "Something went wrong industry options, please try again.",
-            icon: "error",
-          },
-        });
-      }
-    } catch (error) {
-      console.error("Error ClientEdit - get industries list", { error });
-    }
-  };
-
-  const getCompaniesSizeList = async () => {
-    try {
-      const request = await http.get({
-        url: CLIENT_URL.COMPANY_SIZE,
-        urlWithApi: false,
-        isPrivate: true,
-      });
-
-      if (request.Status === "SUCCESS") {
-        const parseCompanySizeList = JSON.parse(request.Data);
-        setCompanySizeList([...parseCompanySizeList]);
-      } else {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title:
-              "Something went wrong with company size options, please try again.",
-            icon: "error",
-          },
-        });
-      }
-    } catch (error) {
-      console.error("Error ClientEdit - get companies size list", { error });
     }
   };
 
