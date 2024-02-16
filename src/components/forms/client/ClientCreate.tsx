@@ -10,8 +10,6 @@ import {
 import { useSpinner } from "../../../hooks/spinner/useSpinner";
 import {
   ClientInfoCity,
-  ClientInfoCompanySize,
-  ClientInfoIndustry,
   ClientInfoState,
   clientInfoNew,
 } from "../../../models";
@@ -22,6 +20,7 @@ import { ClientForm } from "./ClientForm";
 import { CLIENT_URL } from "./client-form-constants";
 
 import { Grid } from "@mui/material";
+import { useCompanySizeList, useIndustryList } from "../../../hooks";
 
 export interface ClientFormInputs {
   client: string;
@@ -37,12 +36,11 @@ export const ClientCreate = () => {
 
   const { addLoading, removeLoading } = useSpinner();
 
+  const { industryList, getIndustryList } = useIndustryList();
+  const { companySizeList, getCompanySizeList } = useCompanySizeList();
+
   const [stateList, setStateList] = useState<ClientInfoState[]>([]);
   const [cityList, setCityList] = useState<ClientInfoCity[]>([]);
-  const [industryList, setIndustryList] = useState<ClientInfoIndustry[]>([]);
-  const [companySizeList, setCompanySizeList] = useState<
-    ClientInfoCompanySize[]
-  >([]);
   const [disabledCity, setDisabledCity] = useState<boolean>(true);
 
   const methods = useForm<ClientFormInputs>();
@@ -55,8 +53,8 @@ export const ClientCreate = () => {
       try {
         await Promise.all([
           postStatesList(),
-          getIndustriesList(),
-          getCompaniesSizeList(),
+          getIndustryList(),
+          getCompanySizeList(),
         ]);
       } catch (error) {
         console.error("Error ClientCreate - get list", { error });
@@ -132,48 +130,6 @@ export const ClientCreate = () => {
       console.error("Error ClientCreate - post cities list", { error });
     } finally {
       removeLoading();
-    }
-  };
-
-  const getIndustriesList = async () => {
-    const request = await http.get({
-      url: CLIENT_URL.INDUSTRIES,
-      urlWithApi: false,
-      isPrivate: true,
-    });
-    if (request.Status === "SUCCESS") {
-      const parseIndustryList = JSON.parse(request.Data);
-      setIndustryList([...parseIndustryList]);
-    } else {
-      return alertFactory({
-        type: "feedback",
-        params: {
-          title: "Something went wrong industry options, please try again.",
-          icon: "error",
-        },
-      });
-    }
-  };
-
-  const getCompaniesSizeList = async () => {
-    const request = await http.get({
-      url: CLIENT_URL.COMPANY_SIZE,
-      urlWithApi: false,
-      isPrivate: true,
-    });
-
-    if (request.Status === "SUCCESS") {
-      const parseCompanySizeList = JSON.parse(request.Data);
-      setCompanySizeList([...parseCompanySizeList]);
-    } else {
-      return alertFactory({
-        type: "feedback",
-        params: {
-          title:
-            "Something went wrong with company size options, please try again.",
-          icon: "error",
-        },
-      });
     }
   };
 
