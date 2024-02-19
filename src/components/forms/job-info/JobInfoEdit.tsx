@@ -86,8 +86,7 @@ export const JobInfoEdit = () => {
   const { register, handleSubmit, control, formState, watch, setValue, reset } =
     useForm<JobInfoInputs>({
       defaultValues: {
-        testTask: "2", // Establece un valor predeterminado aquí
-        // Otros valores predeterminados...
+        testTask: "1", 
       },
     });
 
@@ -133,9 +132,6 @@ export const JobInfoEdit = () => {
 
         if (request.status === "SUCCESS") {
           const parsePositionData = JSON.parse(request.Data)[0];
-
-          console.log("request", request);
-          console.log("parsePositionData", parsePositionData);
 
           setValue(`role`, parsePositionData.role_id?.toString());
           setValue(
