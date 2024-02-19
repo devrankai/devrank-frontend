@@ -38,7 +38,10 @@ export const useCandidateList = (): UseCandidateModelList => {
       });
 
       if (request.status === "SUCCESS") {
-        const parseCandidateModelList = JSON.parse(request.Data);
+        const parseCandidateModelList = JSON.parse(request.Data).filter(
+          (candidate: { [key: string]: any }) => candidate.active !== false
+        );
+
         setCandidateModelList([...parseCandidateModelList]);
       } else {
         alertFactory({

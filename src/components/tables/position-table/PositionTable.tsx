@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import {
   Box,
   Checkbox,
@@ -13,23 +17,15 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-import { TableHeader } from "./TableHeader";
-import { styles } from "./PositionTableStyles";
-import { http } from "../../../services";
-import {
-  alertFactory,
-  convertDateToStringFormatDDMMYYYY,
-  sortDescending,
-} from "../../../utils";
-import { Position } from "../../../models";
-import { useSpinner } from "../../../hooks/spinner/useSpinner";
-import { PRIVATE_ROUTES } from "../../../routes";
 import { JOB_DESCRIPTION_URL, POSITION_URL } from "../../../constants";
 import { useProjectStore } from "../../../hooks/project-store/useProjectStore.hook";
+import { useSpinner } from "../../../hooks/spinner/useSpinner";
+import { Position } from "../../../models";
+import { PRIVATE_ROUTES } from "../../../routes";
+import { http } from "../../../services";
+import { alertFactory, sortDescending } from "../../../utils";
+import { styles } from "./PositionTableStyles";
+import { TableHeader } from "./TableHeader";
 
 type PositionTableProps = {
   handleSelectedPosition: (id: string) => void;
@@ -105,8 +101,10 @@ export const PositionTable = ({
     try {
       addLoading();
 
+      console.log("positionToDelete", positionToDelete);
+
       const request = await http.post({
-        url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
+        url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_DELETE,
         urlWithApi: false,
         isPrivate: true,
         data: positionToDelete,
@@ -149,30 +147,8 @@ export const PositionTable = ({
     if (!confirmAction) return;
 
     const positionDelete = {
-      job_desc_id: `${position.job_desc_id}`,
-      project_id: project?.id,
-      role_id: `${position.role_id}`,
-      number_of_positions: `${position.number_of_positions}`,
-      test_task_id: `${position.test_task_id}`,
-      skill_level_id: `${position.skill_level_id}`,
-      dev_methodology_id: `${position.dev_methodology_id}`,
-      meeting_frequency_id: `${position.meeting_frequency_id}`,
-      location_id: `${position.location_id}`,
-      earliest_start_date: convertDateToStringFormatDDMMYYYY(
-        position.earliest_start_date as Date
-      ),
-      closed_by_date: convertDateToStringFormatDDMMYYYY(
-        position.closed_by_date as Date
-      ),
-      probation_period_id: `${position.probation_period_id}`,
-      contract_model_id: `${position.contract_model_id}`,
-      contract_period_id: position.contract_period_id.toString(),
-      time_tracking_id: `${position.time_tracking_id}`,
-      active: "0",
-      tech_must_to_have: [{ technologies_id: 1 }],
-      tech_nice_to_have: [{ technologies_id: 3 }],
-      skills_must_to_have: [{ skills_id: 1 }],
-      skills_nice_to_have: [{ skills_id: 4 }],
+      job_desc_id: position.job_desc_id,
+      active: 0,
     };
 
     postDeletePosition(positionDelete);

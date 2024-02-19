@@ -177,7 +177,7 @@ export const JobInfoCreate = () => {
   const postNewJobDescription = async (newJobDescription: JobInfo) => {
     try {
       const request = await http.post({
-        url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_DELETE_UPDATE,
+        url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_CREATE_UPDATE,
         urlWithApi: false,
         isPrivate: true,
         data: newJobDescription,
