@@ -2,7 +2,7 @@ import { Theme } from "@mui/material";
 
 export const styles = {
   box: {
-    border: "1px solid #0067CA",
+    backgroundColor: "#F7F7F7",
     borderRadius: "4px",
     height: { xs: "360px", sm: "460px" },
     position: "absolute",
@@ -17,7 +17,7 @@ export const styles = {
   },
   boxHeaderName: {
     fontWeight: "500",
-    fontSize: "24px",
+    fontSize: "20px",
     lineHeight: "28px",
     maxWidth: "250px",
     overflowX: "hidden",

@@ -1,24 +1,50 @@
-import { Box, Grid, LinearProgress } from "@mui/material"
+import { Box, CircularProgress, Grid, LinearProgress } from "@mui/material"
+import { styles } from "./CodeItemStyles";
 
 type Props = {
   title: string;
   percent: number;
+  primaryColor: string;
+  secondaryColor: string;
 }
 
-export const CodeItem = ({ title, percent }: Props) => {
+export const CodeItem = ({
+  title,
+  percent,
+  primaryColor,
+  secondaryColor }: Props) => {
   return (
-    <>
-      <Grid item xs={12}>
-        <Box component="span" sx={{ fontWeight: "400", fontSize: "10px", lineHeight: "16px", color: "#18181B" }}>
+    <Grid container sx={styles.container}>
+      <Grid item xs={6} sx={styles.titleWrapper}>
+        <Box component="span" sx={styles.title}>
           {title}
         </Box>
       </Grid>
-      <Grid item xs={9} mb={1}>
-        <LinearProgress variant="determinate" value={percent} sx={{ height: "8px", backgroundColor: "#E8EDFF" }} />
+      <Grid item xs={4} pl={1}>
+        <div style={{ position: 'relative', display: 'inline-block', marginTop: "12px" }}>
+          <CircularProgress
+            variant="determinate"
+            value={100}
+            size={70}
+            thickness={6}
+            sx={{ color: secondaryColor }} />
+          <CircularProgress
+            variant="determinate"
+            value={percent}
+            size={70}
+            thickness={6}
+            sx={{ color: primaryColor, position: "absolute", top: 0, left: 0 }}
+          />
+        </div>
       </Grid>
-      <Grid item xs={2} ml={2} mb={1}>
+      <Grid item xs={2} mb={1} sx={styles.percentage}>
+        <LinearProgress
+          variant="determinate"
+          value={100}
+          sx={{ color: primaryColor, width: "12px" }}
+        />
         <Box component="span">{percent} %</Box>
       </Grid>
-    </>
+    </Grid>
   )
 }

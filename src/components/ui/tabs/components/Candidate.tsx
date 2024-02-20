@@ -1,32 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import {
   Button,
-  FormControl,
-  FormControlLabel,
   Grid,
-  Radio,
-  RadioGroup,
   Typography,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { styles } from "./CandidateStyles";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+
 import { CodeList } from "./CodeList";
-import { Profile } from "./Profile";
 import { Notes } from "./Notes";
 import {
   useCandidateList,
   usePositionStore,
   useSpinner,
 } from "../../../../hooks";
-import { capitalizeFirstLetterOfEachWord } from "../../../../utils";
+
+import { capitalizeFirstLetterOfEachWord } from "../../../../utils"; import { styles } from "./CandidateStyles";
+import { Experience } from "./Experience";
 
 type Props = {
   candidateId: number;
 };
 
 export const Candidate = ({ candidateId }: Props) => {
-  const [value, setValue] = useState("code");
   const { candidateModelList, postCandidateList } = useCandidateList();
   const { position } = usePositionStore();
   const { addLoading, removeLoading } = useSpinner();
@@ -41,53 +39,26 @@ export const Candidate = ({ candidateId }: Props) => {
   const fullName = capitalizeFirstLetterOfEachWord(
     candidateModelList[0]?.full_name ?? ""
   );
-  const jobTitle = candidateModelList[0]?.job_title;
+  const jobTitle = capitalizeFirstLetterOfEachWord(candidateModelList[0]?.job_title ?? "");
   const overallReview = candidateModelList[0]?.overall_review;
   const codingStandards = candidateModelList[0]?.coding_standards;
   const readability = candidateModelList[0]?.readability;
   const modularity = candidateModelList[0]?.modularity;
-  const errorHandling = candidateModelList[0]?.error_handling;
   const testing = candidateModelList[0]?.testing;
-  const documentation = candidateModelList[0]?.documentation;
-  const linkedInImg = candidateModelList[0]?.front_end_image_link;
+  const linkedInUrl = candidateModelList[0]?.linkedin_url;
   const notes = candidateModelList[0]?.notes_from_interviewer;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
-
   return (
-    <Grid container>
+    <Grid container sx={styles.container}>
       {candidateModelList.length === 0 ? (
         "Loading candidate..."
       ) : (
         <>
           <Grid item xs={12}>
-            <FormControl>
-              <RadioGroup
-                row
-                aria-labelledby="Code review or LinkedIn profile"
-                name="controlled-radio-buttons-group"
-                value={value}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="code"
-                  control={<Radio />}
-                  label="Code Review"
-                />
-                <FormControlLabel
-                  value="profile"
-                  control={<Radio />}
-                  label="LinkedIn Profile"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography sx={styles.info}> {fullName}</Typography>
-            <Typography sx={styles.info}>{jobTitle}</Typography>
-            <Typography sx={styles.info}>{overallReview}</Typography>
+            <Typography sx={styles.info}>
+              {fullName} - <a href={`https:${linkedInUrl}`} target="_blank" className="link" aria-label="LinkedIn profile"><LinkedInIcon sx={{ color: "#0B86CA" }} /> Profile</a>
+            </Typography>
+            <Typography sx={styles.infoJob}>{jobTitle}</Typography>
           </Grid>
           <Grid item xs={12} sx={styles.buttonContainer}>
             <Button
@@ -107,25 +78,27 @@ export const Candidate = ({ candidateId }: Props) => {
               Send a message
             </Button>
           </Grid>
-          <Grid item xs={12} sx={{ display: "flex" }}>
-            <Grid container sx={styles.wrapperCodeProfile} >
-              <Grid item xs={12} md={5.5} mr={2}>
-                {value === "profile" && <Profile linkedInImg={linkedInImg} />}
-                {value === "code" && (
-                  <CodeList
-                    codingStandards={codingStandards}
-                    readability={readability}
-                    modularity={modularity}
-                    errorHandling={errorHandling}
-                    testing={testing}
-                    documentation={documentation}
-                  />
-                )}
+          <Grid item xs={12} md={6}>
+            <CodeList
+              codingStandards={codingStandards}
+              readability={readability}
+              modularity={modularity}
+              testing={testing}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Grid container>
+              <Grid item>
+                <Experience />
               </Grid>
-              <Grid item xs={12} md={5.5}>
-                <Notes fullName={fullName} notes={notes} candidateId={candidateId}/>
+              <Grid item xs={12}>
+                <Notes fullName={fullName} notes={notes} candidateId={candidateId} />
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={styles.summary}>Summary</Typography>
+            <Typography sx={styles.summaryText}>{overallReview}</Typography>
           </Grid>
         </>
       )}
