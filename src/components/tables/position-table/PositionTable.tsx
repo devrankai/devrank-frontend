@@ -53,6 +53,7 @@ export const PositionTable = ({
         isPrivate: true,
         data: {
           project_id: project?.id,
+          active: "1"
         },
       });
 

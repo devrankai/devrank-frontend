@@ -60,7 +60,8 @@ export const ProjectTable = ({
         isPrivate: true,
         data: {
           project_id: "0",
-          client_id: Number(client?.id)
+          client_id: Number(client?.id),
+          active: 1
         },
       });
 

@@ -51,6 +51,7 @@ export const ClientTable = ({
         isPrivate: true,
         data: {
           client_id: 0,
+          active: "1"
         },
       });
 
