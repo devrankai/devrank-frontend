@@ -26,19 +26,12 @@ export const Candidate = ({ candidateId }: Props) => {
   const { position } = usePositionStore();
   const { addLoading, removeLoading } = useSpinner();
 
-  console.log("candidateModelList en view", candidateModelList);
   useEffect(() => {
     addLoading();
     postCandidateList(Number(position?.id), candidateId);
     removeLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candidateId]);
-
-  console.log("candidateModelList", candidateModelList);
-  console.log(
-    "candidateModelList[0]?.Job_History",
-    candidateModelList[0]?.Job_History
-  );
 
   const fullName = capitalizeFirstLetterOfEachWord(
     candidateModelList[0]?.Data[0]?.full_name ?? ""
