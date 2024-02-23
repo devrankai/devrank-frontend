@@ -24,4 +24,6 @@ export type CandidateModel = {
   ModifiedDate: number;
   front_end_image_link: string;
   notes_from_interviewer: string;
+  Data: [{ [key: string]: any }];
+  Job_History: [{ [key: string]: any }];
 };

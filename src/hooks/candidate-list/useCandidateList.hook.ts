@@ -26,6 +26,7 @@ export const useCandidateList = (): UseCandidateModelList => {
     candidateInfoId: number
   ) => {
     try {
+      console.log("candidateInfoId", candidateInfoId);
       addLoading();
       const request = await http.post({
         url: CANDIDATES_URL.POST_CANDIDATES_LIST,
@@ -38,9 +39,32 @@ export const useCandidateList = (): UseCandidateModelList => {
       });
 
       if (request.status === "SUCCESS") {
-        const parseCandidateModelList = JSON.parse(request.Data).filter(
-          (candidate: { [key: string]: any }) => candidate.active !== false
-        );
+        // console.log("request", request);
+        // const parseCandidateModelList =
+        //   request.Data.Data.length === 0
+        //     ? request.Data.Data
+        //     : JSON.parse(request.Data.Data).filter(
+        //         (candidate: { [key: string]: any }) =>
+        //           candidate.active !== false
+        //       );
+
+        const parseCandidateModelList =
+          candidateInfoId === 0
+            ? request.Data.Data.filter(
+                (candidate: { [key: string]: any }) =>
+                  candidate.active !== false
+              )
+            : [request.Data];
+
+        console.log("parseCandidateModelList", parseCandidateModelList);
+
+        // const parseCandidateModelList =
+        //   request.Data.Data.length === 0
+        //     ? request.Data.Data
+        //     : request.Data.Data.filter(
+        //         (candidate: { [key: string]: any }) =>
+        //           candidate.active !== false
+        //       );
 
         setCandidateModelList([...parseCandidateModelList]);
       } else {
