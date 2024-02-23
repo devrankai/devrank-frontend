@@ -23,6 +23,7 @@ type Props = {
 
 export const Candidate = ({ candidateId }: Props) => {
   const { candidateModelList, postCandidateList } = useCandidateList();
+
   const { position } = usePositionStore();
   const { addLoading, removeLoading } = useSpinner();
 
@@ -98,7 +99,7 @@ export const Candidate = ({ candidateId }: Props) => {
               <Grid item>
                 <Experience jobHistory={candidateModelList[0]?.Job_History} />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{display: "flex", height: "430px"}}>
                 <Notes
                   fullName={fullName}
                   notes={notes}

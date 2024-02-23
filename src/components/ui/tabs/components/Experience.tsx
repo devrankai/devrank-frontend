@@ -17,7 +17,7 @@ export const Experience = ({ jobHistory }: Props) => {
             <ListItemText
               primary={
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography>
+                  <Typography sx={{fontWeight: 600, fontSize: "12px"}}>
                     {"\u2022"} {experience.company_name}&nbsp;
                   </Typography>
                   <Typography color="text.secondary">

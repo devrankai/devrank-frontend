@@ -39,7 +39,6 @@ export const useCandidateList = (): UseCandidateModelList => {
       });
 
       if (request.status === "SUCCESS") {
-       
         const parseCandidateModelList =
           candidateInfoId === 0
             ? request.Data.Data.filter(
@@ -47,7 +46,7 @@ export const useCandidateList = (): UseCandidateModelList => {
                   candidate.active !== false
               )
             : [request.Data];
-
+      
         setCandidateModelList([...parseCandidateModelList]);
       } else {
         alertFactory({

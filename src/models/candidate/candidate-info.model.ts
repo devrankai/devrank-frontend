@@ -1,29 +1,48 @@
+export type CandidatesListModel = {
+  Data: DataModel;
+  Status: string;
+};
+
+export type DataModel = {
+  Data: CandidateModel[];
+  Job_History: JobHistory[];
+};
+
 export type CandidateModel = {
-  candidate_info_id: number;
-  job_desc_id: number;
-  full_name: string;
-  linkedin_url: string;
-  linkedin_username: string;
-  linkedin_id: string;
-  job_title: string;
-  min_exp_start_date: number;
-  max_exp_end_date: number;
-  years_of_experience: number;
-  skill_level_name: string;
-  skill_level_id: number;
-  user_base_info_id: number;
-  overall_review: string;
-  coding_standards: number;
-  readability: number;
-  modularity: number;
-  error_handling: number;
-  testing: number;
-  documentation: number;
-  active: boolean;
   InsertDate: number;
   ModifiedDate: number;
+  active: boolean;
+  candidate_info_id: number;
+  coding_standards: number;
+  documentation: number;
+  error_handling: number;
   front_end_image_link: string;
+  full_name: string;
+  job_desc_id: number;
+  job_title: string;
+  linkedin_id: null | string;
+  linkedin_url: string;
+  linkedin_username: string;
+  max_exp_end_date: number;
+  min_exp_start_date: number;
+  modularity: number;
   notes_from_interviewer: string;
-  Data: [{ [key: string]: any }];
-  Job_History: [{ [key: string]: any }];
+  overall_review: string;
+  readability: number;
+  skill_level_id: number;
+  skill_level_name: string;
+  testing: number;
+  user_base_info_id: number;
+  years_of_experience: number;
+};
+
+export type JobHistory = {
+  company_location: string;
+  company_name: string;
+  company_size: string;
+  exp_end_date: null | string;
+  exp_start_date: string;
+  job_title: string;
+  person_experience_id: number;
+  user_base_info_id: number;
 };
