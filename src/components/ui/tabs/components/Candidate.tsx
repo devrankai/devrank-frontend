@@ -8,7 +8,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { CodeList } from "./CodeList";
 import { Notes } from "./Notes";
 import {
-  useCandidateList,
+  useCandidateWithIdList,
   usePositionStore,
   useSpinner,
 } from "../../../../hooks";
@@ -22,35 +22,38 @@ type Props = {
 };
 
 export const Candidate = ({ candidateId }: Props) => {
-  const { candidateModelList, postCandidateList } = useCandidateList();
+  const { candidateWithIdModelList, postCandidateWithIdList } = useCandidateWithIdList();
 
   const { position } = usePositionStore();
   const { addLoading, removeLoading } = useSpinner();
 
   useEffect(() => {
     addLoading();
-    postCandidateList(Number(position?.id), candidateId);
+
+    postCandidateWithIdList(Number(position?.id), candidateId);
+
     removeLoading();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candidateId]);
 
   const fullName = capitalizeFirstLetterOfEachWord(
-    candidateModelList[0]?.Data[0]?.full_name ?? ""
+    candidateWithIdModelList[0]?.Data[0]?.full_name ?? ""
   );
   const jobTitle = capitalizeFirstLetterOfEachWord(
-    candidateModelList[0]?.Data[0].job_title ?? ""
+    candidateWithIdModelList[0]?.Data[0].job_title ?? ""
   );
-  const overallReview = candidateModelList[0]?.Data[0]?.overall_review;
-  const codingStandards = candidateModelList[0]?.Data[0]?.coding_standards;
-  const readability = candidateModelList[0]?.Data[0]?.readability;
-  const modularity = candidateModelList[0]?.Data[0]?.modularity;
-  const testing = candidateModelList[0]?.Data[0]?.testing;
-  const linkedInUrl = candidateModelList[0]?.Data[0]?.linkedin_url;
-  const notes = candidateModelList[0]?.Data[0]?.notes_from_interviewer;
+  const overallReview = candidateWithIdModelList[0]?.Data[0]?.overall_review;
+  const codingStandards = candidateWithIdModelList[0]?.Data[0]?.coding_standards;
+  const readability = candidateWithIdModelList[0]?.Data[0]?.readability;
+  const modularity = candidateWithIdModelList[0]?.Data[0]?.modularity;
+  const testing = candidateWithIdModelList[0]?.Data[0]?.testing;
+  const linkedInUrl = candidateWithIdModelList[0]?.Data[0]?.linkedin_url;
+  const notes = candidateWithIdModelList[0]?.Data[0]?.notes_from_interviewer;
 
   return (
     <Grid container sx={styles.container}>
-      {candidateModelList.length === 0 ? (
+      {candidateWithIdModelList.length === 0 ? (
         "Loading candidate..."
       ) : (
         <>
@@ -97,7 +100,7 @@ export const Candidate = ({ candidateId }: Props) => {
           <Grid item xs={12} md={6}>
             <Grid container>
               <Grid item>
-                <Experience jobHistory={candidateModelList[0]?.Job_History} />
+                <Experience jobHistory={candidateWithIdModelList[0]?.Job_History} />
               </Grid>
               <Grid item xs={12} sx={{display: "flex", height: "430px"}}>
                 <Notes

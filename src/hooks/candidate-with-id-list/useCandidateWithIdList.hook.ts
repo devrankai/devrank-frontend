@@ -2,23 +2,31 @@ import { useState } from "react";
 import { http } from "../../services";
 import { CANDIDATES_URL } from "../../constants";
 import { alertFactory } from "../../utils";
-import { CandidateModel } from "../../models";
+import { DataModel } from "../../models";
 import { useSpinner } from "..";
 
-interface UseCandidateModelList {
-  candidateModelList: CandidateModel[];
-  setCandidateModelList: React.Dispatch<React.SetStateAction<CandidateModel[]>>;
-  postCandidateList: (jobDescId: number) => Promise<void>;
+interface UseCandidateWithIdModelList {
+  candidateWithIdModelList: DataModel[];
+  setCandidateWithIdModelList: React.Dispatch<
+    React.SetStateAction<DataModel[]>
+  >;
+  postCandidateWithIdList: (
+    jobDescId: number,
+    candidateInfoId: number
+  ) => Promise<void>;
 }
 
-export const useCandidateList = (): UseCandidateModelList => {
-  const [candidateModelList, setCandidateModelList] = useState<
-    CandidateModel[]
+export const useCandidateWithIdList = (): UseCandidateWithIdModelList => {
+  const [candidateWithIdModelList, setCandidateWithIdModelList] = useState<
+    DataModel[]
   >([]);
 
   const { addLoading, removeLoading } = useSpinner();
 
-  const postCandidateList = async (jobDescId: number) => {
+  const postCandidateWithIdList = async (
+    jobDescId: number,
+    candidateInfoId: number
+  ) => {
     try {
       addLoading();
 
@@ -28,16 +36,14 @@ export const useCandidateList = (): UseCandidateModelList => {
         isPrivate: true,
         data: {
           job_desc_id: jobDescId,
-          candidate_info_id: 0,
+          candidate_info_id: candidateInfoId,
         },
       });
 
       if (request.status === "SUCCESS") {
-        const parseCandidateModelList = request.Data.Data.filter(
-          (candidate: { [key: string]: any }) => candidate.active !== false
-        );
+        const parseCandidateWithIModelList = [request.Data];
 
-        setCandidateModelList([...parseCandidateModelList]);
+        setCandidateWithIdModelList([...parseCandidateWithIModelList]);
       } else {
         alertFactory({
           type: "feedback",
@@ -55,5 +61,9 @@ export const useCandidateList = (): UseCandidateModelList => {
     }
   };
 
-  return { candidateModelList, setCandidateModelList, postCandidateList };
+  return {
+    candidateWithIdModelList,
+    setCandidateWithIdModelList,
+    postCandidateWithIdList,
+  };
 };

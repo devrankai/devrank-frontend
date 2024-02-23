@@ -35,7 +35,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
   useEffect(() => {
     const getPositionsList = async () => {
       try {
-        await postCandidateList(Number(position?.id), 0);
+        await postCandidateList(Number(position?.id));
       } catch (error) {
         console.error("Error search result table - getPositionsList");
       } finally {

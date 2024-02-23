@@ -1,8 +1,11 @@
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+
+import { JobHistory } from "../../../../models";
+
 import { styles } from "./ExperienceStyles";
 
 type Props = {
-  jobHistory: [{ [key: string]: any }];
+  jobHistory: JobHistory[];
 };
 
 export const Experience = ({ jobHistory }: Props) => {

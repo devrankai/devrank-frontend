@@ -24,3 +24,5 @@ export * from "./industry-list/useIndustryList.hook";
 export * from "./company-size-list/useCompanySizeList.hook";
 export * from "./team-structure-list/useTeamStructureList.hook";
 export * from "./team-expansion-list/useTeamExpansionList.hook";
+export * from "./candidate-with-id-list/useCandidateWithIdList.hook";
+
