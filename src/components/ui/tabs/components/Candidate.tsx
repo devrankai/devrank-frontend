@@ -93,7 +93,7 @@ export const Candidate = ({ candidateId }: Props) => {
               Send a message
             </Button>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} lg={5}>
             <CodeList
               codingStandards={codingStandards || 0}
               readability={readability || 0}
@@ -101,7 +101,7 @@ export const Candidate = ({ candidateId }: Props) => {
               testing={testing || 0}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5.5} lg={6.5} pl={0.5}>
             <Grid container>
               <Grid item>
                 <Experience jobHistory={candidateSelected?.Job_History} />

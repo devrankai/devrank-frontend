@@ -3,7 +3,7 @@ import { Box, Button, FormControl, Grid, OutlinedInput, Typography } from "@mui/
 import CreateIcon from '@mui/icons-material/Create';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { styles } from "./NotesStyles";
-import { getDayMonthYEarForCandidate } from "../../../../utils";
+import { getDayMonthYearForCandidate } from "../../../../utils";
 import { useCandidateNotes } from "../../../../hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -22,7 +22,7 @@ export const Notes = ({
   notes,
   candidateId
 }: Props) => {
-  const date = getDayMonthYEarForCandidate();
+  const date = getDayMonthYearForCandidate();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const { notesFromInterviewer, postCandidateNotes } = useCandidateNotes(notes);
 
@@ -47,7 +47,7 @@ export const Notes = ({
         sx={{ width: "100%" }}
       >
         <Box component="div" sx={styles.formContainer}>
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={styles.formControl}>
             <OutlinedInput
               id="outlined-multiline-static"
               multiline

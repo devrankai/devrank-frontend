@@ -2,7 +2,10 @@ import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 
 import { JobHistory } from "../../../../models";
 
+import { capitalizeFirstLetterOfEachWord, getMonthYearForExperience } from "../../../../utils";
+
 import { styles } from "./ExperienceStyles";
+
 
 type Props = {
   jobHistory: JobHistory[] | null;
@@ -19,18 +22,19 @@ export const Experience = ({ jobHistory }: Props) => {
           <ListItem key={index}>
             <ListItemText
               primary={
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography sx={{ fontWeight: 600, fontSize: "12px" }}>
-                    {"\u2022"} {experience.company_name}&nbsp;
-                  </Typography>
-                  <Typography color="text.secondary">
-                    {`(${experience.exp_start_date} - ${
-                      experience.exp_end_date || "Present"
-                    })`}
+                <Box sx={styles.containerPrimary}>
+                  <Typography>
+                    <Box component="span" sx={styles.companyTitle}>
+                      {"\u2022"} {capitalizeFirstLetterOfEachWord(experience.company_name)}&nbsp;
+                    </Box>
+                    <Box component="span" sx={styles.dateTitle}>
+                      {`(${getMonthYearForExperience(experience.exp_start_date)} - ${experience.exp_end_date ? getMonthYearForExperience(experience.exp_end_date) : "Present"
+                        })`}
+                    </Box>
                   </Typography>
                 </Box>
               }
-              secondary={experience.job_title}
+              secondary={capitalizeFirstLetterOfEachWord(experience.job_title)}
             />
           </ListItem>
         ))}

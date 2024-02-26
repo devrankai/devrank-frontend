@@ -2,7 +2,7 @@ import { Theme } from "@mui/material";
 
 export const styles = {
   container: {
-    maxWidth: "1000px"
+    maxWidth: "900px"
   },
   info: {
     marginTop: "8px",

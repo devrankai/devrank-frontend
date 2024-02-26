@@ -6,14 +6,14 @@ export const styles = {
     borderRadius: "4px",
     height: { xs: "360px", sm: "460px" },
     position: "absolute",
-    maxWidth: { xs: "280px", sm: "300px" },
+    maxWidth: { xs: "290px", sm: "340px", md: "330px", lg: "370px" },
     flexDirection: "row",
   },
   boxHeader: {
     borderBottom: "1px solid #0067CA",
     padding: (theme: Theme) => theme.spacing(3, 3, 1.5),
     minHeight: "100px",
-    width: "100%"
+    width: "100%",
   },
   boxHeaderName: {
     fontWeight: "500",
@@ -25,7 +25,11 @@ export const styles = {
     overflowY: "hidden",
   },
   formContainer: {
-    width: "100%"
+    width: "100%",
+  },
+  formControl: {
+    width: "100%",
+    backgroundColor: "#F7F7F7"
   },
   subtitle: {
     display: "flex",
@@ -63,7 +67,7 @@ export const styles = {
     padding: "10px",
     minWidth: "50px",
     "&:hover": {
-      backgroundColor: "transparent"
-    }
-  }
+      backgroundColor: "transparent",
+    },
+  },
 };
