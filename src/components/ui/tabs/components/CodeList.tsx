@@ -44,7 +44,7 @@ export const CodeList = ({
   return (
     <Grid
       container
-      sx={{ maxWidth: { xs: "320px", md: "310px" }, alignItems: "center" }}
+      sx={{ maxWidth: { xs: "320px", md: "300px" }, alignItems: "center" }}
     >
       {codeItemsList.map((item) => (
         <CodeItem
