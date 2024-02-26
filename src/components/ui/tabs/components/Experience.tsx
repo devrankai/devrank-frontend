@@ -5,7 +5,7 @@ import { JobHistory } from "../../../../models";
 import { styles } from "./ExperienceStyles";
 
 type Props = {
-  jobHistory: JobHistory[];
+  jobHistory: JobHistory[] | null;
 };
 
 export const Experience = ({ jobHistory }: Props) => {
@@ -20,7 +20,7 @@ export const Experience = ({ jobHistory }: Props) => {
             <ListItemText
               primary={
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography sx={{fontWeight: 600, fontSize: "12px"}}>
+                  <Typography sx={{ fontWeight: 600, fontSize: "12px" }}>
                     {"\u2022"} {experience.company_name}&nbsp;
                   </Typography>
                   <Typography color="text.secondary">

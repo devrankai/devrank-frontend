@@ -7,11 +7,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 import { CodeList } from "./CodeList";
 import { Notes } from "./Notes";
-import {
-  useCandidateWithIdList,
-  usePositionStore,
-  useSpinner,
-} from "../../../../hooks";
+import { useCandidate, usePositionStore, useSpinner } from "../../../../hooks";
 
 import { capitalizeFirstLetterOfEachWord } from "../../../../utils";
 import { styles } from "./CandidateStyles";
@@ -22,42 +18,50 @@ type Props = {
 };
 
 export const Candidate = ({ candidateId }: Props) => {
-  const { candidateWithIdModelList, postCandidateWithIdList } = useCandidateWithIdList();
+  const { candidateSelected, postOneCandidate } = useCandidate();
 
   const { position } = usePositionStore();
   const { addLoading, removeLoading } = useSpinner();
 
   useEffect(() => {
     addLoading();
-
-    postCandidateWithIdList(Number(position?.id), candidateId);
-
+    postOneCandidate(Number(position?.id), candidateId);
     removeLoading();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candidateId]);
 
-  const fullName = capitalizeFirstLetterOfEachWord(
-    candidateWithIdModelList[0]?.Data[0]?.full_name ?? ""
-  );
-  const jobTitle = capitalizeFirstLetterOfEachWord(
-    candidateWithIdModelList[0]?.Data[0].job_title ?? ""
-  );
-  const overallReview = candidateWithIdModelList[0]?.Data[0]?.overall_review;
-  const codingStandards = candidateWithIdModelList[0]?.Data[0]?.coding_standards;
-  const readability = candidateWithIdModelList[0]?.Data[0]?.readability;
-  const modularity = candidateWithIdModelList[0]?.Data[0]?.modularity;
-  const testing = candidateWithIdModelList[0]?.Data[0]?.testing;
-  const linkedInUrl = candidateWithIdModelList[0]?.Data[0]?.linkedin_url;
-  const notes = candidateWithIdModelList[0]?.Data[0]?.notes_from_interviewer;
+  const fullName =
+    candidateSelected?.Data &&
+    capitalizeFirstLetterOfEachWord(
+      candidateSelected?.Data[0]?.full_name ?? ""
+    );
+  const jobTitle =
+    candidateSelected?.Data &&
+    capitalizeFirstLetterOfEachWord(candidateSelected?.Data[0].job_title ?? "");
+  const overallReview =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.overall_review;
+  const codingStandards =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.coding_standards;
+  const readability =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.readability;
+  const modularity =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.modularity;
+  const testing =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.testing;
+  const linkedInUrl =
+    candidateSelected?.Data && candidateSelected?.Data[0]?.linkedin_url;
+  const notes =
+    candidateSelected?.Data &&
+    candidateSelected?.Data[0]?.notes_from_interviewer;
 
   return (
     <Grid container sx={styles.container}>
-      {candidateWithIdModelList.length === 0 ? (
+      {candidateSelected.Data === null ? (
         "Loading candidate..."
       ) : (
         <>
-          <Grid item xs={12}>
+          <Grid item xs={12} className="grid-candidate">
             <Typography sx={styles.info}>
               {fullName} -{" "}
               <a
@@ -91,21 +95,21 @@ export const Candidate = ({ candidateId }: Props) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <CodeList
-              codingStandards={codingStandards}
-              readability={readability}
-              modularity={modularity}
-              testing={testing}
+              codingStandards={codingStandards || 0}
+              readability={readability || 0}
+              modularity={modularity || 0}
+              testing={testing || 0}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container>
               <Grid item>
-                <Experience jobHistory={candidateWithIdModelList[0]?.Job_History} />
+                <Experience jobHistory={candidateSelected?.Job_History} />
               </Grid>
-              <Grid item xs={12} sx={{display: "flex", height: "430px"}}>
+              <Grid item xs={12} sx={{ display: "flex", height: "430px" }}>
                 <Notes
-                  fullName={fullName}
-                  notes={notes}
+                  fullName={fullName || ""}
+                  notes={notes || ""}
                   candidateId={candidateId}
                 />
               </Grid>

@@ -19,7 +19,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
     </div>
   );
 }
@@ -49,7 +49,7 @@ export const BasicTabs: React.FC<BasicTabsProps> = ({ candidatesId }) => {
           {candidatesId?.map((candidate, index) => (
             <Tab
               key={`Candidate ${candidate}`}
-              label={`Candidate ${index+1}`}
+              label={`Candidate ${index + 1}`}
               id={`simple-tab-${index}`}
               aria-controls={`simple-tabpanel-${index}`}
             />

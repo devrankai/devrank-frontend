@@ -6,7 +6,7 @@ type Props = {
   readability: number;
   modularity: number;
   testing: number;
-}
+};
 
 export const CodeList = ({
   codingStandards,
@@ -14,17 +14,39 @@ export const CodeList = ({
   modularity,
   testing,
 }: Props) => {
-
   const codeItemsList = [
-    { title: "Coding Standards", percent: codingStandards, primaryColor: "#165BAA", secondaryColor: "#63ABFD" },
-    { title: "Unit Test", percent: testing, primaryColor: "#FB4A0C", secondaryColor: "#FFA98B" },
-    { title: "Modularity", percent: modularity, primaryColor: "#009C06", secondaryColor: "#1EEC27" },
-    { title: "Readability and Comments", percent: readability, primaryColor: "#FF1021", secondaryColor: "#FFBABF" },
-  ]
+    {
+      title: "Coding Standards",
+      percent: codingStandards,
+      primaryColor: "#165BAA",
+      secondaryColor: "#63ABFD",
+    },
+    {
+      title: "Unit Test",
+      percent: testing,
+      primaryColor: "#FB4A0C",
+      secondaryColor: "#FFA98B",
+    },
+    {
+      title: "Modularity",
+      percent: modularity,
+      primaryColor: "#009C06",
+      secondaryColor: "#1EEC27",
+    },
+    {
+      title: "Readability and Comments",
+      percent: readability,
+      primaryColor: "#FF1021",
+      secondaryColor: "#FFBABF",
+    },
+  ];
 
   return (
-    <Grid container sx={{ maxWidth: {xs: "320px", md: "290px"}, alignItems: "center" }}>
-      {codeItemsList.map(item => (
+    <Grid
+      container
+      sx={{ maxWidth: { xs: "320px", md: "310px" }, alignItems: "center" }}
+    >
+      {codeItemsList.map((item) => (
         <CodeItem
           key={item.title}
           title={item.title}
@@ -33,6 +55,6 @@ export const CodeList = ({
           secondaryColor={item.secondaryColor}
         />
       ))}
-    </Grid >
-  )
-}
+    </Grid>
+  );
+};

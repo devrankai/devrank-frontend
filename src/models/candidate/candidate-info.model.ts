@@ -4,8 +4,8 @@ export type CandidatesListModel = {
 };
 
 export type DataModel = {
-  Data: CandidateModel[];
-  Job_History: JobHistory[];
+  Data: CandidateModel[] | null;
+  Job_History: JobHistory[] | null;
 };
 
 export type CandidateModel = {

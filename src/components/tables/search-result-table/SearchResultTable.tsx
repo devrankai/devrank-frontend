@@ -17,7 +17,7 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import { TableHeader } from "./TableHeader";
 import { styles } from "./SearchResultTableStyles";
-import { useCandidateList, usePositionStore } from "../../../hooks";
+import { useCandidate, usePositionStore } from "../../../hooks";
 import { capitalizeFirstLetterOfEachWord } from "../../../utils";
 
 type Props = {
@@ -30,7 +30,7 @@ export const SearchResultTable = ({ selectedIds, setSelectedIds }: Props) => {
   const [visibleResults, setVisibleResults] = useState<number>(5);
 
   const { position } = usePositionStore();
-  const { candidateModelList, postCandidateList } = useCandidateList();
+  const { candidateModelList, postCandidateList } = useCandidate();
 
   useEffect(() => {
     const getPositionsList = async () => {

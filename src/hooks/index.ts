@@ -17,12 +17,10 @@ export * from "./contract-model-list/useContractModelList.hook";
 export * from "./meeting-frequency-list/useMeetingFrequencyList.hook";
 export * from "./contract-period-list/useContractPeriodList.hook";
 export * from "./probation-list/useProbationList.hook";
-export * from "./candidate-list/useCandidateList.hook";
+export * from "./candidate/useCandidate.hook";
 export * from "./candidate-store/useCandidateStore.hook";
 export * from "./candidate-notes/useCandidateNotes.hook";
 export * from "./industry-list/useIndustryList.hook";
 export * from "./company-size-list/useCompanySizeList.hook";
 export * from "./team-structure-list/useTeamStructureList.hook";
 export * from "./team-expansion-list/useTeamExpansionList.hook";
-export * from "./candidate-with-id-list/useCandidateWithIdList.hook";
-
