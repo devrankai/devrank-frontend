@@ -7,8 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useErrorsValidationForm } from "../../../hooks";
+// import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuthStore, useErrorsValidationForm } from "../../../hooks";
 import { PUBLIC_ROUTES } from "../../../routes/public-routes/routes";
 import { formsFieldsValidation, signUpFormSchema } from "../../../schemas";
 import { styles } from "./SignUpFormStyles";
@@ -18,7 +19,8 @@ interface IFormInputs {
 }
 
 export const SignUpForm = () => {
-  const navigate = useNavigate();
+//  const navigate = useNavigate();
+  const { startSignUp } = useAuthStore();
 
   const {
     register,
@@ -31,20 +33,21 @@ export const SignUpForm = () => {
   const { errorsValidationForm } = useErrorsValidationForm();
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    console.log("data", { data });
-
     const { email } = getValues();
 
     if (!email) return;
 
+    const dataToSend = { username: data.email, full_name: "N/A" }
+
+    startSignUp(dataToSend);
+
     reset();
 
-    console.log("navigate");
-    navigate(PUBLIC_ROUTES.SIGN_UP_CODE, {
-      state: {
-        email,
-      },
-    });
+    // navigate(PUBLIC_ROUTES.SIGN_UP_CODE, {
+    //   state: {
+    //     email,
+    //   },
+    // });
   };
 
   return (
