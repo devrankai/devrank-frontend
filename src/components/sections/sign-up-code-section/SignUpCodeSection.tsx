@@ -1,7 +1,8 @@
-import { Grid, Typography } from '@mui/material'
-import { styles } from './SignUpCodeSectionStyles'
-import { VerificationCodeForm } from '../../forms/verification-code-form/VerificationCodeForm'
-import { IMAGES } from '../../../constants/images/images.constants'
+import { VerificationCodeRegisterForm } from "../..";
+
+import { IMAGES } from "../../../constants/images/images.constants";
+import { Grid, Typography } from "@mui/material";
+import { styles } from "./SignUpCodeSectionStyles";
 
 export const SignUpCodeSection = () => {
   return (
@@ -16,9 +17,9 @@ export const SignUpCodeSection = () => {
           </Typography>
         </Grid>
         <Grid item my={5}>
-          <VerificationCodeForm />
+          <VerificationCodeRegisterForm />
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};

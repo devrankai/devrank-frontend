@@ -51,26 +51,24 @@ export const convertTimestampDateToDateFormatMMDDYYYY = (
   return formattedDate;
 };
 
-export const getDayMonthYearForCandidate = (): string =>  {
+export const getDayMonthYearForCandidate = (): string => {
   const dateNow = dayjs();
-  const day = dateNow.format('DD');
-  const month = dateNow.format('MMM');
-  const year = dateNow.format('YYYY');
+  const day = dateNow.format("DD");
+  const month = dateNow.format("MMM");
+  const year = dateNow.format("YYYY");
 
   return `${day}, ${month}, ${year}`;
-}
+};
 
-export  const getMonthYearForExperience = (input: string): string | null => {
-    const year = parseInt(input.slice(0, 4));
-    const month = parseInt(input.slice(5)) - 1;
-  
-    const parsedDate = dayjs()
-      .set('year', year)
-      .set('month', month);
-  
-    if (!parsedDate.isValid()) {
-      return null;
-    }
-  
-    return parsedDate.format('MMM YYYY');
-  };
+export const getMonthYearForExperience = (input: string): string | null => {
+  const year = parseInt(input.slice(0, 4));
+  const month = parseInt(input.slice(5)) - 1;
+
+  const parsedDate = dayjs().set("year", year).set("month", month);
+
+  if (!parsedDate.isValid()) {
+    return null;
+  }
+
+  return parsedDate.format("MMM YYYY");
+};

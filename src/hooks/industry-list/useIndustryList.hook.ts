@@ -28,7 +28,8 @@ export const useIndustryList = (): UseIndustryList => {
         alertFactory({
           type: "feedback",
           params: {
-            title: "Something went wrong with industry options, please try again.",
+            title:
+              "Something went wrong with industry options, please try again.",
             icon: "error",
           },
         });

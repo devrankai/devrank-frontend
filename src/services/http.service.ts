@@ -148,6 +148,8 @@ const useFetchService = {
     return handleResponse(response);
   },
   post: async ({ url, data, urlWithApi, isPrivate = false }: HttpType) => {
+    console.log("POST", { url, data, urlWithApi, isPrivate });
+
     const response = await sendDataToAPI({
       url,
       data,

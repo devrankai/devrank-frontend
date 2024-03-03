@@ -29,7 +29,7 @@ export const styles = {
   },
   formControl: {
     width: "100%",
-    backgroundColor: "#F7F7F7"
+    backgroundColor: "#F7F7F7",
   },
   subtitle: {
     display: "flex",

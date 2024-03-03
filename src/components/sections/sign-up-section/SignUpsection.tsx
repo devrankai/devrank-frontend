@@ -1,9 +1,9 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid, Typography } from "@mui/material";
 
-import { SignUpForm } from '../../forms/sign-up-form/SignUpForm'
+import { SignUpForm } from "../../forms/sign-up/sign-up-form/SignUpForm";
 
-import { styles } from './SignUpSectionStyles'
-import { IMAGES } from '../../../constants/images/images.constants'
+import { styles } from "./SignUpSectionStyles";
+import { IMAGES } from "../../../constants/images/images.constants";
 
 export const SignUpSection = () => {
   return (
@@ -20,5 +20,5 @@ export const SignUpSection = () => {
         <SignUpForm />
       </Grid>
     </Grid>
-  )
-}
+  );
+};

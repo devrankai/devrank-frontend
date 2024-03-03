@@ -3,7 +3,8 @@ import { Theme } from "@mui/material";
 export const styles = {
   container: {
     minHeight: { md: '464px' },
-    marginTop: { xs: '20px', md: '100px' },
+    marginTop: { xs: '20px', md: '120px' },
+    marginBottom: { md: '18px' },
     flexDirection: 'column',
     flaxWrap: 'wrap',
     alignContent: 'center',
