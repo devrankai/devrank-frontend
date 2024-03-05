@@ -158,8 +158,11 @@ const useFetchService = {
       isPrivate,
     });
 
+    console.log("response en POST", response);
+
     if (response.Status !== "SUCCESS") {
-      const messageText = response?.Status || response?.messageText || null;
+      const messageText =
+        response?.message || response?.messageText || response?.Status || null;
       const titleText = response?.titleText || null;
       const statusCode = response?.statusCode || null;
       return new ErrorAPI({ messageText, titleText, statusCode });

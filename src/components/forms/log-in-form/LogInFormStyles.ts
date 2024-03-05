@@ -4,7 +4,7 @@ export const styles = {
     flexDirection: "column",
   },
   wrapEMail: {
-    marginBottom: "28px",
+    marginBottom: "18px",
   },
   wrapForgotPassword: {
     display: "flex",

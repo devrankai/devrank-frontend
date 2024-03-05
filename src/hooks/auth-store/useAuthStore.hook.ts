@@ -89,26 +89,12 @@ export const useAuthStore = () => {
     }
   };
 
-  const startLogout = () => {
-    clearLocalStorage(persistedDataNameConstants.USER_TK);
-    clearLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE);
-    clearLocalStorage(persistedDataNameConstants.USER_INFO);
-    clearLocalStorage(persistedDataNameConstants.CLIENT_INFO);
-    clearLocalStorage(persistedDataNameConstants.PROJECT_INFO);
-    clearLocalStorage(persistedDataNameConstants.POSITION_INFO);
-    clearLocalStorage(persistedDataNameConstants.CANDIDATE_INFO);
-    dispatch(onResetCandidate());
-    dispatch(onResetClient());
-    dispatch(onResetProject());
-    dispatch(onResetPosition());
-    dispatch(onLogout());
-  };
-
   //* register
   const startSignUp = async (dataToSend: Record<string, any>) => {
     dispatch(onChecking());
 
     try {
+      addLoading();
       const sendData = await http.post({
         url: AUTH_URL.REGISTER,
         data: dataToSend,
@@ -116,79 +102,28 @@ export const useAuthStore = () => {
       });
 
       if (sendData.status !== "SUCCESS") {
-        dispatch(onAuthError(sendData.messageText));
-
-        setTimeout(() => {
-          dispatch(clearErrorMessage());
-        }, 2500);
-
-        return alertFactory({
+        alertFactory({
           type: "feedback",
           params: {
-            title: sendData.titleText,
-            text: sendData.messageText,
+            title: sendData.titleText || "Error",
+            text: sendData.messageText || "Something unexpected happened",
             icon: "error",
           },
         });
-      }
 
-      throw new Error();
-      const adaptingUser = new User({
-        token: sendData.token,
-      });
-
-      if (adaptingUser.token) {
-        persistLocalStorage("USER_TK", { userToken: adaptingUser.token });
-        persistLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE, {
-          tokenInitDate: new Date().getTime(),
-        });
+        return sendData;
       }
 
       alertFactory({
         type: "feedback",
         params: {
-          title: "Session start successfully",
+          title: sendData.message || "Registration successful",
         },
       });
 
-      dispatch(onLogin({ ...adaptingUser }));
+      return sendData;
     } catch (error) {
       console.error("error - startSignUp: ", { error });
-    }
-  };
-
-  const startRegisterCodeSend = async (email: string) => {
-    try {
-      if (!email) return;
-
-      addLoading();
-      const sendData = await http.post({
-        url: AUTH_URL.REGISTER_SEND_CODE_BY_EMAIL,
-        data: { username: email },
-        urlWithApi: false,
-      });
-
-      if (sendData.status !== "SUCCESS") {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title: sendData.titleText,
-            text: sendData.messageText,
-            icon: "error",
-          },
-        });
-      }
-      setCodeRegisterSended(true);
-
-      alertFactory({
-        type: "feedback",
-        params: {
-          title: "Code sended",
-          text: "Please check the code in your email",
-        },
-      });
-    } catch (error) {
-      console.error("error - startLogin: ", { error });
     } finally {
       removeLoading();
     }
@@ -232,8 +167,6 @@ export const useAuthStore = () => {
         };
       }
 
-      setCodeRegisterSended(true);
-
       alertFactory({
         type: "feedback",
         params: {
@@ -259,6 +192,168 @@ export const useAuthStore = () => {
 
   //* end register
 
+  //* forgot pw
+
+  const startForgotPwCodeVerify = async (
+    forgotPwCodeVerify: Record<string, string>
+  ) => {
+    try {
+      if (!forgotPwCodeVerify) return;
+
+      addLoading();
+      const sendData = await http.post({
+        url: AUTH_URL.FORGOT_CODE_VALIDATE,
+        data: forgotPwCodeVerify,
+        urlWithApi: false,
+      });
+
+      console.log("startForgotPwCodeVerify sendData res", sendData);
+
+      if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
+        const messageError =
+          sendData.status !== "SUCCESS"
+            ? "An unexpected error occurred, please try again."
+            : sendData.message === "NOTVALID"
+            ? "Invalid code"
+            : "Something went wrong, try again or contact the administrator.";
+
+        alertFactory({
+          type: "feedback",
+          params: {
+            title: sendData.titleText,
+            text: messageError,
+            icon: "error",
+          },
+        });
+
+        return {
+          status: "FAILURE",
+          message: "NOTVALID",
+        };
+      }
+
+      alertFactory({
+        type: "feedback",
+        params: {
+          title: "Correct code",
+        },
+      });
+
+      return sendData;
+    } catch (error) {
+      console.error("error - startLogin: ", { error });
+    } finally {
+      removeLoading();
+    }
+  };
+
+  const startForgotChangePassword = async (dataToSend: Record<string, any>) => {
+    dispatch(onChecking());
+
+    try {
+      addLoading();
+      const sendData = await http.post({
+        url: AUTH_URL.FORGOT_RESET_PASSWORD_WITH_CODE,
+        data: dataToSend,
+        urlWithApi: false,
+      });
+
+      if (!sendData || sendData.status !== "SUCCESS") {
+        alertFactory({
+          type: "feedback",
+          params: {
+            title: sendData.titleText || "Error",
+            text: sendData.messageText || "Something unexpected happened",
+            icon: "error",
+          },
+        });
+
+        return sendData;
+      }
+
+      alertFactory({
+        type: "feedback",
+        params: {
+          title: sendData.message || "Registration successful",
+        },
+      });
+
+      return sendData;
+    } catch (error) {
+      console.error("error - startSignUp: ", { error });
+    } finally {
+      removeLoading();
+    }
+  };
+
+  //* end forgot pw
+
+  const urlsToSendCode: { [key: string]: string } = {
+    forgot: AUTH_URL.FORGOT_PW_SEND_CODE_BY_EMAIL,
+    register: "",
+  };
+
+  //* register and forgot
+  // TODO: no tenemos endpoint para renvio de codigo en register
+  const startCodeSend = async (email: string, urlToSend: string) => {
+    try {
+      if (!email) return;
+
+      const url = urlsToSendCode[urlToSend] || "";
+
+      addLoading();
+      const sendData = await http.post({
+        // url: AUTH_URL.REGISTER_SEND_CODE_BY_EMAIL, // TODO: no tenemos endpoint para renvio de codigo
+        url,
+        data: { username: email },
+        urlWithApi: false,
+      });
+
+      console.log("sendData", sendData);
+
+      if (sendData.status !== "SUCCESS") {
+        return alertFactory({
+          type: "feedback",
+          params: {
+            title: sendData.titleText,
+            text: sendData.messageText,
+            icon: "error",
+          },
+        });
+      }
+      setCodeRegisterSended(true);
+
+      alertFactory({
+        type: "feedback",
+        params: {
+          title: "Code sended",
+          text: "Please check the code in your email",
+        },
+      });
+    } catch (error) {
+      console.error("error - startLogin: ", { error });
+    } finally {
+      removeLoading();
+    }
+  };
+
+  //* endregister and forgot
+
+  const startLogout = () => {
+    clearLocalStorage(persistedDataNameConstants.USER_TK);
+    clearLocalStorage(persistedDataNameConstants.TOKEN_INIT_DATE);
+    clearLocalStorage(persistedDataNameConstants.USER_INFO);
+    clearLocalStorage(persistedDataNameConstants.CLIENT_INFO);
+    clearLocalStorage(persistedDataNameConstants.PROJECT_INFO);
+    clearLocalStorage(persistedDataNameConstants.POSITION_INFO);
+    clearLocalStorage(persistedDataNameConstants.CANDIDATE_INFO);
+    dispatch(onResetCandidate());
+    dispatch(onResetClient());
+    dispatch(onResetProject());
+    dispatch(onResetPosition());
+    dispatch(onLogout());
+  };
+
   return {
     status,
     user,
@@ -270,8 +365,10 @@ export const useAuthStore = () => {
     startLogin,
     startSignUp,
     startLogout,
-    startRegisterCodeSend,
+    startCodeSend,
     startRegisterCodeVerify,
+    startForgotPwCodeVerify,
+    startForgotChangePassword,
     onAuthError,
     clearErrorMessage,
   };

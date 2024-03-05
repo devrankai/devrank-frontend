@@ -1,12 +1,13 @@
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Box, Button, Grid, OutlinedInput, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../../../hooks";
 import { PUBLIC_ROUTES } from "../../../../routes";
 import { formsFieldsValidation, resetPasswordForm } from "../../../../schemas";
-import { useAuthStore } from "../../../../hooks";
 import { alertFactory } from "../../../../utils";
-import { styles } from "./VerificationCodeRegisterFormStyles";
+import { styles } from "./ResetPasswordFormStyles";
 
 interface IFormInputs {
   code1: string;
@@ -17,10 +18,13 @@ interface IFormInputs {
   code6: string;
 }
 
-export const VerificationCodeRegisterForm = () => {
-  const navigate = useNavigate();
+export const ResetPasswordForm = () => {
+  const { startCodeSend } = useAuthStore();
+  const { startForgotPwCodeVerify } = useAuthStore();
 
-  const { startRegisterCodeVerify, startSignUp } = useAuthStore();
+  const [clickResentRecovery, setClickResentRecovery] = useState(false);
+
+  const navigate = useNavigate();
 
   const { state } = useLocation();
 
@@ -30,6 +34,24 @@ export const VerificationCodeRegisterForm = () => {
     reset,
     formState: { errors },
   } = useForm<IFormInputs>();
+
+  useEffect(() => {
+    console.log("EFECTO 1");
+    startCodeSend(state?.email, "forgot");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.log("EFECTO 2", clickResentRecovery);
+    if (clickResentRecovery) {
+      console.log("EFECTO 2 en IF");
+
+      startCodeSend(state?.email, "forgot");
+      setClickResentRecovery(false);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickResentRecovery]);
 
   useEffect(() => {
     if (!state?.email) {
@@ -45,32 +67,28 @@ export const VerificationCodeRegisterForm = () => {
       navigate(PUBLIC_ROUTES.LOG_IN, { replace: true });
     }
 
+    return () => {
+      setClickResentRecovery(false);
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.email]);
 
-  useEffect(() => {
-    const startingUserRegistration = async () => {
-      // TODO: faltaria el fullname aqui
-      const startingSignUp = await startSignUp({
-        username: state?.email,
-        full_name: state.full_name || "N/A",
-      });
-
-      if (startingSignUp.status !== "SUCCESS")
-        return navigate(PUBLIC_ROUTES.SIGN_UP, { replace: true });
-    };
-
-    startingUserRegistration();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleClickResentRecovery = () => {
-    // TODO: que endpoint usamos si tocamos "resent it"
-    // startRegisterCodeSend(state?.email);
     reset();
+    setClickResentRecovery(true);
+  };
+
+  const handleClickBackToLogIn = () => {
+    navigate(PUBLIC_ROUTES.LOG_IN);
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
+    // TODO: handle de data
+    // TODO: call API -> endpoint "check number entered"
+
+    console.log("onSubmit click", { data });
+
     const joinFormNumbers = Object.values(data).join("");
 
     const dataToVerify = {
@@ -78,7 +96,7 @@ export const VerificationCodeRegisterForm = () => {
       verification_code: joinFormNumbers,
     };
 
-    const registerCodeVerify = await startRegisterCodeVerify(dataToVerify);
+    const registerCodeVerify = await startForgotPwCodeVerify(dataToVerify);
 
     if (registerCodeVerify.status !== "SUCCESS") return;
 
@@ -87,7 +105,7 @@ export const VerificationCodeRegisterForm = () => {
     navigate(PUBLIC_ROUTES.SIGN_UP_PASSWORD, {
       state: {
         email: state?.email,
-        from: "register",
+        from: "forgot",
       },
     });
   };
@@ -98,7 +116,7 @@ export const VerificationCodeRegisterForm = () => {
       sx={styles.container}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Grid container gap={1.5} justifyContent="center" mb={2}>
+      <Grid container gap={1.5} justifyContent="center" mb={1}>
         <Grid item xs={1.2}>
           <OutlinedInput
             id={resetPasswordForm.code1.id}
@@ -175,23 +193,24 @@ export const VerificationCodeRegisterForm = () => {
             "Must search your email for the code and add it. The value must be single numeric character from 0 to 9."}
         </Typography>
       </Grid>
-      <Grid item mt={4}>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          sx={{ width: "200px", mb: 2 }}
-          type="submit"
-        >
-          Verify
+      <Grid item sx={styles.buttonsWrapper}>
+        <Button onClick={handleClickBackToLogIn} sx={styles.returnLogInButton}>
+          Return to Log In
+        </Button>
+        <FiberManualRecordIcon sx={styles.dotButton} />
+        <Button onClick={handleClickResentRecovery} sx={styles.recoveryButton}>
+          Resend recovery link
         </Button>
       </Grid>
-      <Grid item>
-        Don't get the code?
-        <Button onClick={handleClickResentRecovery} sx={styles.resendButton}>
-          Resend it
-        </Button>
-      </Grid>
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        sx={styles.continueButton}
+        type="submit"
+      >
+        Continue
+      </Button>
     </Box>
   );
 };

@@ -12,11 +12,11 @@ export const SignUpSection = () => {
         <img src={IMAGES.LOGO} alt="DevRank logo" width={222} height={90} />
       </Grid>
       <Grid item>
-        <Typography component="h1" variant="h1" mb={2}>
+        <Typography component="h1" variant="h1" mb={1}>
           Sign up to continue
         </Typography>
       </Grid>
-      <Grid item my={5}>
+      <Grid item my={3}>
         <SignUpForm />
       </Grid>
     </Grid>

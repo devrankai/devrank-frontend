@@ -1,5 +1,5 @@
 type FormField = {
-  name: "email";
+  name: "email" | "fullName";
   id: string;
   label: string;
   text: string;
@@ -16,6 +16,13 @@ export const signUpFormSchema: LoginForm = {
     id: "email",
     label: "Your email",
     text: "Your email",
+    type: "text",
+  },
+  fullName: {
+    name: "fullName",
+    id: "fullName",
+    label: "Full Name",
+    text: "Full Name",
     type: "text",
   },
 };

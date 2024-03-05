@@ -1,5 +1,6 @@
 type FormField = {
-  name: "fullName" | "password" | "confirmPassword";
+  // name: "fullName" | "password" | "confirmPassword";
+  name: "password" | "confirmPassword";
   id: string;
   label: string;
   text: string;
@@ -11,13 +12,13 @@ interface LoginForm {
 }
 
 export const verificationPasswordFormSchema: LoginForm = {
-  fullName: {
-    name: "fullName",
-    id: "fullName",
-    label: "Full Name",
-    text: "Full Name",
-    type: "fullName",
-  },
+  // fullName: {
+  //   name: "fullName",
+  //   id: "fullName",
+  //   label: "Full Name",
+  //   text: "Full Name",
+  //   type: "fullName",
+  // },
   password: {
     name: "password",
     id: "password",

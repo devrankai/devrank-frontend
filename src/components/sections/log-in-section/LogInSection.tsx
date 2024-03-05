@@ -26,7 +26,7 @@ export const LogInSection = () => {
           </Link>
         </Typography>
       </Grid>
-      <Grid item mb={5}>
+      <Grid item mb={3}>
         <LogInForm />
       </Grid>
     </Grid>

@@ -9,5 +9,6 @@ export const styles = {
     paddingLeft: "5px",
     paddingTop: "5px",
     height: "20px",
+    marginBottom: "10px",
   } as const,
 };

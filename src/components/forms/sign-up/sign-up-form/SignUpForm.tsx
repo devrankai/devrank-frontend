@@ -15,6 +15,7 @@ import { styles } from "./SignUpFormStyles";
 
 interface IFormInputs {
   email: string;
+  fullName: string;
 }
 
 export const SignUpForm = () => {
@@ -45,6 +46,24 @@ export const SignUpForm = () => {
     <Box component="div" sx={styles.formContainer}>
       <Box component="form" sx={styles.box} onSubmit={handleSubmit(onSubmit)}>
         <FormControl>
+          <InputLabel htmlFor={signUpFormSchema.fullName.id}>
+            {signUpFormSchema.fullName.label}
+          </InputLabel>
+          <OutlinedInput
+            id={signUpFormSchema.fullName.id}
+            {...register(
+              signUpFormSchema.fullName.name,
+              formsFieldsValidation[signUpFormSchema.fullName.name]
+            )}
+            type={signUpFormSchema.fullName.type}
+          />
+          {errors &&
+            errorsValidationForm({
+              errors: errors,
+              errorKey: signUpFormSchema.fullName.name,
+            })}
+        </FormControl>
+        <FormControl>
           <InputLabel htmlFor="email">
             {signUpFormSchema.email.label}
           </InputLabel>
@@ -62,6 +81,7 @@ export const SignUpForm = () => {
               errorKey: signUpFormSchema.email.name,
             })}
         </FormControl>
+
         <Button type="submit" variant="contained" color="primary">
           Sign up
         </Button>

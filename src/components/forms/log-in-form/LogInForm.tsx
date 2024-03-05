@@ -84,10 +84,6 @@ export const LogInForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, user]);
 
-  // TODO: como cada vez que se inicia sesion va a pedir un codigo, entonces vamos a tener que usar efecto
-  // para que la primera vez que se monte el componente cheque si existe token en localstorage,
-  // si existe entonces que redireccione directamente a PUBLIC_ROUTES.RESET_PASSWORD
-
   const handleResetPassword = () => {
     const { username } = getValues();
 

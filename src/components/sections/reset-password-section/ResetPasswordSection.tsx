@@ -1,11 +1,12 @@
 import { Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ResetPasswordForm } from "../..";
+
 import { IMAGES } from "../../../constants";
 import { alertFactory } from "../../../utils";
 import { styles } from "./ResetPasswordSectionStyles";
 import { PUBLIC_ROUTES } from "../../../routes";
+import { ResetPasswordForm } from "../../forms/reset-password/reset-password-form/ResetPasswordForm";
 
 export const ResetPasswordSection = () => {
   const { state } = useLocation();
@@ -47,8 +48,8 @@ export const ResetPasswordSection = () => {
         <img
           src={IMAGES.LOGIN_OPENED_ENVELOPE}
           alt="Open envelop"
-          width={160}
-          height={160}
+          width={134}
+          height={134}
         />
       </Grid>
       <Grid item>
