@@ -10,6 +10,8 @@ import { styles } from "./SignUpPasswordSectionStyles";
 export const SignUpPasswordSection = () => {
   const { state } = useLocation();
 
+  console.log("state", state);
+
   return (
     <Grid container sx={styles.container}>
       <Grid item>
@@ -34,7 +36,9 @@ export const SignUpPasswordSection = () => {
           <Typography variant="body1" sx={styles.text1}>
             Full name:
           </Typography>
-          <Typography sx={styles.text2}>{state?.full_name ? state?.full_name : "N/A"}</Typography>
+          <Typography sx={styles.text2}>
+            {state?.full_name ? state?.full_name : "N/A"}
+          </Typography>
         </Grid>
         <PasswordAndReConfirmPasswordForm />
       </Grid>

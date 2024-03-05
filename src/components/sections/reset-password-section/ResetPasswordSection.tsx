@@ -27,10 +27,7 @@ export const ResetPasswordSection = () => {
       });
 
       navigate(PUBLIC_ROUTES.LOG_IN, { replace: true });
-    } else {
-      // TODO: call API -> endpoint "send code by email"
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -29,8 +29,7 @@ export const PasswordAndReConfirmPasswordForm = () => {
 
   const { errorsValidationForm } = useErrorsValidationForm();
 
-  const { errorMessage,  startForgotChangePassword } =
-    useAuthStore();
+  const { errorMessage, startChangePassword } = useAuthStore();
 
   const { state } = useLocation();
 
@@ -52,13 +51,7 @@ export const PasswordAndReConfirmPasswordForm = () => {
       password: data.password,
     };
 
-    let sendPassword;
-
-    if (state.from === "forgot" || state.from === "register") {
-      sendPassword = await startForgotChangePassword(dataToSend);
-    }   else {
-      sendPassword = { status: "Error from. No exist" };
-    }
+    const sendPassword = await startChangePassword(dataToSend);
 
     if (sendPassword.status !== "SUCCESS") return;
 

@@ -37,7 +37,7 @@ export const LogInForm = () => {
     useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { status, user, startLogin } = useAuthStore();
+  const { status, user, startLogin, startCodeSend } = useAuthStore();
 
   const {
     register,
@@ -52,13 +52,22 @@ export const LogInForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (clickForgotPassword && !forgotPasswordMessageError) {
+    const sendData = async () => {
       const { username } = getValues();
+
+      const sendData = await startCodeSend(username, "forgot");
+
+      if (sendData.status !== "SUCCESS") return;
+
       navigate(PUBLIC_ROUTES.RESET_PASSWORD, {
         state: {
           email: username,
         },
       });
+    };
+
+    if (clickForgotPassword && !forgotPasswordMessageError) {
+      sendData();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

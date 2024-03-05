@@ -24,6 +24,8 @@ export const VerificationCodeRegisterForm = () => {
 
   const { state } = useLocation();
 
+  console.log("state en VerificationCodeRegisterForm", state);
+
   const {
     register,
     handleSubmit,
@@ -87,6 +89,7 @@ export const VerificationCodeRegisterForm = () => {
     navigate(PUBLIC_ROUTES.SIGN_UP_PASSWORD, {
       state: {
         email: state?.email,
+        full_name: state?.full_name,
         from: "register",
       },
     });

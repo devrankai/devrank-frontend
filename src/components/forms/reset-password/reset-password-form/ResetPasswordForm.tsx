@@ -36,16 +36,7 @@ export const ResetPasswordForm = () => {
   } = useForm<IFormInputs>();
 
   useEffect(() => {
-    console.log("EFECTO 1");
-    startCodeSend(state?.email, "forgot");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    console.log("EFECTO 2", clickResentRecovery);
     if (clickResentRecovery) {
-      console.log("EFECTO 2 en IF");
-
       startCodeSend(state?.email, "forgot");
       setClickResentRecovery(false);
     }

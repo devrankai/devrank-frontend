@@ -137,20 +137,14 @@ export const useAuthStore = () => {
 
       addLoading();
       const sendData = await http.post({
-        url: AUTH_URL.REGISTER_CHECK_CODE_SENDED,
+        url: AUTH_URL.VERIFY_CODE,
         data: registerCodeVerify,
         urlWithApi: false,
       });
 
-      console.log("startCodeSend sendData res", sendData);
-
-      if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
-        const messageError =
-          sendData.status !== "SUCCESS"
-            ? "An unexpected error occurred, please try again."
-            : sendData.message === "NOTVALID"
-            ? "Invalid code"
-            : "Something went wrong, try again or contact the administrator.";
+      // if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
+        if (sendData.status !== "SUCCESS" ) {
+        const messageError = "Something went wrong, try again or contact the administrator.";
 
         alertFactory({
           type: "feedback",
@@ -202,7 +196,7 @@ export const useAuthStore = () => {
 
       addLoading();
       const sendData = await http.post({
-        url: AUTH_URL.FORGOT_CODE_VALIDATE,
+        url: AUTH_URL.VERIFY_CODE,
         data: forgotPwCodeVerify,
         urlWithApi: false,
       });
@@ -247,7 +241,62 @@ export const useAuthStore = () => {
     }
   };
 
-  const startForgotChangePassword = async (dataToSend: Record<string, any>) => {
+  //* end forgot pw
+
+  const urlsToSendCode: { [key: string]: string } = {
+    forgot: AUTH_URL.FORGOT_PW_SEND_CODE_BY_EMAIL,
+    register: "",
+  };
+
+  //* register and forgot
+  // TODO: no tenemos endpoint para renvio de codigo en register
+  const startCodeSend = async (email: string, urlToSend: string) => {
+    try {
+      if (!email) return;
+
+      const url = urlsToSendCode[urlToSend] || "";
+
+      addLoading();
+
+      const sendData = await http.post({
+        // url: AUTH_URL.REGISTER_SEND_CODE_BY_EMAIL, // TODO: no tenemos endpoint para renvio de codigo
+        url,
+        data: { username: email },
+        urlWithApi: false,
+      });
+
+      if (sendData.status !== "SUCCESS") {
+        alertFactory({
+          type: "feedback",
+          params: {
+            title: sendData.titleText,
+            text: sendData.messageText,
+            icon: "error",
+          },
+        });
+
+        return sendData;
+      }
+
+      setCodeRegisterSended(true);
+
+      alertFactory({
+        type: "feedback",
+        params: {
+          title: "Code sended",
+          text: "Please check the code in your email",
+        },
+      });
+
+      return sendData;
+    } catch (error) {
+      console.error("error - startLogin: ", { error });
+    } finally {
+      removeLoading();
+    }
+  };
+
+  const startChangePassword = async (dataToSend: Record<string, any>) => {
     dispatch(onChecking());
 
     try {
@@ -274,7 +323,7 @@ export const useAuthStore = () => {
       alertFactory({
         type: "feedback",
         params: {
-          title: sendData.message || "Registration successful",
+          title: sendData.message || "Successful action",
         },
       });
 
@@ -286,58 +335,7 @@ export const useAuthStore = () => {
     }
   };
 
-  //* end forgot pw
-
-  const urlsToSendCode: { [key: string]: string } = {
-    forgot: AUTH_URL.FORGOT_PW_SEND_CODE_BY_EMAIL,
-    register: "",
-  };
-
-  //* register and forgot
-  // TODO: no tenemos endpoint para renvio de codigo en register
-  const startCodeSend = async (email: string, urlToSend: string) => {
-    try {
-      if (!email) return;
-
-      const url = urlsToSendCode[urlToSend] || "";
-
-      addLoading();
-      const sendData = await http.post({
-        // url: AUTH_URL.REGISTER_SEND_CODE_BY_EMAIL, // TODO: no tenemos endpoint para renvio de codigo
-        url,
-        data: { username: email },
-        urlWithApi: false,
-      });
-
-      console.log("sendData", sendData);
-
-      if (sendData.status !== "SUCCESS") {
-        return alertFactory({
-          type: "feedback",
-          params: {
-            title: sendData.titleText,
-            text: sendData.messageText,
-            icon: "error",
-          },
-        });
-      }
-      setCodeRegisterSended(true);
-
-      alertFactory({
-        type: "feedback",
-        params: {
-          title: "Code sended",
-          text: "Please check the code in your email",
-        },
-      });
-    } catch (error) {
-      console.error("error - startLogin: ", { error });
-    } finally {
-      removeLoading();
-    }
-  };
-
-  //* endregister and forgot
+  //* end register and forgot
 
   const startLogout = () => {
     clearLocalStorage(persistedDataNameConstants.USER_TK);
@@ -368,7 +366,7 @@ export const useAuthStore = () => {
     startCodeSend,
     startRegisterCodeVerify,
     startForgotPwCodeVerify,
-    startForgotChangePassword,
+    startChangePassword,
     onAuthError,
     clearErrorMessage,
   };

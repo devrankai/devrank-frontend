@@ -31,13 +31,14 @@ export const SignUpForm = () => {
   const { errorsValidationForm } = useErrorsValidationForm();
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    if (!data.email) return;
+    if (!data.email || !data.fullName) return;
 
     reset();
 
     navigate(PUBLIC_ROUTES.SIGN_UP_CODE, {
       state: {
         email: data.email,
+        full_name: data.fullName,
       },
     });
   };
