@@ -3,7 +3,7 @@ import { Box, Button, Grid, OutlinedInput, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../../../hooks";
+import { useAuthStore, useEventLinstenerPaste } from "../../../../hooks";
 import { PUBLIC_ROUTES } from "../../../../routes";
 import { formsFieldsValidation, resetPasswordForm } from "../../../../schemas";
 import { alertFactory } from "../../../../utils";
@@ -21,6 +21,7 @@ interface IFormInputs {
 export const ResetPasswordForm = () => {
   const { startCodeSend } = useAuthStore();
   const { startForgotPwCodeVerify } = useAuthStore();
+  const { textInArray } = useEventLinstenerPaste();
 
   const [clickResentRecovery, setClickResentRecovery] = useState(false);
 
@@ -32,6 +33,7 @@ export const ResetPasswordForm = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<IFormInputs>();
 
@@ -64,6 +66,19 @@ export const ResetPasswordForm = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.email]);
+
+  useEffect(() => {
+    if (textInArray && textInArray.length === 6) {
+      setValue("code1", textInArray[0]);
+      setValue("code2", textInArray[1]);
+      setValue("code3", textInArray[2]);
+      setValue("code4", textInArray[3]);
+      setValue("code5", textInArray[4]);
+      setValue("code6", textInArray[5]);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textInArray]);
 
   const handleClickResentRecovery = () => {
     reset();

@@ -143,8 +143,9 @@ export const useAuthStore = () => {
       });
 
       // if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
-        if (sendData.status !== "SUCCESS" ) {
-        const messageError = "Something went wrong, try again or contact the administrator.";
+      if (sendData.status !== "SUCCESS") {
+        const messageError =
+          "Something went wrong, try again or contact the administrator.";
 
         alertFactory({
           type: "feedback",
@@ -302,7 +303,7 @@ export const useAuthStore = () => {
     try {
       addLoading();
       const sendData = await http.post({
-        url: AUTH_URL.FORGOT_RESET_PASSWORD_WITH_CODE,
+        url: AUTH_URL.RESET_PASSWORD_WITH_CODE,
         data: dataToSend,
         urlWithApi: false,
       });

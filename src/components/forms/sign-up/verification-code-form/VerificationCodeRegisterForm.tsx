@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PUBLIC_ROUTES } from "../../../../routes";
 import { formsFieldsValidation, resetPasswordForm } from "../../../../schemas";
-import { useAuthStore } from "../../../../hooks";
+import { useAuthStore, useEventLinstenerPaste } from "../../../../hooks";
 import { alertFactory } from "../../../../utils";
 import { styles } from "./VerificationCodeRegisterFormStyles";
 
@@ -20,6 +20,7 @@ interface IFormInputs {
 export const VerificationCodeRegisterForm = () => {
   const navigate = useNavigate();
 
+  const { textInArray } = useEventLinstenerPaste();
   const { startRegisterCodeVerify, startSignUp } = useAuthStore();
 
   const { state } = useLocation();
@@ -30,6 +31,7 @@ export const VerificationCodeRegisterForm = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<IFormInputs>();
 
@@ -52,7 +54,6 @@ export const VerificationCodeRegisterForm = () => {
 
   useEffect(() => {
     const startingUserRegistration = async () => {
-      // TODO: faltaria el fullname aqui
       const startingSignUp = await startSignUp({
         username: state?.email,
         full_name: state.full_name || "N/A",
@@ -65,6 +66,19 @@ export const VerificationCodeRegisterForm = () => {
     startingUserRegistration();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (textInArray && textInArray.length === 6) {
+      setValue("code1", textInArray[0]);
+      setValue("code2", textInArray[1]);
+      setValue("code3", textInArray[2]);
+      setValue("code4", textInArray[3]);
+      setValue("code5", textInArray[4]);
+      setValue("code6", textInArray[5]);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textInArray]);
 
   const handleClickResentRecovery = () => {
     // TODO: que endpoint usamos si tocamos "resent it"
@@ -102,7 +116,7 @@ export const VerificationCodeRegisterForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid container gap={1.5} justifyContent="center" mb={2}>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code1.id}
             {...register(
@@ -113,7 +127,7 @@ export const VerificationCodeRegisterForm = () => {
             inputProps={{ maxLength: 1 }}
           />
         </Grid>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code2.id}
             {...register(
@@ -124,7 +138,7 @@ export const VerificationCodeRegisterForm = () => {
             inputProps={{ maxLength: 1 }}
           />
         </Grid>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code3.id}
             {...register(
@@ -135,7 +149,7 @@ export const VerificationCodeRegisterForm = () => {
             inputProps={{ maxLength: 1 }}
           />
         </Grid>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code4.id}
             {...register(
@@ -146,7 +160,7 @@ export const VerificationCodeRegisterForm = () => {
             inputProps={{ maxLength: 1 }}
           />
         </Grid>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code5.id}
             {...register(
@@ -157,7 +171,7 @@ export const VerificationCodeRegisterForm = () => {
             inputProps={{ maxLength: 1 }}
           />
         </Grid>
-        <Grid item xs={1.2}>
+        <Grid item xs={1.3}>
           <OutlinedInput
             id={resetPasswordForm.code6.id}
             {...register(

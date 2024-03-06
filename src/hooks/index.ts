@@ -9,6 +9,7 @@ export * from "./contract-model-list/useContractModelList.hook";
 export * from "./contract-period-list/useContractPeriodList.hook";
 export * from "./errors-validation-form/errorValidationForm.styles";
 export * from "./errors-validation-form/userErrorValidationForm.hook";
+export * from "./event-listeners/event-listener-paste/useEventLinstenerPaste";
 export * from "./industry-list/useIndustryList.hook";
 export * from "./location-list/useLocationList.hook";
 export * from "./meeting-frequency-list/useMeetingFrequencyList.hook";

@@ -47,7 +47,7 @@ export const PasswordAndReConfirmPasswordForm = () => {
     if (!data.password || !state.email) return;
 
     const dataToSend = {
-      username: !state.email,
+      username: state.email,
       password: data.password,
     };
 
