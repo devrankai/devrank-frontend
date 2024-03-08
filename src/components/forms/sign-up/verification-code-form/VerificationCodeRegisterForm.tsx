@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PUBLIC_ROUTES } from "../../../../routes";
 import { formsFieldsValidation, resetPasswordForm } from "../../../../schemas";
-import { useAuthStore, useEventLinstenerPaste } from "../../../../hooks";
+import { useAuthStore, useEventListenerPaste } from "../../../../hooks";
 import { alertFactory } from "../../../../utils";
 import { styles } from "./VerificationCodeRegisterFormStyles";
 
@@ -20,7 +20,7 @@ interface IFormInputs {
 export const VerificationCodeRegisterForm = () => {
   const navigate = useNavigate();
 
-  const { textInArray } = useEventLinstenerPaste();
+  const { textInArray } = useEventListenerPaste();
   const { startRegisterCodeVerify, startSignUp } = useAuthStore();
 
   const { state } = useLocation();
