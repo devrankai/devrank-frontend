@@ -91,7 +91,6 @@ export const ProjectEditWithForm = () => {
           adaptProjectData.project_name
         );
 
-        //* TODO: project lead aun no está
         methods.setValue(
           `${projectFormSchema.projectLead.name}`,
           adaptProjectData.project_lead

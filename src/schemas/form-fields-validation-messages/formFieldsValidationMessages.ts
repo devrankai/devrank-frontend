@@ -28,10 +28,6 @@ const validationMessages = {
 export const formsFieldsValidation = {
   username: {
     required: { value: true, message: validationMessages.required },
-    // pattern: {
-    //   value: emailPattern,
-    //   message: validationMessages.email.pattern,
-    // },
   },
   password: {
     required: { value: true, message: validationMessages.required },

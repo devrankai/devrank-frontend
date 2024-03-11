@@ -1,6 +1,4 @@
-// TODO: a futuro ver si usamos este util...si es que el backend empieza a retornar errores con codigo
-
-type ExtenderErrorTyes = {
+type ExtenderErrorTypes = {
   statusCode?: number;
   statusWithoutCode?: string;
   textTitle?: string;
@@ -25,7 +23,7 @@ class ExtendedError extends Error {
     statusWithoutCode,
     textTitle,
     textMessage,
-  }: ExtenderErrorTyes) {
+  }: ExtenderErrorTypes) {
     super(textMessage);
     this.statusCode = statusCode;
     this.textTitle = textTitle;

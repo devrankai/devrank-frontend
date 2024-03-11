@@ -16,8 +16,8 @@ type FormField = {
     | "contractPeriod"
     | "timeTracking"
     | "location"
-    | "earliestStartDate" // Date
-    | "positionClosedByDate" // Date
+    | "earliestStartDate" 
+    | "positionClosedByDate" 
     | "probationPeriod";
   id: string;
   label: string;

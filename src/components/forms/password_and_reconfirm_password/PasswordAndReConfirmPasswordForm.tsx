@@ -42,8 +42,6 @@ export const PasswordAndReConfirmPasswordForm = () => {
   } = useForm<IFormInputs>();
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    console.log("SUBMIT", { data, state });
-
     if (!data.password || !state.email) return;
 
     const dataToSend = {

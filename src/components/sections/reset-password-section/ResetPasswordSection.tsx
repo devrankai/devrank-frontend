@@ -11,10 +11,8 @@ import { ResetPasswordForm } from "../../forms/reset-password/reset-password-for
 export const ResetPasswordSection = () => {
   const { state } = useLocation();
 
-  console.log(state);
-
   const navigate = useNavigate();
-  console.log({ email: state?.email });
+
   useEffect(() => {
     if (!state?.email) {
       alertFactory({

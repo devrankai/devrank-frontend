@@ -1,12 +1,9 @@
-//* model para patrón adaptador
-
 export enum USER_ROLE {
   USER = "user",
   ADMIN = "admin",
 }
 
 export interface UserInterface {
-  // email: string
   role?: USER_ROLE | null;
   token?: string | null;
   full_name?: string | null;

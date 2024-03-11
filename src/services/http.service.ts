@@ -88,8 +88,6 @@ const sendDataToAPI = async ({
 };
 
 const handleError = async (response: any) => {
-  // TODO: COMPLETAR manejo errores cuando la API lo tenga
-
   if (response.status >= 400 && response.status < 500) {
     const error = await response.json();
 
@@ -108,9 +106,6 @@ const handleError = async (response: any) => {
       statusCode: 500,
       messageText: response.messageText,
     };
-
-  // response.status >= 500 -> "internal error"
-  // response.status >= 400 y < 500 -> "error comunicating with API "
 };
 
 const handleResponse = (response: any) => {
@@ -122,7 +117,7 @@ const handleResponse = (response: any) => {
   return response.json();
 };
 
-const adaptingReponseByStatus = (data: any) => {
+const adaptingResponseByStatus = (data: any) => {
   const adaptingData = {
     status: data.Status,
     ...data,
@@ -148,8 +143,6 @@ const useFetchService = {
     return handleResponse(response);
   },
   post: async ({ url, data, urlWithApi, isPrivate = false }: HttpType) => {
-    console.log("POST", { url, data, urlWithApi, isPrivate });
-
     const response = await sendDataToAPI({
       url,
       data,
@@ -157,8 +150,6 @@ const useFetchService = {
       urlWithApi,
       isPrivate,
     });
-
-    console.log("response en POST", response);
 
     if (response.Status !== "SUCCESS") {
       const messageText =
@@ -168,7 +159,7 @@ const useFetchService = {
       return new ErrorAPI({ messageText, titleText, statusCode });
     }
 
-    return adaptingReponseByStatus(response);
+    return adaptingResponseByStatus(response);
   },
   put: async ({ url, data, urlWithApi, isPrivate = false }: HttpType) => {
     const response = await sendDataToAPI({

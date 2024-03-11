@@ -3,7 +3,7 @@ import { Box, Button, Grid, OutlinedInput, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthStore, useEventLinstenerPaste } from "../../../../hooks";
+import { useAuthStore, useEventListenerPaste } from "../../../../hooks";
 import { PUBLIC_ROUTES } from "../../../../routes";
 import { formsFieldsValidation, resetPasswordForm } from "../../../../schemas";
 import { alertFactory } from "../../../../utils";
@@ -21,7 +21,7 @@ interface IFormInputs {
 export const ResetPasswordForm = () => {
   const { startCodeSend } = useAuthStore();
   const { startForgotPwCodeVerify } = useAuthStore();
-  const { textInArray } = useEventLinstenerPaste();
+  const { textInArray } = useEventListenerPaste();
 
   const [clickResentRecovery, setClickResentRecovery] = useState(false);
 
@@ -39,7 +39,7 @@ export const ResetPasswordForm = () => {
 
   useEffect(() => {
     if (clickResentRecovery) {
-      startCodeSend(state?.email, "forgot");
+      startCodeSend(state?.email);
       setClickResentRecovery(false);
     }
 
@@ -90,11 +90,6 @@ export const ResetPasswordForm = () => {
   };
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    // TODO: handle de data
-    // TODO: call API -> endpoint "check number entered"
-
-    console.log("onSubmit click", { data });
-
     const joinFormNumbers = Object.values(data).join("");
 
     const dataToVerify = {

@@ -20,12 +20,11 @@ interface IFormInputs {
 export const VerificationCodeRegisterForm = () => {
   const navigate = useNavigate();
 
+  const { startRegisterCodeVerify, startSignUp, startCodeSend } =
+    useAuthStore();
   const { textInArray } = useEventListenerPaste();
-  const { startRegisterCodeVerify, startSignUp } = useAuthStore();
 
   const { state } = useLocation();
-
-  console.log("state en VerificationCodeRegisterForm", state);
 
   const {
     register,
@@ -81,8 +80,7 @@ export const VerificationCodeRegisterForm = () => {
   }, [textInArray]);
 
   const handleClickResentRecovery = () => {
-    // TODO: que endpoint usamos si tocamos "resent it"
-    // startRegisterCodeSend(state?.email);
+    startCodeSend(state?.email);
     reset();
   };
 

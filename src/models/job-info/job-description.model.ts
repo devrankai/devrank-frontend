@@ -8,8 +8,8 @@ export type JobDescription = {
   dev_methodology_id: string;
   meeting_frequency_id: string;
   location_id: string;
-  earliest_start_date: string; // Data?
-  closed_by_date: string; // Data?
+  earliest_start_date: string; 
+  closed_by_date: string; 
   probation_period_id: string;
   contract_model_id: string;
   contract_period_id: string;

@@ -151,7 +151,7 @@ export const useAuthStore = () => {
           type: "feedback",
           params: {
             title: sendData.titleText,
-            text: messageError,
+            text: sendData.messageText || messageError,
             icon: "error",
           },
         });
@@ -204,19 +204,15 @@ export const useAuthStore = () => {
 
       console.log("startForgotPwCodeVerify sendData res", sendData);
 
-      if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
+      if (sendData.status !== "SUCCESS") {
         const messageError =
-          sendData.status !== "SUCCESS"
-            ? "An unexpected error occurred, please try again."
-            : sendData.message === "NOTVALID"
-            ? "Invalid code"
-            : "Something went wrong, try again or contact the administrator.";
+          "Something went wrong, try again or contact the administrator.";
 
         alertFactory({
           type: "feedback",
           params: {
             title: sendData.titleText,
-            text: messageError,
+            text: sendData.messageText || messageError,
             icon: "error",
           },
         });
@@ -244,27 +240,20 @@ export const useAuthStore = () => {
 
   //* end forgot pw
 
-  const urlsToSendCode: { [key: string]: string } = {
-    forgot: AUTH_URL.FORGOT_PW_SEND_CODE_BY_EMAIL,
-    register: "",
-  };
-
   //* register and forgot
-  // TODO: no tenemos endpoint para renvio de codigo en register
-  const startCodeSend = async (email: string, urlToSend: string) => {
+  const startCodeSend = async (email: string) => {
     try {
       if (!email) return;
-
-      const url = urlsToSendCode[urlToSend] || "";
 
       addLoading();
 
       const sendData = await http.post({
-        // url: AUTH_URL.REGISTER_SEND_CODE_BY_EMAIL, // TODO: no tenemos endpoint para renvio de codigo
-        url,
+        url: AUTH_URL.SEND_CODE_BY_EMAIL,
         data: { username: email },
         urlWithApi: false,
       });
+
+      console.log("SEND_CODE_BY_EMAIL - sendData", sendData);
 
       if (sendData.status !== "SUCCESS") {
         alertFactory({

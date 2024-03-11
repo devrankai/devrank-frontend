@@ -27,13 +27,11 @@ declare module "@mui/material/styles" {
     anchor: React.CSSProperties;
   }
 
-  // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     anchor?: React.CSSProperties;
   }
 }
 
-// Update the Typography's variant prop options
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     anchor: true;
@@ -376,7 +374,6 @@ export const devRank = createTheme(
                   : "rgba(0,0,0,.25)",
               boxSizing: "border-box",
               ".Mui-checked.Mui-checked + &": {
-                // Controls checked color for the track
                 opacity: 0.1,
                 backgroundColor: "#fff",
               },
@@ -445,7 +442,6 @@ export const devRank = createTheme(
             },
           },
         },
-        // fix popper wont open
         defaultProps: {
           componentsProps: {
             popper: {
@@ -462,7 +458,6 @@ export const devRank = createTheme(
         },
       },
       MuiDatePicker: {
-        // fix popper wont open
         defaultProps: {
           PopperProps: {
             sx: {

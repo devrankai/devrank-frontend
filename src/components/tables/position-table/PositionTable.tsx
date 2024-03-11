@@ -102,8 +102,6 @@ export const PositionTable = ({
     try {
       addLoading();
 
-      console.log("positionToDelete", positionToDelete);
-
       const request = await http.post({
         url: JOB_DESCRIPTION_URL.JOB_DESCRIPTION_DELETE,
         urlWithApi: false,

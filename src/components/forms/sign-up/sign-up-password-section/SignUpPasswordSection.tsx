@@ -10,8 +10,6 @@ import { styles } from "./SignUpPasswordSectionStyles";
 export const SignUpPasswordSection = () => {
   const { state } = useLocation();
 
-  console.log("state", state);
-
   return (
     <Grid container sx={styles.container}>
       <Grid item>

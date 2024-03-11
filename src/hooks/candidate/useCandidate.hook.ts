@@ -80,8 +80,6 @@ export const useCandidate = (): UseCandidateModel => {
 
       const request = await fetchCandidate(jobDescId, candidateInfoId);
 
-      console.log("request postOneCandidate", request);
-
       if (request.status === "SUCCESS") {
         const parseCandidateModelList = request.Data;
 
