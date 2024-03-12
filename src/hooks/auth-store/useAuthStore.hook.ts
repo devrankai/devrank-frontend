@@ -32,15 +32,10 @@ export const useAuthStore = () => {
   );
 
   const dispatch = useDispatch();
-  // TODO: dejar false
+
   const [codeRegisterSended, setCodeRegisterSended] = useState<boolean>(false);
-  // const [codeRegisterSended, setCodeRegisterSended] = useState<boolean>(true);
   const [disabledRegisterRecoveryLink, setDisabledRegisterRecoveryLink] =
     useState<boolean>(true);
-
-  // const [codeForgotPwSended, setCodeForgotPwSended] = useState<boolean>(false);
-  // const [disabledForgotPwRecoveryLink, setDisabledForgotPwRecoveryLink] =
-  //   useState<boolean>(true);
 
   const startLogin = async (dataToSend: Record<string, any>) => {
     dispatch(onChecking());
@@ -142,7 +137,6 @@ export const useAuthStore = () => {
         urlWithApi: false,
       });
 
-      // if (sendData.status !== "SUCCESS" || sendData.message === "NOTVALID") {
       if (sendData.status !== "SUCCESS") {
         const messageError =
           "Something went wrong, try again or contact the administrator.";

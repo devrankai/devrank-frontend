@@ -55,7 +55,7 @@ export const LogInForm = () => {
     const sendData = async () => {
       const { username } = getValues();
 
-      const sendData = await startCodeSend(username, "forgot");
+      const sendData = await startCodeSend(username);
 
       if (sendData.status !== "SUCCESS") return;
 

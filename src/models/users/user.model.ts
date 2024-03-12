@@ -17,7 +17,6 @@ export class User {
 
   constructor({ role, token, full_name }: UserInterface) {
     this.status = this.status = "SUCCESS";
-    // this.role = role || null; // TODO: despues decomentar este y borrar el otro
     this.role = role || "";
     this.token = token || null;
     this.full_name = full_name || null;
